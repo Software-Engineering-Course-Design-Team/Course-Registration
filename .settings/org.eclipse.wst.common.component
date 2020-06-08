@@ -2,7 +2,7 @@
     <wb-module deploy-name="SoftEngProj">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="SoftEngProj"/>
         <property name="java-output-path" value="/SoftEngProj/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="SoftEngProj"/>
     </wb-module>
 </project-modules>
