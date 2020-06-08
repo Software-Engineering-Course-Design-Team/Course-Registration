@@ -7,17 +7,28 @@ public class CouTime {
 	private int WeekDay;
 	private int BeginC;
 	private int EndC;
-	
+	private String Address;
 	public CouTime() {
 		super();
 	}
-	public CouTime(long cID, int weekDay, int beginC, int endC) {
+	
+	public CouTime(long cID, int weekDay, int beginC, int endC, String address) {
 		super();
 		CID = cID;
 		WeekDay = weekDay;
 		BeginC = beginC;
 		EndC = endC;
+		Address = address;
 	}
+
+	public String getAddress() {
+		return Address;
+	}
+
+	public void setAddress(String address) {
+		Address = address;
+	}
+
 	public long getCID() {
 		return CID;
 	}
