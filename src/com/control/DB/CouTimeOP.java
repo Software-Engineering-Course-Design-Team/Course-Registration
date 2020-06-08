@@ -12,6 +12,8 @@ import com.model.javabean.CouTime;
 public class CouTimeOP {
 	JDBC dbcon=new JDBC();
 	public long InsertCouTime(CouTime coutime){
+		if(coutime.getAddress()==null||coutime.getBeginC()==0||coutime.getCID()==0
+	          ||coutime.getEndC()==0||coutime.getWeekDay()==0)return 50001;
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
@@ -19,7 +21,7 @@ public class CouTimeOP {
 					+" CID="+coutime.getCID()+";");
 			if(!res1.next()){
 				dbcon.CancleConnection();
-				return 50001;
+				return 50002;
 			}
 			ResultSet res=stmt.executeQuery("select * from coutimeinfo where"
 					+" WeekDay="+coutime.getWeekDay()
@@ -28,16 +30,38 @@ public class CouTimeOP {
 					+" and EndC="+coutime.getEndC()+";");
 			if(res.next()){
 				dbcon.CancleConnection();
-				return 50002;
+				return 50003;
+			}
+			ResultSet res2=stmt.executeQuery("select * from coutimeinfo where"
+					+" WeekDay="+coutime.getWeekDay()
+					+" and CID="+coutime.getCID()
+					+" and ((BeginC>="+coutime.getBeginC()
+					+" and BeginC<="+coutime.getEndC()+")"
+					+" or (EndC>="+coutime.getBeginC()
+					+" and EndC<="+coutime.getEndC()+"));");
+			if(res2.next()){
+				dbcon.CancleConnection();
+				return 50004;
+			}
+			ResultSet res3=stmt.executeQuery("select * from coutimeinfo where"
+					+" WeekDay="+coutime.getWeekDay()
+					+" and Address='"+coutime.getCID()
+					+"' and ((BeginC>="+coutime.getBeginC()
+					+" and BeginC<="+coutime.getEndC()+")"
+					+" or (EndC>="+coutime.getBeginC()
+					+" and EndC<="+coutime.getEndC()+"));");
+			if(res3.next()){
+				dbcon.CancleConnection();
+				return 50012;
 			}
 			stmt.execute("Insert into coutimeinfo values ("+coutime.getWeekDay()+","+
-			coutime.getCID()+","+coutime.getBeginC()+","+coutime.getEndC()+");");
+			coutime.getCID()+","+coutime.getBeginC()+","+coutime.getEndC()+",'"+coutime.getAddress()+"');");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		return 50003;
+		return 50005;
 	}//插入课
 	public long DeleteCouTime(CouTime coutime){
 		try {
@@ -47,22 +71,41 @@ public class CouTimeOP {
 					+" WeekDay="+coutime.getWeekDay()
 					+" and CID="+coutime.getCID()
 					+" and BeginC="+coutime.getBeginC()
-					+" and EndC="+coutime.getEndC()+";");
+					+" and EndC="+coutime.getEndC()
+					+" and Address='"+coutime.getAddress()+"';");
 			if(!res.next()){
 				dbcon.CancleConnection();
-				return 50004;
+				return 50006;
 			}
 			stmt.execute("delete from coutimeinfo where WeekDay="+coutime.getWeekDay()
 					+" and CID="+coutime.getCID()
 					+" and BeginC="+coutime.getBeginC()
-					+" and EndC="+coutime.getEndC()+";");
+					+" and EndC="+coutime.getEndC()
+					+" and Address='"+coutime.getAddress()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		return 50005;
+		return 50007;
 	}//删除对应时间的课
+	public long DeleteAddress(CouTime coutime){
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from courseinfo where Address='"+coutime.getAddress()+"';");
+			if(!res.next()){
+				dbcon.CancleConnection();
+				return 50008;
+			}
+			stmt.execute("delete from coutimeinfo where  Address='"+coutime.getAddress()+"';");
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return 50009;
+	}//删除课
 	public long DeleteCou(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -70,7 +113,7 @@ public class CouTimeOP {
 			ResultSet res=stmt.executeQuery("select * from courseinfo where CID="+coutime.getCID()+";");
 			if(!res.next()){
 				dbcon.CancleConnection();
-				return 50006;
+				return 50010;
 			}
 			stmt.execute("delete from coutimeinfo where  CID="+coutime.getCID()+";");
 			dbcon.CancleConnection();
@@ -78,7 +121,7 @@ public class CouTimeOP {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		return 50007;
+		return 50011;
 	}//删除课
 	public ArrayList<CouTime> FindCouTime(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
@@ -92,6 +135,29 @@ public class CouTimeOP {
 				temp.setCID(res.getLong(2));
 				temp.setBeginC(res.getInt(3));
 				temp.setBeginC(res.getInt(4));
+				temp.setAddress(res.getString(5));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}//根据课查时间
+	public ArrayList<CouTime> FindAddress(CouTime coutime){
+		ArrayList<CouTime> result=new ArrayList<CouTime>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from coutimeinfo where Address='"+coutime.getAddress()+"';");
+			while(res.next()){
+				CouTime temp=new CouTime();
+				temp.setWeekDay(res.getInt(1));
+				temp.setCID(res.getLong(2));
+				temp.setBeginC(res.getInt(3));
+				temp.setBeginC(res.getInt(4));
+				temp.setAddress(res.getString(5));
 				result.add(temp);
 			}
 			dbcon.CancleConnection();
