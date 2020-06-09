@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model.JDBC.JDBC;
 import com.model.javabean.Count;
@@ -48,7 +49,8 @@ public class LoginCheckServlet extends HttpServlet {
 				}
 				else
 				{
-					request.getRequestDispatcher("StuMenu.html").forward(request,response);
+					getServletContext().setAttribute(userName,"No");
+					request.getRequestDispatcher("/StuMenu.jsp").forward(request,response);
 				}
 			}
 			else
