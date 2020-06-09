@@ -1,4 +1,8 @@
 <!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+		 pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,java.io.*,com.model.javabean.Stufee,java.util.ArrayList.*"%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -70,9 +74,9 @@
           <div id="side-nav">
             <ul id="nav">
                 <li class="list">
-                    <a href="javascript:;">
+                    <a href="<%=request.getContextPath() +"/StudFeeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
-                        获取学费账单
+         
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
                 </li>
@@ -126,18 +130,46 @@
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
-           <fieldset class="layui-elem-field layui-field-title site-title">
-              <legend><a name="default">吉林大学介绍</a></legend>
-            </fieldset>
-			吉林大学（Jilin University）简称“吉大”，位于吉林省省会长春，是教育部直属、中央直管副部级建制的全国重点大学，国家“双一流”、“211工程”、“985工程”重点建设，入选珠峰计划、2011计划、111计划、卓越法律人才教育培养计划、卓越工程师教育培养计划、卓越医生教育培养计划、卓越农林人才教育培养计划、国家建设高水平大学公派研究生项目、国家大学生创新性实验计划、新工科研究与实践项目、国家级大学生创新创业训练计划、国家创新人才培养示范基地、全国深化创新创业教育改革示范高校、中国政府奖学金来华留学生接收院校，首批建立研究生院的22所大学之一，亚太国际教育协会、21世纪学术联盟、中俄交通大学联盟、粤港澳大湾区物流与供应链创新联盟、医学双一流建设联盟成员。
-吉林大学始建于1946年，1952年经院系调整成为建国后中国共产党亲手创建的第一所综合性大学，1960年被国务院列为国家重点大学。2000年，原吉林大学、吉林工业大学、白求恩医科大学、长春科技大学、长春邮电学院合并组建新吉林大学。2004年，原中国人民解放军军需大学转隶并入。
-截至2019年6月，学校6个校区7个校园占地611万多平方米，建筑面积276万平方米；下设46个学院；教师6624人，在校全日制学生72376人；本科专业139个，一级学科硕士点60个，一级学科博士学位授权点48个，博士后科研流动站42个；一级学科国家重点学科4个（覆盖17个二级学科），二级学科国家重点学科15个，国家重点（培育）学科4个。
-            <!-- 右侧内容框架，更改从这里结束 -->
-          </div>
+           <table class="layui-table">
+                <thead>
+                    <tr>
+                        <th>
+                            学期
+                        </th>
+                        <th>
+                            课程名称
+                        </th>
+                        <th>
+                            成绩
+                        </th>
+                    </tr>
+                </thead>
+				<tbody>
+				  <%
+				  if(request.getAttribute("stufeeall")!=null){
+					  ArrayList<Stufee> temp=(ArrayList<Stufee>)request.getAttribute("stufeeall");
+					for(Stufee i:temp){
+						%>
+						<tr>
+                        <th>
+                            <%=i.getStatus()%>
+                        </th>
+                        <th>
+                            <%=i.getFee()%>
+                        </th>
+                        <th>
+                            <%=i.getTerm()%>
+                        </th>
+                    </tr>
+					<%
+					}
+				  }
+					%>
+				</tbody>
+            </table>
+           </div>
         </div>
-        <!-- 右侧主体结束 -->
-    </div>
-    <!-- 中部结束 -->
+     </div>
     <!-- 底部开始 -->
     <div class="footer">
         <div class="copyright">Copyright ©2020 XiaRui ZhangShiyao ShiJizhong WangHaiyan FengShenghui All Rights Reserved. </div>  

@@ -80,7 +80,7 @@ public class StuFeeOP {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from stufeeinfo where SID="+stufee.getSID()+""
-					+";");
+					+" order by Term;");
 			while(res.next()){
 				Stufee temp=new Stufee();
 				temp.setStatus(res.getString(1));

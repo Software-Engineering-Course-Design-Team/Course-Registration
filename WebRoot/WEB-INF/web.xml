@@ -10,6 +10,18 @@
     <servlet-name>LoginCheckServlet</servlet-name>
     <url-pattern>/CheckServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StuFeeServlet</servlet-name>
+    <servlet-class>com.action.StuFeeServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuFeeServlet</servlet-name>
+    <url-pattern>/StudFeeServlet</url-pattern>
+  </servlet-mapping>
+  
+  
   <welcome-file-list>
   	<welcome-file>login.html</welcome-file>
     <welcome-file>index.html</welcome-file>
