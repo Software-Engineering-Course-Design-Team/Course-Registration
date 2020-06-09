@@ -12,9 +12,45 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script language="JavaScript">
+            function startTime()   
+            {   
+                var today=new Date();//定义日期对象   
+                var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年    
+                var MM = today.getMonth()+1;//通过日期对象的getMonth()方法返回年    
+                var dd = today.getDate();//通过日期对象的getDate()方法返回年     
+                var hh=today.getHours();//通过日期对象的getHours方法返回小时   
+                var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
+                var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒   
+                // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09   
+                MM=checkTime(MM);
+                dd=checkTime(dd);
+                mm=checkTime(mm);   
+                ss=checkTime(ss);    
+                var day; //用于保存星期（getDay()方法得到星期编号）
+                if(today.getDay()==0)   day   =   "星期日 " 
+                if(today.getDay()==1)   day   =   "星期一 " 
+                if(today.getDay()==2)   day   =   "星期二 " 
+                if(today.getDay()==3)   day   =   "星期三 " 
+                if(today.getDay()==4)   day   =   "星期四 " 
+                if(today.getDay()==5)   day   =   "星期五 " 
+                if(today.getDay()==6)   day   =   "星期六 " 
+                if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
+                if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
+                if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与阅读为伴";				
+                setTimeout('startTime()',1000);//每一秒中重新加载startTime()方法 
+            }   
 
+            function checkTime(i)   
+            {   
+                if (i<10){
+                    i="0" + i;
+                }   
+                  return i;
+            }  
+        </script>
 </head>
-<body> 
+<body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
         <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
@@ -279,12 +315,11 @@
         <!-- 右侧主体开始 -->
         <div class="page-content">
           <div class="content">
-            <!-- 右侧内容框架，更改从这里开始 -->
             <blockquote class="layui-elem-quote">
-                欢迎使用课程注册系统！
+                欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
             <fieldset class="layui-elem-field layui-field-title site-title">
-              <legend><a name="default">图书馆信息介绍</a></legend>
+              <legend><a name="default">吉林大学介绍</a></legend>
             </fieldset>
 			吉林大学（Jilin University）简称“吉大”，位于吉林省省会长春，是教育部直属、中央直管副部级建制的全国重点大学，国家“双一流”、“211工程”、“985工程”重点建设，入选珠峰计划、2011计划、111计划、卓越法律人才教育培养计划、卓越工程师教育培养计划、卓越医生教育培养计划、卓越农林人才教育培养计划、国家建设高水平大学公派研究生项目、国家大学生创新性实验计划、新工科研究与实践项目、国家级大学生创新创业训练计划、国家创新人才培养示范基地、全国深化创新创业教育改革示范高校、中国政府奖学金来华留学生接收院校，首批建立研究生院的22所大学之一，亚太国际教育协会、21世纪学术联盟、中俄交通大学联盟、粤港澳大湾区物流与供应链创新联盟、医学双一流建设联盟成员。
 吉林大学始建于1946年，1952年经院系调整成为建国后中国共产党亲手创建的第一所综合性大学，1960年被国务院列为国家重点大学。2000年，原吉林大学、吉林工业大学、白求恩医科大学、长春科技大学、长春邮电学院合并组建新吉林大学。2004年，原中国人民解放军军需大学转隶并入。

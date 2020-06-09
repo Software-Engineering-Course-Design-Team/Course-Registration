@@ -1,4 +1,6 @@
 <!doctype html>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page import="java.util.*,java.io.* "%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,43 +14,43 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script language="JavaScript">
-            function startTime()   
-            {   
-                var today=new Date();//定义日期对象   
-                var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年    
-                var MM = today.getMonth()+1;//通过日期对象的getMonth()方法返回年    
-                var dd = today.getDate();//通过日期对象的getDate()方法返回年     
-                var hh=today.getHours();//通过日期对象的getHours方法返回小时   
-                var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
-                var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒   
-                // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09   
-                MM=checkTime(MM);
-                dd=checkTime(dd);
-                mm=checkTime(mm);   
-                ss=checkTime(ss);    
-                var day; //用于保存星期（getDay()方法得到星期编号）
-                if(today.getDay()==0)   day   =   "星期日 " 
-                if(today.getDay()==1)   day   =   "星期一 " 
-                if(today.getDay()==2)   day   =   "星期二 " 
-                if(today.getDay()==3)   day   =   "星期三 " 
-                if(today.getDay()==4)   day   =   "星期四 " 
-                if(today.getDay()==5)   day   =   "星期五 " 
-                if(today.getDay()==6)   day   =   "星期六 " 
-                if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
-                if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
-                if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与阅读为伴";				
-                setTimeout('startTime()',1000);//每一秒中重新加载startTime()方法 
-            }   
+    <script type="text/javascript">
+    function startTime()   
+    {   
+        var today=new Date();//定义日期对象   
+        var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年    
+        var MM = today.getMonth()+1;//通过日期对象的getMonth()方法返回年    
+        var dd = today.getDate();//通过日期对象的getDate()方法返回年     
+        var hh=today.getHours();//通过日期对象的getHours方法返回小时   
+        var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
+        var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒   
+        // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09   
+        MM=checkTime(MM);
+        dd=checkTime(dd);
+        mm=checkTime(mm);   
+        ss=checkTime(ss);    
+        var day; //用于保存星期（getDay()方法得到星期编号）
+        if(today.getDay()==0)   day   =   "星期日 " 
+        if(today.getDay()==1)   day   =   "星期一 " 
+        if(today.getDay()==2)   day   =   "星期二 " 
+        if(today.getDay()==3)   day   =   "星期三 " 
+        if(today.getDay()==4)   day   =   "星期四 " 
+        if(today.getDay()==5)   day   =   "星期五 " 
+        if(today.getDay()==6)   day   =   "星期六 " 
+        if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
+        if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
+        if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与学习为伴";				
+        setTimeout('startTime()',1000);//每一秒中重新加载startTime()方法 
+    }   
 
-            function checkTime(i)   
-            {   
-                if (i<10){
-                    i="0" + i;
-                }   
-                  return i;
-            }  
-        </script>
+    function checkTime(i)   
+    {   
+        if (i<10){
+            i="0" + i;
+        }   
+          return i;
+    }  
+	</script>    
 </head>
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
@@ -57,7 +59,7 @@
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;">老师信息面板</a>
+            <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a href="root-password.html">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
@@ -72,7 +74,7 @@
                 <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
-                        登记成绩
+                        获取学费账单
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
                 </li>
@@ -86,43 +88,25 @@
                         <li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
-                                获取花名册
+                                选择必选课程
                             </a>
                         </li>
 						<li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择教授课程
+                                选择候选课程
                             </a>
                         </li>
 						<li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
-                                查看教授课程
+                                删除所选课程
                             </a>
                         </li>
 						<li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
-                                查看可教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                增加上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除教授课程
+                                查看课程列表
                             </a>
                         </li>
 					</ul>
@@ -138,12 +122,11 @@
           </div>
         </div>
         <!-- 右侧主体开始 -->
-        <!-- 右侧主体开始 -->
         <div class="page-content">
           <div class="content">
             <!-- 右侧内容框架，更改从这里开始 -->
             <blockquote class="layui-elem-quote">
-                欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
+                欢迎使用课程注册系统！现在是北京时间：<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
             <fieldset class="layui-elem-field layui-field-title site-title">
               <legend><a name="default">吉林大学介绍</a></legend>
@@ -166,6 +149,5 @@
 		 
     </div>
     <!-- 底部结束 -->
-
 </body>
 </html>
