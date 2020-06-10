@@ -1,7 +1,7 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 		 pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,java.io.*,com.model.javabean.Stufee,java.util.ArrayList.*"%>
+<%@ page import="java.util.*,java.io.*,com.model.javabean.Course,com.model.javabean.CouTime,com.model.javabean.CouStu,java.util.ArrayList.*"%>
 
 <html lang="en">
 <head>
@@ -53,6 +53,11 @@
                   return i;
             }  
         </script>
+        <%
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader("Expires",0);
+%>
 </head>
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
@@ -88,25 +93,13 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择必选课程
+                                选择所修课程
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                选择候选课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除所选课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
+                            <a href="<%=request.getContextPath() +"/StudFindServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看课程列表
                             </a>
@@ -114,7 +107,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="javascript:;">
+                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
@@ -133,32 +126,101 @@
            <table class="layui-table">
                 <thead>
                     <tr>
-                        <th>
-                            学费状态
+                    <th>
+                           课程编号
                         </th>
                         <th>
-                            学费费用
+                           课程名称
                         </th>
                         <th>
                             学期
+                        </th>
+                        <th>
+                            授课教师
+                        </th>
+                        <th>
+                            课程周数
+                        </th>
+                        <th>
+                            上课时间地点
+                        </th>
+                        <th>
+                            已选人数
+                        </th>
+                        <th>
+                            操作
                         </th>
                     </tr>
                 </thead>
 				<tbody>
 				  <%
-				  if(request.getAttribute("stufeeall")!=null){
-					  ArrayList<Stufee> temp=(ArrayList<Stufee>)request.getAttribute("stufeeall");
-					for(Stufee i:temp){
+				  if(request.getAttribute("Courseinfo")!=null){
+					  ArrayList<Course> temp=(ArrayList<Course>)request.getAttribute("Courseinfo");
+					  ArrayList<ArrayList<CouTime>> temp1=(ArrayList<ArrayList<CouTime>>)request.getAttribute("CouTimeinfo");
+					  ArrayList<String> temp4=(ArrayList<String>)request.getAttribute("TeaNameinfo");
+					  ArrayList<String> temp5=(ArrayList<String>)request.getAttribute("Extrainfo");
+					  Iterator e = temp.iterator();	
+					  Iterator e1 = temp1.iterator();	
+					  Iterator e2 = temp4.iterator();	
+					  Iterator e3 = temp5.iterator();	
+					  while(e.hasNext()){
+						   Course temp2=(Course)e.next();
+						   String Timeinfo="";
+						   ArrayList<CouTime> temp3=(ArrayList<CouTime>)e1.next();
+						   for(CouTime i:temp3){
+							   Timeinfo+="星期"+i.getWeekDay()
+							   +" 第"+i.getBeginC()+"-"+i.getEndC()+"节 地点："+i.getAddress()+"<br>";
+						   }
 						%>
 						<tr>
                         <th>
-                            <%=i.getStatus()%>
+                            <%=temp2.getCID()%>
                         </th>
                         <th>
-                            <%=i.getFee()%>
+                            <%=temp2.getName()%>
                         </th>
                         <th>
-                            <%=i.getTerm()%>
+                            <%=temp2.getTerm()%>
+                        </th>
+                        <th>
+                            <%=e2.next()%>
+                        </th>
+                        <th>
+                            <%="第"+temp2.getBeginweek()+"-"+temp2.getEndWeek()+"周"%>
+                        </th>
+                        <th>
+                            <%=Timeinfo%>
+                        </th>
+                        <th>
+                            <%=temp2.getPerson()%>
+                        </th>
+                        <th>
+                        <%
+                            if(e3.next().equals("yes")){
+                        %>
+                        	已选择该课程
+                        <%
+                            }else if(temp2.getPerson()<10){
+                        %>
+                            <form action="" method="post">
+                            <input type="hidden" name="username" value="<%=request.getParameter("username")%>"/>
+                            <input type="hidden" name="CID" value="<%=temp2.getCID()%>"/>
+                            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="选课">
+    						<input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="候选">
+    						</form>
+    					<%
+                        	}else{
+                        %>
+                             <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="候选">
+                        <%
+                        	}
+                        %>
                         </th>
                     </tr>
 					<%

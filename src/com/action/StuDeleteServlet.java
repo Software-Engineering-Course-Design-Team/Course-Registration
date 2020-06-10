@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class StuCandServlet
- */
-@WebServlet("/StuCandServlet")
-public class StuCandServlet extends HttpServlet {
+import com.control.DB.ConStuTempOP;
+import com.model.javabean.CouStuTemp;
+
+@WebServlet("/StuDeleteServlet")
+public class StuDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StuCandServlet() {
+    public StuDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,14 @@ public class StuCandServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		long username=Integer.parseInt(request.getParameter("username"));
+		long CID=Integer.parseInt(request.getParameter("CID"));
+		CouStuTemp cst=new CouStuTemp();
+		ConStuTempOP cstop=new ConStuTempOP();
+		cst.setCID(CID);
+		cst.setSID(username);
+		cstop.DeleteConStuTemp(cst);
+		request.getRequestDispatcher("/StudFindServlet").forward(request,response);
 	}
 
 	/**

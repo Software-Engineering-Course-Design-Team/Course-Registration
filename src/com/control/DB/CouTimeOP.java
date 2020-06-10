@@ -134,7 +134,7 @@ public class CouTimeOP {
 				temp.setWeekDay(res.getInt(1));
 				temp.setCID(res.getLong(2));
 				temp.setBeginC(res.getInt(3));
-				temp.setBeginC(res.getInt(4));
+				temp.setEndC(res.getInt(4));
 				temp.setAddress(res.getString(5));
 				result.add(temp);
 			}
@@ -156,7 +156,7 @@ public class CouTimeOP {
 				temp.setWeekDay(res.getInt(1));
 				temp.setCID(res.getLong(2));
 				temp.setBeginC(res.getInt(3));
-				temp.setBeginC(res.getInt(4));
+				temp.setEndC(res.getInt(4));
 				temp.setAddress(res.getString(5));
 				result.add(temp);
 			}
