@@ -1,6 +1,7 @@
 package com.action.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class AddStuServlet extends HttpServlet {
 		long idNumber = Integer.parseInt(request.getParameter("idNumber"));
 		long department = Integer.parseInt(request.getParameter("department"));
 		String status = request.getParameter("status");
-		//TODO(sjz):´¦ÀíÈÕÆÚ¸ñÊ½ÎÊÌâ
+		//TODO(sjz):å¤„ç†æ—¥æœŸæ ¼å¼é—®é¢˜
 		//java.sql.Date birthday=java.sql.Date.valueOf(request.getParameter("birthday"));
 		//java.sql.Date gradDate=java.sql.Date.valueOf(request.getParameter("gradDate"));
 		String birthday = request.getParameter("birthday");
@@ -32,15 +33,20 @@ public class AddStuServlet extends HttpServlet {
 		Student stu = new Student(name, sex, gradDate, birthday, idNumber, 0, department, status);
 		StudentOP stuOp=new StudentOP();
 		long SID = stuOp.InsertStudent(stu);
+		String message = null;
 		if(SID==40001) {
-			  request.setAttribute("default", "Ìí¼ÓÑ§ÉúÊ§°Ü£¡Ô­Òò:ĞÅÏ¢²»ÍêÕû;");
+			  message = "æ·»åŠ å­¦ç”Ÿå¤±è´¥ï¼åŸå› :ä¿¡æ¯ä¸å®Œæ•´;";
 		}else if(SID==40002) {
-			request.setAttribute("default", "Ìí¼ÓÑ§ÉúÊ§°Ü£¡Ô­Òò:Êı¾İ¿â²åÈë²Ù×÷Ê§°Ü;");
+			message = "æ·»åŠ å­¦ç”Ÿå¤±è´¥ï¼åŸå› :æ•°æ®åº“æ’å…¥æ“ä½œå¤±è´¥;";
 		}else if(SID==4003) {
-			request.setAttribute("default", "Ìí¼ÓÑ§ÉúÊ§°Ü£¡Ô­Òò:Ñ§Ôº²»´æÔÚ;");
+			message = "æ·»åŠ å­¦ç”Ÿå¤±è´¥ï¼åŸå› :å­¦é™¢ä¸å­˜åœ¨;";
 		}else {
-			request.setAttribute("default", "Ìí¼ÓÑ§Éú³É¹¦£¡Ñ§ÉúId:"+SID+";");
+			message = "æ·»åŠ å­¦ç”ŸæˆåŠŸï¼å­¦ç”ŸId:"+SID+";";
 		}
-		request.getRequestDispatcher("/RootMenu.html").forward(request,response);
+
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
+
 	}
 }
