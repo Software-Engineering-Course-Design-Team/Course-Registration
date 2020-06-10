@@ -36,7 +36,7 @@ public class CourseOP {
 					" where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return 70018;
@@ -66,7 +66,7 @@ public class CourseOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}  
 		return id;
@@ -99,7 +99,7 @@ public class CourseOP {
 			stmt.execute("Delete from courseinfo where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}  
 		return 70008;
@@ -120,11 +120,11 @@ public class CourseOP {
 				course.setEndWeek(res.getInt(8));
 				course.setPerson(res.getInt(9));
 			}else{
-				course.setCID(70009);//´íÎó£¬Ã»ÓÐ»ñÈ¡µ½Êý¾Ý
+				course.setCID(70009);//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}  
 		return course;
@@ -151,11 +151,48 @@ public class CourseOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}  
 		return result;
 	}
+	public ArrayList<Course> FindTeaCou(Course course){
+		ArrayList<Course> result=new ArrayList<Course>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res;
+			if(course.getPID()==0)
+			{
+				res=stmt.executeQuery("select * from courseinfo where "
+						+ "PID is null;");
+			}
+			else	
+			{
+				res=stmt.executeQuery("select * from courseinfo where "
+					+ "PID="+course.getPID()+";");
+				}
+			while(res.next()){
+				Course temp=new Course();
+				temp.setCID(res.getLong(1));
+				temp.setTerm(res.getInt(2));
+				temp.setDID(res.getInt(3));
+				temp.setFee(res.getInt(4));
+				temp.setName(res.getString(5));
+				temp.setPID(res.getLong(6));
+				temp.setBeginweek(res.getInt(7));
+				temp.setEndWeek(res.getInt(8));
+				temp.setPerson(res.getInt(9));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
+			e.printStackTrace();
+		}  
+		return result;
+	}
+
 	public long UpdateCourse(Course course){
 		if(course.getPID()==0||course.getTerm()==0||course.getDID()==0||course.getFee()==0
 				||course.getName()==null||course.getBeginweek()==0||course.getEndWeek()==0)
@@ -196,7 +233,7 @@ public class CourseOP {
 					" where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}  
 		return 70012;

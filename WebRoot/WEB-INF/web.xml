@@ -21,6 +21,25 @@
     <url-pattern>/StudFeeServlet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>changePassword</servlet-name>
+    <servlet-class>com.action.ChangePassword</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>changePassword</servlet-name>
+    <url-pattern>/ChangePassword</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>tealistServlet</servlet-name>
+    <servlet-class>com.teacher.action.TeaGetCrsList</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>tealistServlet</servlet-name>
+    <url-pattern>/TeaListServlet</url-pattern>
+  </servlet-mapping>
   
   <welcome-file-list>
   	<welcome-file>login.html</welcome-file>
