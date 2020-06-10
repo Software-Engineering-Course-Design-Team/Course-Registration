@@ -58,11 +58,11 @@ public class CouTimeOP {
 			coutime.getCID()+","+coutime.getBeginC()+","+coutime.getEndC()+",'"+coutime.getAddress()+"');");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return 50005;
-	}//²åÈë¿Î
+	}//ï¿½ï¿½ï¿½ï¿½ï¿½
 	public long DeleteCouTime(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -84,11 +84,11 @@ public class CouTimeOP {
 					+" and Address='"+coutime.getAddress()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return 50007;
-	}//É¾³ý¶ÔÓ¦Ê±¼äµÄ¿Î
+	}//É¾ï¿½ï¿½ï¿½ï¿½Ó¦Ê±ï¿½ï¿½Ä¿ï¿½
 	public long DeleteAddress(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -101,11 +101,11 @@ public class CouTimeOP {
 			stmt.execute("delete from coutimeinfo where  Address='"+coutime.getAddress()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return 50009;
-	}//É¾³ý¿Î
+	}//É¾ï¿½ï¿½ï¿½ï¿½
 	public long DeleteCou(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -118,11 +118,11 @@ public class CouTimeOP {
 			stmt.execute("delete from coutimeinfo where  CID="+coutime.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return 50011;
-	}//É¾³ý¿Î
+	}//É¾ï¿½ï¿½ï¿½ï¿½
 	public ArrayList<CouTime> FindCouTime(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
 		try {
@@ -140,11 +140,11 @@ public class CouTimeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return result;
-	}//¸ù¾Ý¿Î²éÊ±¼ä
+	}//ï¿½ï¿½ï¿½Ý¿Î²ï¿½Ê±ï¿½ï¿½
 	public ArrayList<CouTime> FindAddress(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
 		try {
@@ -162,9 +162,9 @@ public class CouTimeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
 		return result;
-	}//¸ù¾Ý¿Î²éÊ±¼ä
+	}//ï¿½ï¿½ï¿½Ý¿Î²ï¿½Ê±ï¿½ï¿½
 }

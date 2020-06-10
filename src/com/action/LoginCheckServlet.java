@@ -22,16 +22,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginCheckServlet extends HttpServlet {
+	public static Count logincount;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String userName = request.getParameter("username");
 		String userPwd = request.getParameter("password");
 		String info = "";
-
+	
 		CountOP cop=new CountOP();
 		Count curr_c=cop.FindCount(new Count(0,"",Integer.parseInt(userName)));
 		if(curr_c.getID()==80003)
 		{
+			logincount=null;
 			request.getRequestDispatcher("/relogin.html").forward(request,response);
 			return;
 		}
@@ -39,6 +41,7 @@ public class LoginCheckServlet extends HttpServlet {
 		{
 			if(curr_c.getPassword().equals(userPwd))
 			{
+				logincount=curr_c;
 				if(curr_c.getIdentity()==0)
 				{
 					request.getRequestDispatcher("/RootMenu.html").forward(request,response);
@@ -55,6 +58,7 @@ public class LoginCheckServlet extends HttpServlet {
 			}
 			else
 			{
+				logincount=null;
 				request.getRequestDispatcher("/relogin.html").forward(request,response);
 			}
 		}

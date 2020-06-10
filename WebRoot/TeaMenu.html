@@ -53,13 +53,14 @@
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="./TeaMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;">老师信息面板</a>
+            <a href="javascript:;">教师信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="root-password.html">修改密码</a></dd>
+              <dd><a href="TeaPwd.html">修改密码</a></dd>
+              
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -72,17 +73,45 @@
                 <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
-                        登记成绩
+                        课程信息管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
+                    <ul class="sub-menu" style="display:none">
+                        
+						<li>
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe6a7;</i>
+                                选课界面
+                            </a>
+                        </li>
+						<li>
+                            <a href="./TeaListServlet">
+                                <i class="iconfont">&#xe6a7;</i>
+                                已选教授课程列表
+                            </a>
+                        </li>
+						<li>
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe6a7;</i>
+                                查看可教授课程
+                            </a>
+                        </li>
+					</ul>
                 </li>
-				<li class="list">
+				 <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
-                        管理课程信息
+                       成绩管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-					<ul class="sub-menu" style="display:none">
+                    <ul class="sub-menu" style="display:none">
+                        
+						<li>
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe6a7;</i>
+                                录入成绩
+                            </a>
+                        </li>
                         <li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
@@ -92,47 +121,10 @@
 						<li>
                             <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                查看教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                查看可教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                增加上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除教授课程
+                                查看成绩列表列表
                             </a>
                         </li>
 					</ul>
-                </li>
-				 <li class="list">
-                    <a href="javascript:;">
-                        <i class="iconfont">&#xe761;</i>
-                        查看成绩列表
-                        <i class="iconfont nav_right">&#xe697;</i>
-                    </a>
                 </li>
             </ul>
           </div>
