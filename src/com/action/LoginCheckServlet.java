@@ -53,29 +53,7 @@ public class LoginCheckServlet extends HttpServlet {
 				}
 				else
 				{
-					Student temp=new Student();
-					StudentOP stop=new StudentOP();
-					temp.setSID(Integer.parseInt(userName));
-					temp=stop.FindStudent(temp);
-					request.setAttribute("StuName",temp.getName());
-					Calendar date = Calendar.getInstance();
-					int year = date.get(Calendar.YEAR);
-					int month = date.get(Calendar.MONTH);
-					int day=date.get(Calendar.DATE);
-					int n1=Integer.parseInt(temp.getBirthday().substring(0,4));
-					int n2=Integer.parseInt(temp.getBirthday().substring(5,7));
-					int n3=Integer.parseInt(temp.getBirthday().substring(8,10));
-					System.out.println(n2);
-					System.out.println(n3);
-					System.out.println(month);
-					System.out.println(day);
-					if(month+1==n2&&day==n3) {
-						request.setAttribute("BIR","YES");
-						request.setAttribute("BIRY",year-n1);
-					}else{
-						request.setAttribute("BIR","NO");
-					}
-					request.getRequestDispatcher("/StuMenu.jsp").forward(request,response);
+					request.getRequestDispatcher("/StudReturnServlet").forward(request,response);
 				}
 			}
 			else
