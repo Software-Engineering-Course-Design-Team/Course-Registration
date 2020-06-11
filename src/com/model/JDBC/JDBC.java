@@ -7,17 +7,17 @@ public class JDBC {
 	public Connection conn=null;
 	public void getConnection(){
 		try{
-			Class.forName("com.mysql.jdbc.Driver");  //¼ÓÔØÊı¾İ¿âÇı¶¯
-			System.out.println("Êı¾İ¿âÇı¶¯¼ÓÔØ³É¹¦");
+			Class.forName("com.mysql.jdbc.Driver");  
+			System.out.println("å¯åŠ¨æˆåŠŸï¼");
 			String url="jdbc:mysql://121.199.79.214:3306/softengpro?"
 					+ "useUnicode=true&characterEncoding=UTF8";
-			//Èç¹û²»¼ÓuseSSL=false¾Í»áÓĞ¾¯¸æ£¬ÓÉÓÚjdbcºÍmysql°æ±¾²»Í¬£¬ÓĞÒ»¸öÁ¬½Ó°²È«ÎÊÌâ
+
 			
 			String user="root";
 			String passWord="13786086097Xr@";
 
-			conn=(Connection)DriverManager.getConnection(url,user,passWord); //´´½¨Á¬½Ó
-			System.out.println("ÒÑ³É¹¦µÄÓëÊı¾İ¿âMySQL½¨Á¢Á¬½Ó£¡£¡");
+			conn=(Connection)DriverManager.getConnection(url,user,passWord); 
+			System.out.println("è¿æ¥æˆåŠŸï¼");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -25,9 +25,8 @@ public class JDBC {
 	public void CancleConnection(){
 		try {
 			conn.close();
-			System.out.println("ÒÑ³É¹¦µÄÓëÊı¾İ¿âMySQL¶Ï¿ªÁ¬½Ó£¡£¡");
+			System.out.println("SQLæ–­å¼€è¿æ¥æˆåŠŸï¼");
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
 			e.printStackTrace();
 		}
 		conn=null;

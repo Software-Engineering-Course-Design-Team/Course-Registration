@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,10 +59,25 @@ public class StuCouServlet extends HttpServlet {
 			int nyear = date.get(Calendar.YEAR);
 			int month = date.get(Calendar.MONTH);
 			int term=(4-gyear+nyear)*2;
-			if(month>8)term++;
+			if(month+1>8)term++;
 			Course tempc=new Course();
 			tempc.setDID(DID);
 			tempc.setTerm(term);
+			
+			CouStuTemp tttt=new CouStuTemp();
+			ConStuTempOP h=new ConStuTempOP();
+			int coursenum1=0;
+			int coursenum2=0;
+			tttt.setSID(SID);
+			ArrayList<CouStuTemp> cst=h.FindCouTemp(tttt);
+			for(CouStuTemp ttttt:cst) {
+				if(ttttt.getOrder()==0)coursenum1++;
+				else coursenum2++;
+			}
+			request.setAttribute("coursenum1", coursenum1);
+			System.out.println(coursenum1);
+			request.setAttribute("coursenum2",coursenum2);
+			
 			ArrayList<Course> s=cop.FindTermDepCou(tempc);
 			ArrayList<ArrayList<CouTime>> s2=new ArrayList<ArrayList<CouTime>>();
 			ArrayList<String> s3=new ArrayList<String>();
@@ -78,7 +93,6 @@ public class StuCouServlet extends HttpServlet {
 				CouTime ct=new CouTime();
 				ct.setCID(i.getCID());
 				s2.add(ctop.FindCouTime(ct));
-				ConStuTempOP h=new ConStuTempOP();
 				CouStuTemp tt=new CouStuTemp();
 				tt.setCID(i.getCID());
 				tt.setSID(SID);

@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,9 +108,9 @@ public class StuFindServlet extends HttpServlet {
 				CouTime ct=new CouTime();
 				ct.setCID(i.getCID());
 				s2.add(ctop.FindCouTime(ct));
-				if(i.getOrder()==0)s4.add("±ØÑ¡¿Î");
-				else if(i.getOrder()==1)s4.add("µÚ1ºòÑ¡¿Î");
-				else s4.add("µÚ2ºòÑ¡¿Î");
+				if(i.getOrder()==0)s4.add("å¿…é€‰è¯¾");
+				else if(i.getOrder()==1)s4.add("ç¬¬ä¸€å€™é€‰è¯¾");
+				else s4.add("ç¬¬äºŒå€™é€‰è¯¾");
 			}
 			request.setAttribute("Courseinfo", s1);
 			request.setAttribute("CouTimeinfo",s2);

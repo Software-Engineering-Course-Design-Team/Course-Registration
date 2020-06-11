@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.model.JDBC.JDBC;
 import com.model.javabean.Count;
-
+import com.model.javabean.Student;
 import com.control.DB.*;
 
 import java.sql.Connection;
@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 
 public class LoginCheckServlet extends HttpServlet {
 	public static Count logincount;
@@ -52,7 +53,28 @@ public class LoginCheckServlet extends HttpServlet {
 				}
 				else
 				{
-					getServletContext().setAttribute(userName,"No");
+					Student temp=new Student();
+					StudentOP stop=new StudentOP();
+					temp.setSID(Integer.parseInt(userName));
+					temp=stop.FindStudent(temp);
+					request.setAttribute("StuName",temp.getName());
+					Calendar date = Calendar.getInstance();
+					int year = date.get(Calendar.YEAR);
+					int month = date.get(Calendar.MONTH);
+					int day=date.get(Calendar.DATE);
+					int n1=Integer.parseInt(temp.getBirthday().substring(0,4));
+					int n2=Integer.parseInt(temp.getBirthday().substring(5,7));
+					int n3=Integer.parseInt(temp.getBirthday().substring(8,10));
+					System.out.println(n2);
+					System.out.println(n3);
+					System.out.println(month);
+					System.out.println(day);
+					if(month+1==n2&&day==n3) {
+						request.setAttribute("BIR","YES");
+						request.setAttribute("BIRY",year-n1);
+					}else{
+						request.setAttribute("BIR","NO");
+					}
 					request.getRequestDispatcher("/StuMenu.jsp").forward(request,response);
 				}
 			}

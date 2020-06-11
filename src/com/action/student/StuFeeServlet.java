@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;

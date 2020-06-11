@@ -59,6 +59,11 @@
         	  window.event.returnValue = false;
           }
 		}
+        function confirmDelAll(){
+            if(!window.confirm("您确定要删除全部课程吗?（警告：此操作不可逆！）")){
+          	  window.event.returnValue = false;
+            }
+  		}
         </script>
         
  <%
@@ -70,13 +75,13 @@
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="<%=request.getContextPath() +"/StudReturnServlet?username="+request.getParameter("username") %>">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="root-password.html">修改密码</a></dd>
+              <dd><a href="StuPwd.html">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -131,6 +136,13 @@
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
+            <form action="StudDelServlet" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="hidden" name="CID" value="19999">
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:10px 13px;cursor: pointer;
+    border-radius:10px;" value="删除全部课程" onclick="confirmDelAll()">
+            </form>
            <table class="layui-table">
                 <thead>
                     <tr>
