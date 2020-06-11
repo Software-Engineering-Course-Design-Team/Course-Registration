@@ -28,7 +28,7 @@ public class StuInsertServlet extends HttpServlet {
 		ConStuTempOP cstop=new ConStuTempOP();
 		temp.setSID(Integer.parseInt(request.getParameter("username")));
 		temp.setCID(Integer.parseInt(request.getParameter("CID")));
-		if(request.getParameter("flag").equals("候选")) {
+		if(request.getParameter("flag").equals("选课")) {
 			temp.setOrder(0);
 			cstop.InsertConStuTemp(temp);
 		}else {

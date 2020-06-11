@@ -37,7 +37,7 @@ public class StudentOP {
 			stmt1.execute("Insert into countinfo values(2,'000000',"+id+");");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+
 			e.printStackTrace();
 		}
 		return id;
@@ -70,7 +70,6 @@ public class StudentOP {
 				+" where SID="+stu.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 40014;
@@ -96,7 +95,6 @@ public class StudentOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return result;
@@ -121,7 +119,6 @@ public class StudentOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return stu;
@@ -137,7 +134,7 @@ public class StudentOP {
 				return 40004;
 			}
 			ResultSet res2=stmt.executeQuery("select * from stufeeinfo where SID"
-					+ "="+stu.getSID()+" and status='未缴清';");
+					+ "="+stu.getSID()+" and status='未锟斤拷锟斤拷';");
 			if(res2.next()){
 				dbcon.CancleConnection();
 				return 40005;
@@ -158,7 +155,6 @@ public class StudentOP {
 			stmt.execute("Delete from countinfo where ID="+stu.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 40008;

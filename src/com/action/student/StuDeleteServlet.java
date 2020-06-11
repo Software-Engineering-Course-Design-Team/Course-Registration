@@ -27,6 +27,7 @@ public class StuDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		long username=Integer.parseInt(request.getParameter("username"));
 		long CID=Integer.parseInt(request.getParameter("CID"));
 		CouStuTemp cst=new CouStuTemp();

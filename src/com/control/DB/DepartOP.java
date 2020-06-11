@@ -31,7 +31,6 @@ public class DepartOP {
 				dbcon.CancleConnection();
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return id;
@@ -64,7 +63,6 @@ public class DepartOP {
 			stmt.execute("Delete from departmentInfo where DID="+dep.getDID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 10004;
@@ -87,7 +85,6 @@ public class DepartOP {
 				return 10000;
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 10001;
@@ -103,11 +100,10 @@ public class DepartOP {
 				dep.setStatus(res.getInt(3));
 				dep.setDate(res.getString(4));
 			}else{
-				dep.setDID(10007);//错误，没有获取到数据
+				dep.setDID(10007);
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return dep;
@@ -128,7 +124,6 @@ public class DepartOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
@@ -144,11 +139,10 @@ public class DepartOP {
 				dep.setStatus(res.getInt(3));
 				dep.setDate(res.getString(4));
 			}else{
-				dep.setDID(10011);//错误，没有获取到数据
+				dep.setDID(10011);
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return dep;
@@ -173,7 +167,6 @@ public class DepartOP {
 				}
 				dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 10013;
@@ -190,7 +183,6 @@ public class DepartOP {
 				}
 				dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 	}

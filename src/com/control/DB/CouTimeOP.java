@@ -58,11 +58,10 @@ public class CouTimeOP {
 			coutime.getCID()+","+coutime.getBeginC()+","+coutime.getEndC()+",'"+coutime.getAddress()+"');");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		return 50005;
-	}//�����
+	}
 	public long DeleteCouTime(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -84,11 +83,11 @@ public class CouTimeOP {
 					+" and Address='"+coutime.getAddress()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+
 			e.printStackTrace();
 		}
 		return 50007;
-	}//ɾ����Ӧʱ��Ŀ�
+	}
 	public long DeleteAddress(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -101,11 +100,11 @@ public class CouTimeOP {
 			stmt.execute("delete from coutimeinfo where  Address='"+coutime.getAddress()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+
 			e.printStackTrace();
 		}
 		return 50009;
-	}//ɾ����
+	}
 	public long DeleteCou(CouTime coutime){
 		try {
 			dbcon.getConnection();
@@ -118,11 +117,11 @@ public class CouTimeOP {
 			stmt.execute("delete from coutimeinfo where  CID="+coutime.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+
 			e.printStackTrace();
 		}
 		return 50011;
-	}//ɾ����
+	}
 	public ArrayList<CouTime> FindCouTime(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
 		try {
@@ -140,11 +139,11 @@ public class CouTimeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+
 			e.printStackTrace();
 		}
 		return result;
-	}//���ݿβ�ʱ��
+	}
 	public ArrayList<CouTime> FindAddress(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
 		try {
@@ -162,9 +161,9 @@ public class CouTimeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+
 			e.printStackTrace();
 		}
 		return result;
-	}//���ݿβ�ʱ��
+	}
 }
