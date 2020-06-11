@@ -27,7 +27,6 @@ public class JDBC {
 			conn.close();
 			System.out.println("SQL断开连接成功！");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		conn=null;
