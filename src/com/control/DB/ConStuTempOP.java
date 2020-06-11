@@ -55,8 +55,7 @@ public class ConStuTempOP {
 					return 90007;
 				}
 				else if(tt==1&&constutemp.getOrder()==1){
-					dbcon.CancleConnection();
-					return 90017;
+					constutemp.setOrder(2);
 				}
 			}
 			ResultSet res4=stmt.executeQuery("select DID from stuinfo where SID="+constutemp.getSID()+";");
@@ -71,14 +70,15 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Insert into constutemp values("+constutemp.getOrder()+","+constutemp.getSID()+","
 					+constutemp.getCID()+");");
+			if(constutemp.getOrder()==0)
 			stmt.execute("Update courseinfo set person=person+1 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		} 
 		return 90005;
-	}//插入新的选课记录
+	}//锟斤拷锟斤拷锟铰碉拷选锟轿硷拷录
 	public ArrayList<CouStuTemp> FindStuTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
@@ -95,11 +95,11 @@ public class ConStuTempOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		}  
 		return result;
-	}//发现选课记录（根据课程ID找学生）
+	}//锟斤拷锟斤拷选锟轿硷拷录锟斤拷锟斤拷锟捷课筹拷ID锟斤拷学锟斤拷锟斤拷
 	public ArrayList<CouStuTemp> FindCouTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
@@ -115,11 +115,10 @@ public class ConStuTempOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
-	}//发现选课记录（根据课程学生找课）
+	}
 	public long DeleteConTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
@@ -129,16 +128,30 @@ public class ConStuTempOP {
 				dbcon.CancleConnection();
 				return 90008;
 			}
+			ResultSet res2=stmt.executeQuery("select ord,SID from constutemp where CID="
+					+constutemp.getCID()+";");
+			ArrayList<Integer> s=new ArrayList<Integer>();
+			while(res2.next()) {
+				int tempint=res2.getInt(1);
+				int templong=res2.getInt(2);
+				if(tempint==1) {
+					s.add(templong);
+				}
+			}
+			for(Integer it:s) {
+				stmt.execute("Update constutemp set ord=1 where SID="+it+
+						" and ord="+2+";");
+			}
 			stmt.execute("Delete from constutemp where CID="
 					+constutemp.getCID()+";");
 			stmt.execute("Update courseinfo set person=0 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		} 
 		return 90009;
-	}//删课所有学生
+	}
 	public long DeleteStuTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
@@ -149,7 +162,7 @@ public class ConStuTempOP {
 				dbcon.CancleConnection();
 				return 90010;
 			}
-			ResultSet res1=stmt.executeQuery("select CID from constutable where SID"
+			ResultSet res1=stmt.executeQuery("select CID from constutemp where SID"
 					+ "="+constutemp.getSID()+";");
 			ArrayList<Integer> list = new ArrayList<Integer>();
 			while(res1.next()){
@@ -157,16 +170,21 @@ public class ConStuTempOP {
 			}
 			Iterator<Integer> it=list.iterator();
 			while(it.hasNext()){
-				stmt.execute("Update courseinfo set person=person-1 where CID="+it.next()+";");
+				int i=it.next();
+				ResultSet res2=stmt.executeQuery("select ord from constutemp where SID"
+						+ "="+constutemp.getSID()+" and CID="+i+";");
+				res2.next();
+				int order=res2.getInt(1);
+				if(order==0)
+				stmt.execute("Update courseinfo set person=person-1 where CID="+i+";");
 			}
-			stmt.execute("Delete from constutable where SID="+constutemp.getSID()+";");
+			stmt.execute("Delete from constutemp where SID="+constutemp.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 90011;
-	}//删学生所有课
+	}
 	public CouStuTemp FindCouStuTemp(CouStuTemp constu){
 		CouStuTemp temp=new CouStuTemp();
 		try {
@@ -180,7 +198,6 @@ public class ConStuTempOP {
 			}else temp.setSID(90014);
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return temp;
@@ -189,21 +206,27 @@ public class ConStuTempOP {
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
-			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()+
+			ResultSet res=stmt.executeQuery("select ord from constutemp where SID="+constutemp.getSID()+
 					" and CID="+constutemp.getCID()+";");
+			int tp=9;
 			if(!res.next()){
 				dbcon.CancleConnection();
 				return 90012;
+			}else {
+				tp=res.getInt(1);
 			}
 			stmt.execute("Delete from constutemp where CID="+constutemp.getCID()
 			+" and SID="+constutemp.getSID()+";");
+			if(tp==0)
 			stmt.execute("Update courseinfo set person=person-1 where CID="+constutemp.getCID()+";");
+			else if(tp==1)
+			stmt.execute("Update constutemp set ord=1 where SID="+constutemp.getSID()+
+					" and ord="+2+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 90013;
-	}//删某学生某课(某条选课记录)
+	}
 }
 

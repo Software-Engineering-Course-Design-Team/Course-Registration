@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.model.JDBC.JDBC;
 import com.model.javabean.Count;
-
+import com.model.javabean.Student;
 import com.control.DB.*;
 
 import java.sql.Connection;
@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 
 public class LoginCheckServlet extends HttpServlet {
 	public static Count logincount;
@@ -52,8 +53,7 @@ public class LoginCheckServlet extends HttpServlet {
 				}
 				else
 				{
-					getServletContext().setAttribute(userName,"No");
-					request.getRequestDispatcher("/StuMenu.jsp").forward(request,response);
+					request.getRequestDispatcher("/StudReturnServlet").forward(request,response);
 				}
 			}
 			else

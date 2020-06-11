@@ -13,7 +13,7 @@
   
   <servlet>
     <servlet-name>StuFeeServlet</servlet-name>
-    <servlet-class>com.action.StuFeeServlet</servlet-class>
+    <servlet-class>com.action.student.StuFeeServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -23,7 +23,7 @@
   
   <servlet>
     <servlet-name>StuGradeServlet</servlet-name>
-    <servlet-class>com.action.StuGradeServlet</servlet-class>
+    <servlet-class>com.action.student.StuGradeServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -33,7 +33,7 @@
   
   <servlet>
     <servlet-name>StuFindServlet</servlet-name>
-    <servlet-class>com.action.StuFindServlet</servlet-class>
+    <servlet-class>com.action.student.StuFindServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -43,7 +43,7 @@
   
   <servlet>
     <servlet-name>StuCouServlet</servlet-name>
-    <servlet-class>com.action.StuCouServlet</servlet-class>
+    <servlet-class>com.action.student.StuCouServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -52,8 +52,28 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>StuReturnServlet</servlet-name>
+    <servlet-class>com.action.student.StuReturnMenu</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuReturnServlet</servlet-name>
+    <url-pattern>/StudReturnServlet</url-pattern>
+  </servlet-mapping>
+  
+<servlet>
+    <servlet-name>StuInsertServlet</servlet-name>
+    <servlet-class>com.action.student.StuInsertServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuInsertServlet</servlet-name>
+    <url-pattern>/StudInsertServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>StuDelServlet</servlet-name>
-    <servlet-class>com.action.StuDeleteServlet</servlet-class>
+    <servlet-class>com.action.student.StuDeleteServlet</servlet-class>
   </servlet>
  
   <servlet-mapping>

@@ -31,7 +31,6 @@ public class CouTeaOP {
 			coutea.getName()+"',"+coutea.getPID()+");");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 55010;
@@ -48,7 +47,6 @@ public class CouTeaOP {
 			stmt.execute("Delete from couteatable where Name='"+coutea.getName()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 55006;
@@ -65,7 +63,6 @@ public class CouTeaOP {
 			stmt.execute("Delete from couteatable where PID="+coutea.getPID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 55004;
@@ -84,7 +81,6 @@ public class CouTeaOP {
 					" and  Name='"+coutea.getName()+"';");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return 55002;
@@ -103,7 +99,6 @@ public class CouTeaOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
@@ -123,7 +118,6 @@ public class CouTeaOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
