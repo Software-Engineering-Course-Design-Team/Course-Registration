@@ -53,6 +53,26 @@
                   return i;
             }  
         </script>
+        <script>
+        function confirmInsert(){
+          if(!window.confirm("您确定要选择该课吗?")){
+        	  window.event.returnValue = false;
+          }
+		}
+        function confirmCand(){
+            if(!window.confirm("您确定要候选吗?（候选规则：每个人可有两门候选课，系统将以选择的时间先后作为优先级，若删除其中一门候选课程，则另一门候选课程的优先级自动上升。）")){
+          	  window.event.returnValue = false;
+            }
+  		}
+        function error1() {
+            alert("提示信息：您的必选课已经选满4门！请尝试删除一门后再选！");
+            window.event.returnValue = false;
+        }
+        function error2() {
+            alert("提示信息:：您的候选课已经选满2门！请尝试删除一门后再选！");
+            window.event.returnValue = false;
+        }
+        </script>
         <%
   response.setHeader("Cache-Control","no-cache");
   response.setHeader("Pragma","no-cache");
@@ -62,13 +82,13 @@
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="<%=request.getContextPath() +"/StudReturnServlet?username="+request.getParameter("username") %>">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="root-password.html">修改密码</a></dd>
+              <dd><a href="StuPwd.html">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -202,22 +222,62 @@
                         <%
                             }else if(temp2.getPerson()<10){
                         %>
-                            <form action="" method="post">
+                            <form action="StudInsertServlet" method="post">
                             <input type="hidden" name="username" value="<%=request.getParameter("username")%>"/>
                             <input type="hidden" name="CID" value="<%=temp2.getCID()%>"/>
-                            <input type="submit" style="background: transparent;border:none;
+                            <%
+                            	if(!request.getAttribute("coursenum1").equals(4)){
+                            %>
+                            <input name="flag" type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="选课">
+    border-radius:10px;" value="选课" onclick="confirmInsert()">
+                             <%
+                            	}else{
+                             %>
+                             <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="选课" onclick="error1()">
+                             <%
+                            	}
+                             %>
+                             <%
+                            	if(!request.getAttribute("coursenum2").equals(2)){
+                             %>
+    						<input name="flag" type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="候选" onclick="confirmCand()">
+    						<%
+                            	}else{
+    						%>
     						<input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="候选">
+    border-radius:10px;" value="候选" onclick="error2()">
+    						<%
+                            	}
+    						%>
     						</form>
     					<%
                         	}else{
                         %>
-                             <input type="submit" style="background: transparent;border:none;
+                             <form action="" method="post">
+                            <input type="hidden" name="username" value="<%=request.getParameter("username")%>"/>
+                            <input type="hidden" name="CID" value="<%=temp2.getCID()%>"/>
+                            <%
+                            	if(!request.getAttribute("coursenum2").equals(2)){
+                             %>
+    						<input name="flag" type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="候选">
+    border-radius:10px;" value="候选" onclick="confirmCand()">
+    						<%
+                            	}else{
+    						%>
+    						<input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="候选" onclick="error2()">
+    						<%
+                            	}
+    						%>
+    						</form>
                         <%
                         	}
                         %>

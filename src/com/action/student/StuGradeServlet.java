@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class StuGradeServlet extends HttpServlet {
 			if(!(i.getGrade().contentEquals("A")||i.getGrade().contentEquals("B")
 					||i.getGrade().contentEquals("C")||i.getGrade().contentEquals("D")
 					||i.getGrade().contentEquals("E")||i.getGrade().contentEquals("F")))
-				i.setGrade("Î´¹«²¼³É¼¨");
+				i.setGrade("æœªå…¬å¸ƒæˆç»©");
 			Course temp_c=new Course();
 			temp_c.setCID(i.getCID());
 			s1.add(cop.FindCourse(temp_c));
