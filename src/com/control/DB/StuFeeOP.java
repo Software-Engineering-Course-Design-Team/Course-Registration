@@ -13,7 +13,7 @@ public class StuFeeOP {
 	JDBC dbcon=new JDBC();
 	public long InsertStuFee(Stufee stufee){
 		if(stufee.getFee()==0||stufee.getTerm()==0||stufee.getSID()==0||
-				stufee.getStatus()!="Î´½ÉÇå")return 30002;
+				stufee.getStatus()!="æœªç¼´æ¸…")return 30002;
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
@@ -22,11 +22,11 @@ public class StuFeeOP {
 				dbcon.CancleConnection();
 				return 30001;
 			}
-			stmt.execute("Insert into stufeeinfo values('Î´½ÉÇå',"
+			stmt.execute("Insert into stufeeinfo values('æœªç¼´æ¸…',"
 					+stufee.getFee()+","+stufee.getTerm()+","+stufee.getSID()+");");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}
 		return 30003;
@@ -48,7 +48,7 @@ public class StuFeeOP {
 			stmt.execute("Delete from stufeeinfo where SID="+stufee.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}
 		return 30006;
@@ -65,11 +65,11 @@ public class StuFeeOP {
 				stufee.setTerm(res.getInt(3));
 				stufee.setSID(res.getLong(4));
 			}else{
-				stufee.setSID(30007);//´íÎó£¬Ã»ÓÐ»ñÈ¡µ½Êý¾Ý
+				stufee.setSID(30007);
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}  
 		return stufee;
@@ -91,7 +91,7 @@ public class StuFeeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}  
 		return result;
@@ -101,7 +101,7 @@ public class StuFeeOP {
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
-			ResultSet res=stmt.executeQuery("select * from stufeeinfo where status='Î´½ÉÇå';");
+			ResultSet res=stmt.executeQuery("select * from stufeeinfo where status='æœªç¼´æ¸…';");
 			while(res.next()){
 				Stufee temp=new Stufee();
 				temp.setStatus(res.getString(1));
@@ -112,7 +112,7 @@ public class StuFeeOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}  
 		return result;
@@ -134,7 +134,7 @@ public class StuFeeOP {
 			+" where SID="+stufee.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}
 		return 30010;
@@ -146,13 +146,13 @@ public class StuFeeOP {
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select sum(Fee) from stufeeinfo ;");
 			if(res.next())result[0]=res.getInt(1);
-			ResultSet res1=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='Î´½ÉÇå';");
+			ResultSet res1=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='æœªç¼´æ¸…';");
 			if(res1.next())result[1]=res1.getInt(1);
-			ResultSet res2=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='ÒÑ½ÉÇå';");
+			ResultSet res2=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='å·²ç¼´æ¸…';");
 			if(res2.next())result[2]=res2.getInt(1);
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}
 		return result;
@@ -164,13 +164,13 @@ public class StuFeeOP {
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select sum(Fee) from stufeeinfo where SID="+stufee.getSID()+";");
 			if(res.next())result[0]=res.getInt(1);
-			ResultSet res1=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='Î´½ÉÇå' and SID="+stufee.getSID()+";");
+			ResultSet res1=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='æœªç¼´æ¸…' and SID="+stufee.getSID()+";");
 			if(res1.next())result[1]=res1.getInt(1);
-			ResultSet res2=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='ÒÑ½ÉÇå' and SID="+stufee.getSID()+";");
+			ResultSet res2=stmt.executeQuery("select sum(Fee) from stufeeinfo where status='å·²ç¼´æ¸…' and SID="+stufee.getSID()+";");
 			if(res2.next())result[2]=res2.getInt(1);
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			
 			e.printStackTrace();
 		}
 		return result;

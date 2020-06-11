@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,36 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 import com.control.DB.ConStuTempOP;
 import com.model.javabean.CouStuTemp;
 
-@WebServlet("/StuDeleteServlet")
-public class StuDeleteServlet extends HttpServlet {
+/**
+ * Servlet implementation class StuInsertServlet
+ */
+@WebServlet("/StuInsertServlet")
+public class StuInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public StuDeleteServlet() {
+
+    public StuInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		long username=Integer.parseInt(request.getParameter("username"));
-		long CID=Integer.parseInt(request.getParameter("CID"));
-		CouStuTemp cst=new CouStuTemp();
+		request.setCharacterEncoding("utf-8");
+		CouStuTemp temp=new CouStuTemp();
 		ConStuTempOP cstop=new ConStuTempOP();
-		cst.setCID(CID);
-		cst.setSID(username);
-		cstop.DeleteConStuTemp(cst);
-		request.getRequestDispatcher("/StudFindServlet").forward(request,response);
+		temp.setSID(Integer.parseInt(request.getParameter("username")));
+		temp.setCID(Integer.parseInt(request.getParameter("CID")));
+		if(request.getParameter("flag").equals("选课")) {
+			temp.setOrder(0);
+			cstop.InsertConStuTemp(temp);
+		}else {
+			temp.setOrder(1);
+			cstop.InsertConStuTemp(temp);
+		}
+		request.getRequestDispatcher("/StudCouServlet").forward(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

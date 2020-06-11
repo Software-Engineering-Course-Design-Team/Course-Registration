@@ -1,4 +1,4 @@
-package com.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class StuGradeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		String fromURL = request.getHeader("Referer");     
 		System.out.println(fromURL);
 		if(fromURL==null) {
@@ -44,7 +45,7 @@ public class StuGradeServlet extends HttpServlet {
 			if(!(i.getGrade().contentEquals("A")||i.getGrade().contentEquals("B")
 					||i.getGrade().contentEquals("C")||i.getGrade().contentEquals("D")
 					||i.getGrade().contentEquals("E")||i.getGrade().contentEquals("F")))
-				i.setGrade("Œ¥π´≤º≥…º®");
+				i.setGrade("Êú™ÂÖ¨Â∏ÉÊàêÁª©");
 			Course temp_c=new Course();
 			temp_c.setCID(i.getCID());
 			s1.add(cop.FindCourse(temp_c));

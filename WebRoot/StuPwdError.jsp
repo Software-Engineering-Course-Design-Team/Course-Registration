@@ -20,7 +20,7 @@
 <body >
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./TeaMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="<%=request.getContextPath() +"/StudReturnServlet?username="+request.getParameter("username") %>">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
@@ -38,7 +38,7 @@
           <div id="side-nav">
             <ul id="nav">
                 <li class="list">
-                    <a href="javascript:;">
+                    <a href="<%=request.getContextPath() +"/StudFeeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         获取学费账单
                         <i class="iconfont nav_right">&#xe697;</i>
@@ -52,25 +52,13 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择必选课程
+                                选择所修课程
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                选择候选课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除所选课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
+                            <a href="<%=request.getContextPath() +"/StudFindServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看课程列表
                             </a>
@@ -78,7 +66,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="javascript:;">
+                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
