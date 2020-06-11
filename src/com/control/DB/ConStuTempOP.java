@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.model.JDBC.JDBC;
 import com.model.javabean.CouStuTemp;
@@ -70,6 +71,7 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Insert into constutemp values("+constutemp.getOrder()+","+constutemp.getSID()+","
 					+constutemp.getCID()+");");
+			stmt.execute("Update courseinfo set person=person+1 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
@@ -129,6 +131,7 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Delete from constutemp where CID="
 					+constutemp.getCID()+";");
+			stmt.execute("Update courseinfo set person=0 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
@@ -146,7 +149,17 @@ public class ConStuTempOP {
 				dbcon.CancleConnection();
 				return 90010;
 			}
-			stmt.execute("Delete from constutemp where SID="+constutemp.getSID()+";");
+			ResultSet res1=stmt.executeQuery("select CID from constutable where SID"
+					+ "="+constutemp.getSID()+";");
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			while(res1.next()){
+				list.add(res1.getInt(1));
+			}
+			Iterator<Integer> it=list.iterator();
+			while(it.hasNext()){
+				stmt.execute("Update courseinfo set person=person-1 where CID="+it.next()+";");
+			}
+			stmt.execute("Delete from constutable where SID="+constutemp.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
@@ -154,6 +167,24 @@ public class ConStuTempOP {
 		} 
 		return 90011;
 	}//删学生所有课
+	public CouStuTemp FindCouStuTemp(CouStuTemp constu){
+		CouStuTemp temp=new CouStuTemp();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+
+					constu.getSID()+" and CID="+constu.getCID()+";");
+			if(res.next()){
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+			}else temp.setSID(90014);
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}  
+		return temp;
+	}
 	public long DeleteConStuTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
@@ -166,6 +197,7 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Delete from constutemp where CID="+constutemp.getCID()
 			+" and SID="+constutemp.getSID()+";");
+			stmt.execute("Update courseinfo set person=person-1 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块

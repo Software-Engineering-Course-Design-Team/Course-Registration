@@ -186,6 +186,25 @@ public class CouStuOP {
 		}  
 		return result;
 	}
+	public CouStu FindCouStu(CouStu constu){
+		CouStu temp=new CouStu();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutable where SID="+
+					constu.getSID()+" and CID="+constu.getCID()+";");
+			if(res.next()){
+				temp.setGrade(res.getString(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+			}else temp.setSID(60014);
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}  
+		return temp;
+	}
 	public long UpdataConStu(CouStu constu){
 		if(constu.getSID()==0||constu.getCID()==0||constu.getGrade()==null)return 60009;
 		try {

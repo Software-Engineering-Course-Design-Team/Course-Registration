@@ -30,20 +30,13 @@ public class StuFeeServlet extends HttpServlet {
 			request.getRequestDispatcher("/StuError.html").forward(request,response);
 			return;
 		}
-		if(fromURL.equals("http://localhost:8080/SoftEngProj/CheckServlet")||
-				fromURL.equals("http://localhost:8080/SoftEngProj/StudFeeServlet?username="+request.getParameter("username"))) {
-			long CID=Integer.parseInt(request.getParameter("username"));
-			StuFeeOP sfop=new StuFeeOP();
-			Stufee temp=new Stufee();
-			temp.setSID(CID);
-			ArrayList<Stufee> s=sfop.FindStuAllFee(temp);
-			request.setAttribute("stufeeall", s);
-			request.getRequestDispatcher("/StuFeeServlet.jsp").forward(request,response);
-		}else {
-			System.out.println(fromURL);
-			request.getRequestDispatcher("/StuError.html").forward(request,response);
-			return;
-		}
+		long CID=Integer.parseInt(request.getParameter("username"));
+		StuFeeOP sfop=new StuFeeOP();
+		Stufee temp=new Stufee();
+		temp.setSID(CID);
+		ArrayList<Stufee> s=sfop.FindStuAllFee(temp);
+		request.setAttribute("stufeeall", s);
+		request.getRequestDispatcher("/StuFeeServlet.jsp").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
