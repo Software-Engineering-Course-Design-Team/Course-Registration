@@ -38,7 +38,7 @@ public class AddStuServlet extends HttpServlet {
 			  message = "添加学生失败！原因:信息不完整;";
 		}else if(SID==40002) {
 			message = "添加学生失败！原因:数据库插入操作失败;";
-		}else if(SID==4003) {
+		}else if(SID==40003) {
 			message = "添加学生失败！原因:学院不存在;";
 		}else {
 			message = "添加学生成功！学生Id:"+SID+";";
