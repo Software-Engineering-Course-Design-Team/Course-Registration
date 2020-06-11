@@ -36,7 +36,6 @@ public class CourseOP {
 					" where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		return 70018;
@@ -66,7 +65,6 @@ public class CourseOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return id;
@@ -99,7 +97,6 @@ public class CourseOP {
 			stmt.execute("Delete from courseinfo where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return 70008;
@@ -120,11 +117,10 @@ public class CourseOP {
 				course.setEndWeek(res.getInt(8));
 				course.setPerson(res.getInt(9));
 			}else{
-				course.setCID(70009);//����û�л�ȡ������
+				course.setCID(70009);
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return course;
@@ -151,7 +147,6 @@ public class CourseOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return result;
@@ -187,7 +182,6 @@ public class CourseOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return result;
@@ -233,7 +227,6 @@ public class CourseOP {
 					" where CID="+course.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return 70012;

@@ -85,7 +85,6 @@ public class CouStuOP {
 			stmt.execute("delete from constutemp;");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		
@@ -139,7 +138,6 @@ public class CouStuOP {
 			stmt.execute("Update courseinfo set person=person+1 where CID="+constu.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 60004;
@@ -160,7 +158,6 @@ public class CouStuOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
@@ -181,7 +178,6 @@ public class CouStuOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
@@ -200,7 +196,6 @@ public class CouStuOP {
 			}else temp.setSID(60014);
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return temp;
@@ -220,11 +215,10 @@ public class CouStuOP {
 			+"' where CID="+constu.getCID()+" and SID="+constu.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 60011;
-	}//登记成绩
+	}
 	public long DeleteCou(CouStu constu){
 		try {
 			dbcon.getConnection();
@@ -238,7 +232,6 @@ public class CouStuOP {
 			stmt.execute("Delete from constutable where CID="+constu.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 60006;
@@ -266,7 +259,6 @@ public class CouStuOP {
 			stmt.execute("Delete from constutable where SID="+constu.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 60008;
@@ -286,7 +278,6 @@ public class CouStuOP {
 			stmt.execute("Update courseinfo set person=person-1 where CID="+constu.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 60013;

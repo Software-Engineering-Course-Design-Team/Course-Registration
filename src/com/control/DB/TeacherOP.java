@@ -41,7 +41,6 @@ public class TeacherOP {
 				dbcon.CancleConnection();
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return id;
@@ -72,7 +71,6 @@ public class TeacherOP {
 			stmt.execute("Delete from countinfo where ID="+tea.getPID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return 20003;
@@ -92,10 +90,9 @@ public class TeacherOP {
 				tea.setPID(res.getLong(6));
 				tea.setDID(res.getLong(7));
 			}else{
-				tea.setPID(20004);//错误，没有获取到数据
+				tea.setPID(20004);
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		dbcon.CancleConnection();
@@ -130,7 +127,7 @@ public class TeacherOP {
 				return 20008;
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			
 			e.printStackTrace();
 		}  
 		return 20006;
@@ -154,7 +151,7 @@ public class TeacherOP {
 				result.add(temp);
 			}
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			
 			e.printStackTrace();
 		}
 		dbcon.CancleConnection();

@@ -23,6 +23,7 @@ public class StuReturnMenu extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		String userName = request.getParameter("username");
 		Student temp=new Student();
 		StudentOP stop=new StudentOP();

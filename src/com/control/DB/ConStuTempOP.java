@@ -74,11 +74,11 @@ public class ConStuTempOP {
 			stmt.execute("Update courseinfo set person=person+1 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		} 
 		return 90005;
-	}//插入新的选课记录
+	}//锟斤拷锟斤拷锟铰碉拷选锟轿硷拷录
 	public ArrayList<CouStuTemp> FindStuTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
@@ -95,11 +95,11 @@ public class ConStuTempOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		}  
 		return result;
-	}//发现选课记录（根据课程ID找学生）
+	}//锟斤拷锟斤拷选锟轿硷拷录锟斤拷锟斤拷锟捷课筹拷ID锟斤拷学锟斤拷锟斤拷
 	public ArrayList<CouStuTemp> FindCouTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
@@ -115,11 +115,10 @@ public class ConStuTempOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return result;
-	}//发现选课记录（根据课程学生找课）
+	}
 	public long DeleteConTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
@@ -148,11 +147,11 @@ public class ConStuTempOP {
 			stmt.execute("Update courseinfo set person=0 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
+			// TODO 锟皆讹拷锟斤拷锟缴碉拷 catch 锟斤拷
 			e.printStackTrace();
 		} 
 		return 90009;
-	}//删课所有学生
+	}
 	public long DeleteStuTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
@@ -182,11 +181,10 @@ public class ConStuTempOP {
 			stmt.execute("Delete from constutemp where SID="+constutemp.getSID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 90011;
-	}//删学生所有课
+	}
 	public CouStuTemp FindCouStuTemp(CouStuTemp constu){
 		CouStuTemp temp=new CouStuTemp();
 		try {
@@ -200,7 +198,6 @@ public class ConStuTempOP {
 			}else temp.setSID(90014);
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}  
 		return temp;
@@ -227,10 +224,9 @@ public class ConStuTempOP {
 					" and ord="+2+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
 		return 90013;
-	}//删某学生某课(某条选课记录)
+	}
 }
 
