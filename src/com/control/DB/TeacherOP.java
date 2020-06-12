@@ -111,7 +111,7 @@ public class TeacherOP {
 				return 20005;
 			}
 			ResultSet res2=stmt1.executeQuery("select * from departmentInfo where DID="+tea.getDID()+";");
-			if(res2.next()){
+			if(!res2.next()){
 				dbcon.CancleConnection();
 				return 20011;
 			}
