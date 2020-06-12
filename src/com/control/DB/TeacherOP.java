@@ -90,7 +90,9 @@ public class TeacherOP {
 				tea.setPID(res.getLong(6));
 				tea.setDID(res.getLong(7));
 			}else{
-				tea.setPID(20004);
+				tea.setPID(20002);
+				//TODO:xr
+				//confirm 原先为20004
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

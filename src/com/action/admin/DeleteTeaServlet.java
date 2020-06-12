@@ -13,10 +13,10 @@ import com.control.DB.TeacherOP;
 import com.model.javabean.Teacher;
 
 /**
- * Servlet implementation class UpdateTeaServlet
+ * Servlet implementation class DeleteTeaServlet
  */
-@WebServlet("/UpdateTeaServlet")
-public class UpdateTeaServlet extends HttpServlet {
+@WebServlet("/DeleteTeaServlet")
+public class DeleteTeaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,8 +26,8 @@ public class UpdateTeaServlet extends HttpServlet {
         {
             search(request, response);
         }
-        else if(method.equals("update")){
-            update(request, response);
+        else if(method.equals("delete")){
+            delete(request, response);
         }	
 	}
 	private void search(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
@@ -37,46 +37,33 @@ public class UpdateTeaServlet extends HttpServlet {
 		Teacher tea = new Teacher();
 		tea.setPID(pID);
 		Teacher result = teaOp.FindTeacher(tea);
-		if(result.getPID()==20005) {
+		if(result.getPID()==20002) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>alert('找不到该教师！');window.location.href='RootMenu.html'</script>");
 		}else {
-			request.setAttribute("result",result);
-			request.getRequestDispatcher("/UpdateTeaServlet.jsp").forward(request,response);
+			request.setAttribute("teaInfo",result);
+			request.getRequestDispatcher("/DeleteTeaServlet.jsp").forward(request,response);
 		}
     }
     
-    private  void update(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
+    private  void delete(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
     {
     	request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		if (name.equals("")) name = null;
 		long pID = Integer.parseInt(request.getParameter("PID"));
-		long idNumber = Integer.parseInt(request.getParameter("idNumber"));
-		long department = Integer.parseInt(request.getParameter("department"));
-		String status = request.getParameter("status");
-		if (status.equals("")) name = null;
-		//TODO(sjz):处理日期格式问题
-		//java.sql.Date birthday=java.sql.Date.valueOf(request.getParameter("birthday"));
-		//java.sql.Date gradDate=java.sql.Date.valueOf(request.getParameter("gradDate"));
-		String birthday = request.getParameter("birthday");
-		if (birthday.equals("")) name = null;
-		String sex = request.getParameter("sex");
-		if (sex.equals("")) name = null;
-		
-		Teacher tea = new Teacher(name, sex, birthday, idNumber, pID, department, status);
+		Teacher tea = new Teacher();
+		tea.setPID(pID);
 		TeacherOP teaOp=new TeacherOP();
-		long PID = teaOp.UpdateTeacher(tea);
+		long PID = teaOp.DeleteTeacher(tea);
 		String message = null;
-		if(PID==20005) {
-			  message = "更新教师信息失败！原因:教师信息不存在！;";
-		}else if(PID==20008) {
-			message = "更新教师信息失败！原因:教师信息不全！;";
-		}else if(PID==20011) {
-			message = "更新教师信息失败！原因:学院不存在！;";
-		}else if(PID==20006){
-			message = "更新教师信息成功！";
+		if(PID==20002) {
+			  message = "删除教师信息失败！原因:教师信息不存在！;";
+		}else if(PID==20009) {
+			message = "删除教师信息失败！原因:教师有授课信息！;";
+		}else if(PID==20010) {
+			message = "删除教师信息失败！原因:教师有授课资格！;";
+		}else if(PID==20003){
+			message = "删除教师信息成功！";
 		}
 
 		response.setContentType("text/html;charset=utf-8");
@@ -84,4 +71,5 @@ public class UpdateTeaServlet extends HttpServlet {
 		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
         
     }
+
 }
