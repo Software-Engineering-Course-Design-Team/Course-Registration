@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.control.DB.ConStuTempOP;
+import com.control.DB.CouStuOP;
 import com.control.DB.CouTimeOP;
 import com.control.DB.CourseOP;
 import com.control.DB.DepartOP;
@@ -19,6 +20,7 @@ import com.control.DB.TeacherOP;
 import com.model.javabean.DepInfo;
 import com.model.javabean.Student;
 import com.model.javabean.Teacher;
+import com.model.javabean.CouStu;
 import com.model.javabean.CouStuTemp;
 import com.model.javabean.CouTime;
 import com.model.javabean.Course;
@@ -99,14 +101,25 @@ public class StuCouServlet extends HttpServlet {
 				tt.setSID(SID);
 				tt=h.FindCouStuTemp(tt);
 				String tempstr="";
-				if(tt.getSID()==90014) {
-					tempstr="no";
-					s4.add(tempstr);
-				}else {
+				if(tt.getSID()!=90014) {
 					tempstr="yes";
 					s4.add(tempstr);
+				}else {
+					CouStu ttt=new CouStu();
+					ttt.setCID(i.getCID());
+					ttt.setSID(SID);
+					CouStuOP csop=new CouStuOP();
+					ttt=csop.FindCouStu(ttt);
+					if(ttt.getSID()!=60014) {
+						tempstr="yes1";
+						s4.add(tempstr);
+					}else {
+						tempstr="no";
+						s4.add(tempstr);
+					}
 				}
 			}
+			
 			request.setAttribute("Courseinfo", s);
 			request.setAttribute("CouTimeinfo",s2);
 			request.setAttribute("TeaNameinfo",s3);

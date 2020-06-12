@@ -92,10 +92,10 @@
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
 					<ul class="sub-menu" style="display:none">
-                        <li>
+					<li>
                             <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择所修课程
+                                查看可选课程
                             </a>
                         </li>
 						<li>
@@ -107,7 +107,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
+                    <a href="<%=request.getContextPath() +"/StudNoGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
@@ -124,9 +124,43 @@
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
 			<%
-            if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("1")){
+			if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("2")){
+			%>
+			<font size="3px">您提交的课程清单中，<%=(long)request.getAttribute("courseid")+(String)request.getAttribute("coursename")
+			%>人数已经达到10人，请您删除该课程或将其加入候选课程后再提交。
+			</font>
+			<br>
+			<br>
+			<form action="StudFindServlet" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="返回个人课表">
+    		</form>
+			<%
+			}else if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("1")){
             %>
-			现在不是选课时间，请在选课时间使用该操作！
+			现在不是选课时间，请在选课时间使用该操作。<br>
+			<form action="StuMenu。jsp" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="返回主页">
+    		</form>
+			<%
+            }else{
+			%>
+			<font size="3px">您提交的课程清单中，<%=(long)request.getAttribute("class1id")+(String)request.getAttribute("class1")
+			+"和"+(long)request.getAttribute("class2id")+(String)request.getAttribute("class2")%>存在时间冲突，请您解决该冲突后提交。
+			</font>
+			<br>
+			<br>
+			<form action="StudFindServlet" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="返回个人课表">
+             </form>
 			<%
             }
 			%>

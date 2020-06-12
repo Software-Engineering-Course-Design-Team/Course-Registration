@@ -70,15 +70,12 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Insert into constutemp values("+constutemp.getOrder()+","+constutemp.getSID()+","
 					+constutemp.getCID()+");");
-			if(constutemp.getOrder()==0)
-			stmt.execute("Update courseinfo set person=person+1 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		} 
 		return 90005;
-	}//�����µ�ѡ�μ�¼
+	}
 	public ArrayList<CouStuTemp> FindStuTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
@@ -95,17 +92,36 @@ public class ConStuTempOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}  
 		return result;
-	}//����ѡ�μ�¼�����ݿγ�ID��ѧ����
+	}
 	public ArrayList<CouStuTemp> FindCouTemp(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()+";");
+			while(res.next()){
+				CouStuTemp temp=new CouStuTemp();
+				temp.setOrder(res.getInt(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
+	public ArrayList<CouStuTemp> FindCouTempOrder(CouStuTemp constutemp){
+		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()
+			+" and ord=0;");
 			while(res.next()){
 				CouStuTemp temp=new CouStuTemp();
 				temp.setOrder(res.getInt(1));
@@ -144,10 +160,8 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Delete from constutemp where CID="
 					+constutemp.getCID()+";");
-			stmt.execute("Update courseinfo set person=0 where CID="+constutemp.getCID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		} 
 		return 90009;
@@ -175,8 +189,6 @@ public class ConStuTempOP {
 						+ "="+constutemp.getSID()+" and CID="+i+";");
 				res2.next();
 				int order=res2.getInt(1);
-				if(order==0)
-				stmt.execute("Update courseinfo set person=person-1 where CID="+i+";");
 			}
 			stmt.execute("Delete from constutemp where SID="+constutemp.getSID()+";");
 			dbcon.CancleConnection();
@@ -217,9 +229,7 @@ public class ConStuTempOP {
 			}
 			stmt.execute("Delete from constutemp where CID="+constutemp.getCID()
 			+" and SID="+constutemp.getSID()+";");
-			if(tp==0)
-			stmt.execute("Update courseinfo set person=person-1 where CID="+constutemp.getCID()+";");
-			else if(tp==1)
+			if(tp==1)
 			stmt.execute("Update constutemp set ord=1 where SID="+constutemp.getSID()+
 					" and ord="+2+";");
 			dbcon.CancleConnection();

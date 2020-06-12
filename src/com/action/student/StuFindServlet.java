@@ -109,10 +109,30 @@ public class StuFindServlet extends HttpServlet {
 				CouTime ct=new CouTime();
 				ct.setCID(i.getCID());
 				s2.add(ctop.FindCouTime(ct));
-				if(i.getOrder()==0)s4.add("必选课");
+				if(i.getOrder()==0)s4.add("已选择必选课");
 				else if(i.getOrder()==1)s4.add("第一候选课");
 				else s4.add("第二候选课");
 			}
+			
+			CouStuOP scop=new CouStuOP();
+			CouStu cs=new CouStu();
+			cs.setSID(SID);
+			ArrayList<CouStu> tempp=scop.FindCou(cs);
+			for(CouStu i:tempp) {
+				Course temp_c=new Course();
+				temp_c.setCID(i.getCID());
+				s1.add(cop.FindCourse(temp_c));
+				long pid=temp_c.getPID();
+				Teacher tea=new Teacher();
+				tea.setPID(pid);
+				tea=teaop.FindTeacher(tea);
+				s3.add(tea.getName());
+				CouTime ct=new CouTime();
+				ct.setCID(i.getCID());
+				s2.add(ctop.FindCouTime(ct));
+				s4.add("已注册必选课");
+			}
+			
 			request.setAttribute("Courseinfo", s1);
 			request.setAttribute("CouTimeinfo",s2);
 			request.setAttribute("TeaNameinfo",s3);

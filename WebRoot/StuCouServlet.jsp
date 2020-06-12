@@ -72,7 +72,18 @@
             alert("提示信息:：您的候选课已经选满2门！请尝试删除一门后再选！");
             window.event.returnValue = false;
         }
+        function confirmDelAll(){
+            if(!window.confirm("您确定要删除全部课程吗?（警告：此操作不可逆！包括注册和非注册课程）")){
+          	  window.event.returnValue = false;
+            }
+  		}
+        function confirmSubmitAll(){
+            if(!window.confirm("您确定要提交全部课程吗?")){
+          	  window.event.returnValue = false;
+            }
+  		}
         </script>
+        
         <%
   response.setHeader("Cache-Control","no-cache");
   response.setHeader("Pragma","no-cache");
@@ -115,7 +126,7 @@
                         <li>
                             <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择所修课程
+                                查看可选课程
                             </a>
                         </li>
 						<li>
@@ -127,7 +138,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
+                    <a href="<%=request.getContextPath() +"/StudNoGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
@@ -143,6 +154,21 @@
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
+            <form style="float:left;" action="StudDelServlet" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="hidden" name="CID" value="19999">
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:10px 13px;cursor: pointer;
+    border-radius:10px;" value="删除课程表" onclick="confirmDelAll()">
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		</form>
+     		<form action="StudCommitServlet" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="hidden" name="CID" value="19999">
+    		<input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:10px 13px;cursor: pointer;
+    border-radius:10px;" value="提交课程表" onclick="confirmCommitAll()">
+            </form>
            <table class="layui-table">
                 <thead>
                     <tr>
@@ -165,7 +191,7 @@
                             上课时间地点
                         </th>
                         <th>
-                            已选人数
+                            已注册人数
                         </th>
                         <th>
                             操作
@@ -216,9 +242,14 @@
                         </th>
                         <th>
                         <%
-                            if(e3.next().equals("yes")){
+                            String str= String.valueOf(e3.next());
+                            if(str.equals("yes")){
                         %>
-                        	已选择该课程
+                        	您已选择该课程
+                        <%
+                            }else if(str.equals("yes1")){	
+                        %>
+                        您已注册该课程
                         <%
                             }else if(temp2.getPerson()<10){
                         %>

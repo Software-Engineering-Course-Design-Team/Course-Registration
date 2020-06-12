@@ -92,10 +92,10 @@
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
 					<ul class="sub-menu" style="display:none">
-                        <li>
+					<li>
                             <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择所修课程
+                                查看可选课程
                             </a>
                         </li>
 						<li>
@@ -107,7 +107,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
+                    <a href="<%=request.getContextPath() +"/StudNoGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
