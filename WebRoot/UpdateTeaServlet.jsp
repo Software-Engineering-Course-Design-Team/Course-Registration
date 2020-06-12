@@ -1,4 +1,12 @@
 <!doctype html>
+<%@page import="com.model.javabean.Teacher"%>
+<%@page import="com.model.javabean.Student"%>
+<%@page import="com.model.javabean.DepInfo"%>
+<%@page import="com.control.DB.DepartOP"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+		 pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,java.io.*,com.model.*,java.util.ArrayList.*"%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +16,7 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <link rel="stylesheet" href="./lib/layui/css/layui.css" media="all">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
@@ -53,7 +62,7 @@
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="RootMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
@@ -77,25 +86,25 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="./AddStuServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="./FindStuServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查询学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="./UpdateStuServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 修改学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="./DeleteStuServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除学生信息
                             </a>
@@ -155,25 +164,25 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="./AddTeaServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="./FindTeaServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查询教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="./UpdateTeaServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 修改教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="./DeleteTeaServlet.jsp">
+                            <a href="javascript:;">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除教授信息
                             </a>
@@ -315,21 +324,114 @@
         <!-- 右侧主体开始 -->
         <div class="page-content">
           <div class="content">
+            <!-- 右侧内容框架，更改从这里开始 -->
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
-            <fieldset class="layui-elem-field layui-field-title site-title">
-              <legend><a name="default">吉林大学介绍</a></legend>
-            </fieldset>
-			吉林大学（Jilin University）简称“吉大”，位于吉林省省会长春，是教育部直属、中央直管副部级建制的全国重点大学，国家“双一流”、“211工程”、“985工程”重点建设，入选珠峰计划、2011计划、111计划、卓越法律人才教育培养计划、卓越工程师教育培养计划、卓越医生教育培养计划、卓越农林人才教育培养计划、国家建设高水平大学公派研究生项目、国家大学生创新性实验计划、新工科研究与实践项目、国家级大学生创新创业训练计划、国家创新人才培养示范基地、全国深化创新创业教育改革示范高校、中国政府奖学金来华留学生接收院校，首批建立研究生院的22所大学之一，亚太国际教育协会、21世纪学术联盟、中俄交通大学联盟、粤港澳大湾区物流与供应链创新联盟、医学双一流建设联盟成员。
-吉林大学始建于1946年，1952年经院系调整成为建国后中国共产党亲手创建的第一所综合性大学，1960年被国务院列为国家重点大学。2000年，原吉林大学、吉林工业大学、白求恩医科大学、长春科技大学、长春邮电学院合并组建新吉林大学。2004年，原中国人民解放军军需大学转隶并入。
-截至2019年6月，学校6个校区7个校园占地611万多平方米，建筑面积276万平方米；下设46个学院；教师6624人，在校全日制学生72376人；本科专业139个，一级学科硕士点60个，一级学科博士学位授权点48个，博士后科研流动站42个；一级学科国家重点学科4个（覆盖17个二级学科），二级学科国家重点学科15个，国家重点（培育）学科4个。
+            <form class="layui-form" action="UpdateTeaServlet" method="post" name="myForm">
+            	 <div class="layui-form-item">
+                    <label for="L_PID" class="layui-form-label">
+                        <span class="x-red">*</span>教师号
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_PID" name="PID" required="" lay-verify="PID"
+                        autocomplete="off" class="layui-input" value="${result.getPID()}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_name" class="layui-form-label">
+                        <span class="x-red">*</span>姓名
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_name" name="name" lay-verify="name"
+                        autocomplete="off" class="layui-input" value="${result.getName()}">
+                    </div>
+                </div>
+				<div class="layui-form-item">
+                    <label for="L_idNumber" class="layui-form-label">
+                        <span class="x-red">*</span>身份证号
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_idNumber" name="idNumber" lay-verify="idNumber"
+                        autocomplete="off" class="layui-input" value="${result.getIdcard()}">
+                    </div>
+                </div>
+				<div class="layui-form-item">
+                    <label for="L_sex" class="layui-form-label">
+                        <span class="x-red">*</span>性别
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="L_sex" name="sex" lay-verify="sex"
+                        autocomplete="off" class="layui-input" value="${result.getSex()}">
+                    </div>
+                </div>
+				<div class="layui-form-item">
+                    <label for="L_birthday" class="layui-form-label">
+                        <span class="x-red">*</span>生日
+                    </label>
+                    <div class="layui-input-inline"> 
+					  <input type="text" class="layui-input" id="L_birthday" name="birthday" value="${result.getBirthday()}">
+					</div>
+                    <script src="./lib/layui/layui.js"></script>
+					<script>
+						layui.use('laydate', function(){
+						var laydate = layui.laydate;
+						laydate.render({
+						    elem: '#L_birthday' //指定元素
+						    ,format: 'yyyy-MM-dd'
+						    ,trigger: 'click'
+						  });
+						});
+					</script>
+                </div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">*学院</label>
+				    <div class="layui-input-block" style="width: 150px;">
+				        <%@ page import="com.*"%>
+				        <% DepartOP depOp= new DepartOP();
+				        ArrayList<DepInfo> depList = depOp.FindAllDep();
+				       %>
+				        <select name="department">
+				        <option value="">请选择一个学院</option>
+				        <%@ page import="com.*"%>
+				        <%Teacher tea = (Teacher)request.getAttribute("result"); %>
+						<% for(DepInfo item:depList){
+						     %>
+						         <option value=<%=item.getDID()%> <%if (tea != null && tea.getDID()==item.getDID()) { %> selected<% } %>><%=item.getName()%></option>
+						    <%
+						}
+						%>
+				      </select>
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">*状态</label>
+				    <div class="layui-input-block" style="width: 150px;">
+				      <select name="status" >
+				        <option value="">请选择一个状态</option>
+				        <option value="教授"<%if (tea != null && tea.getStatus().equals("教授")) { %> selected<% } %>>教授</option>
+				        <option value="副教授"<%if (tea != null && tea.getStatus().equals("副教授")) { %> selected<% } %>>副教授</option>
+				        <option value="讲师"<%if (tea != null && tea.getStatus().equals("讲师")) { %> selected<% } %>>讲师</option>
+				      </select>
+				    </div>
+				</div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button class="btn btn-warning pull-right" lay-submit name="action"  type="submit"
+                    value="search">
+                        查找教师
+                    </button>
+                    <button class="btn btn-warning pull-right" lay-submit name="action"  type="submit"
+                    value="update">
+                        更新教师信息
+                    </button>
+                </div>
+            </form>
             <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
-        <!-- 右侧主体结束 -->
-    </div>
-    <!-- 中部结束 -->
+        </div>
     <!-- 底部开始 -->
     <div class="footer">
         <div class="copyright">Copyright ©2020 XiaRui ZhangShiyao ShiJizhong WangHaiyan FengShenghui All Rights Reserved. </div>  

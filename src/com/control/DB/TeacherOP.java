@@ -90,7 +90,9 @@ public class TeacherOP {
 				tea.setPID(res.getLong(6));
 				tea.setDID(res.getLong(7));
 			}else{
-				tea.setPID(20004);
+				tea.setPID(20002);
+				//TODO:xr
+				//confirm 原先为20004
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,7 +113,7 @@ public class TeacherOP {
 				return 20005;
 			}
 			ResultSet res2=stmt1.executeQuery("select * from departmentInfo where DID="+tea.getDID()+";");
-			if(res2.next()){
+			if(!res2.next()){
 				dbcon.CancleConnection();
 				return 20011;
 			}

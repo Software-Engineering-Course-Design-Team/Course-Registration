@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.control.DB.StudentOP;
-import com.model.javabean.Student;
+import com.control.DB.TeacherOP;
+import com.model.javabean.Teacher;
 
 /**
- * Servlet implementation class UpdateStuServlet
+ * Servlet implementation class UpdateTeaServlet
  */
-@WebServlet("/UpdateStuServlet")
-public class UpdateStuServlet extends HttpServlet {
+@WebServlet("/UpdateTeaServlet")
+public class UpdateTeaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,18 +32,18 @@ public class UpdateStuServlet extends HttpServlet {
 	}
 	private void search(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
     {
-		StudentOP stuOp=new StudentOP();
-		long sID = Integer.parseInt(request.getParameter("SID"));
-		Student stu = new Student();
-		stu.setSID(sID);
-		Student result = stuOp.FindStudent(stu);
-		if(result.getSID()==40009) {
+		TeacherOP teaOp=new TeacherOP();
+		long pID = Integer.parseInt(request.getParameter("PID"));
+		Teacher tea = new Teacher();
+		tea.setPID(pID);
+		Teacher result = teaOp.FindTeacher(tea);
+		if(result.getPID()==20005) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script>alert('找不到该学生！');window.location.href='RootMenu.html'</script>");
+			out.print("<script>alert('找不到该教师！');window.location.href='RootMenu.html'</script>");
 		}else {
 			request.setAttribute("result",result);
-			request.getRequestDispatcher("/UpdateStuServlet.jsp").forward(request,response);
+			request.getRequestDispatcher("/UpdateTeaServlet.jsp").forward(request,response);
 		}
     }
     
@@ -52,7 +52,7 @@ public class UpdateStuServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		if (name.equals("")) name = null;
-		long sID = Integer.parseInt(request.getParameter("SID"));
+		long pID = Integer.parseInt(request.getParameter("PID"));
 		long idNumber = Integer.parseInt(request.getParameter("idNumber"));
 		long department = Integer.parseInt(request.getParameter("department"));
 		String status = request.getParameter("status");
@@ -62,23 +62,21 @@ public class UpdateStuServlet extends HttpServlet {
 		//java.sql.Date gradDate=java.sql.Date.valueOf(request.getParameter("gradDate"));
 		String birthday = request.getParameter("birthday");
 		if (birthday.equals("")) name = null;
-		String gradDate = request.getParameter("gradDate");
-		if (gradDate.equals("")) name = null;
 		String sex = request.getParameter("sex");
 		if (sex.equals("")) name = null;
 		
-		Student stu = new Student(name, sex, gradDate, birthday, idNumber, sID, department, status);
-		StudentOP stuOp=new StudentOP();
-		long SID = stuOp.UpdateStudent(stu);
+		Teacher tea = new Teacher(name, sex, birthday, idNumber, pID, department, status);
+		TeacherOP teaOp=new TeacherOP();
+		long PID = teaOp.UpdateTeacher(tea);
 		String message = null;
-		if(SID==40011) {
-			  message = "更新学生信息失败！原因:学生信息不存在！;";
-		}else if(SID==40012) {
-			message = "更新学生信息失败！原因:学生信息不全！;";
-		}else if(SID==40013) {
-			message = "更新学生信息失败！原因:学院不存在！;";
-		}else if(SID==40014){
-			message = "更新学生信息成功！";
+		if(PID==20005) {
+			  message = "更新教师信息失败！原因:教师信息不存在！;";
+		}else if(PID==20008) {
+			message = "更新教师信息失败！原因:教师信息不全！;";
+		}else if(PID==20011) {
+			message = "更新教师信息失败！原因:学院不存在！;";
+		}else if(PID==20006){
+			message = "更新教师信息成功！";
 		}
 
 		response.setContentType("text/html;charset=utf-8");
