@@ -77,6 +77,15 @@ public class StuCouServlet extends HttpServlet {
 				if(ttttt.getOrder()==0)coursenum1++;
 				else coursenum2++;
 			}
+			
+			CouStu tttemp=new CouStu();
+			CouStuOP ccss=new CouStuOP();
+			tttemp.setSID(SID);
+			ArrayList<CouStu> ccsst=ccss.FindCou(tttemp);
+			for(CouStu ttt:ccsst) {
+				coursenum1++;
+			}
+			
 			request.setAttribute("coursenum1", coursenum1);
 			System.out.println(coursenum1);
 			request.setAttribute("coursenum2",coursenum2);
