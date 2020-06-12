@@ -20,15 +20,20 @@ public class AddStuServlet extends HttpServlet {
             throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
+		if (name.equals("")) name = null;
 		long idNumber = Integer.parseInt(request.getParameter("idNumber"));
 		long department = Integer.parseInt(request.getParameter("department"));
 		String status = request.getParameter("status");
+		if (status.equals("")) name = null;
 		//TODO(sjz):处理日期格式问题
 		//java.sql.Date birthday=java.sql.Date.valueOf(request.getParameter("birthday"));
 		//java.sql.Date gradDate=java.sql.Date.valueOf(request.getParameter("gradDate"));
 		String birthday = request.getParameter("birthday");
+		if (birthday.equals("")) name = null;
 		String gradDate = request.getParameter("gradDate");
+		if (gradDate.equals("")) name = null;
 		String sex = request.getParameter("sex");
+		if (sex.equals("")) name = null;
 		
 		Student stu = new Student(name, sex, gradDate, birthday, idNumber, 0, department, status);
 		StudentOP stuOp=new StudentOP();
