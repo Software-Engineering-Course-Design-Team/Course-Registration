@@ -126,12 +126,12 @@
             <form class="layui-form" action="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>" method="post">
             <div style="float:left" class="layui-form-item">
             	<label class="layui-form-label">*选择学期</label>
-            	<input type="hidden" name="ATerm" value=<%=request.getParameter("ATerm") %>>
+            	<input type="hidden" name="ATerm" value=<%=request.getAttribute("ATerm") %>>
             	<div class="layui-input-block" style="width:150px;">
             	<select name="Term">
             		<option value=0 selected>全部</option>
             		<%
-            		    int s=Integer.parseInt(request.getParameter("ATerm"));
+            		    int s=(int)request.getAttribute("ATerm");
             			for(int i=1;i<=s;i++){
             		%>
             		<option value=<%=i%>>第<%=i%>学期</option>
@@ -143,10 +143,11 @@
             </div>
             <br>
             &nbsp;&nbsp;
-            <input type="submit" style="background: transparent;border:none;
+            	 <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
     border-radius:10px;" value="查询">
             </form>
+            
            <table class="layui-table">
                 <thead>
                     <tr>
@@ -164,35 +165,6 @@
                         </th>
                     </tr>
                 </thead>
-				<tbody>
-				  <%
-				  if(request.getAttribute("Gradeinfo")!=null){
-					  ArrayList<CouStu> temp=(ArrayList<CouStu>)request.getAttribute("Gradeinfo");
-					  ArrayList<Course> temp1=(ArrayList<Course>)request.getAttribute("Courseinfo");
-					  Iterator e = temp.iterator();	
-					  Iterator e1 = temp1.iterator();	
-					  while(e.hasNext()){
-						   Course temp2=(Course)e1.next();
-						%>
-						<tr>
-						<th>
-                            <%=temp2.getCID()%>
-                        </th>
-                        <th>
-                            <%=temp2.getName()%>
-                        </th>
-                        <th>
-                            <%=temp2.getTerm()%>
-                        </th>
-                         <th>
-                            <%=((CouStu)e.next()).getGrade()%>
-                        </th>
-                    </tr>
-					<%
-					}
-				  }
-					%>
-				</tbody>
             </table>
            </div>
         </div>

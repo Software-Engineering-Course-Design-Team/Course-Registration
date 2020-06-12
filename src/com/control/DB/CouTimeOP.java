@@ -11,6 +11,32 @@ import com.model.javabean.CouTime;
 
 public class CouTimeOP {
 	JDBC dbcon=new JDBC();
+	public boolean FindConflict(int CID1,int CID2){
+		try {
+			CouTime a=new CouTime();
+			a.setCID(CID1);
+			CouTime b=new CouTime();
+			b.setCID(CID2);
+			CouTimeOP ctop=new CouTimeOP();
+			ArrayList<CouTime> Time1=ctop.FindCouTime(a);
+			for(CouTime i:Time1) {
+				dbcon.getConnection();
+				Statement stmt=dbcon.conn.createStatement();
+				ResultSet res2=stmt.executeQuery("select * from coutimeinfo where"
+						+" WeekDay="+i.getWeekDay()
+						+" and CID="+CID2
+						+" and ((BeginC>="+i.getBeginC()
+						+" and BeginC<="+i.getEndC()+")"
+						+" or (EndC>="+i.getBeginC()
+						+" and EndC<="+i.getEndC()+"));");
+				if(res2.next())return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	public long InsertCouTime(CouTime coutime){
 		if(coutime.getAddress()==null||coutime.getBeginC()==0||coutime.getCID()==0
 	          ||coutime.getEndC()==0||coutime.getWeekDay()==0)return 50001;

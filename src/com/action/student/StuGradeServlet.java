@@ -35,16 +35,21 @@ public class StuGradeServlet extends HttpServlet {
 			return;
 		}
 		long CID=Integer.parseInt(request.getParameter("username"));
+		int term=Integer.parseInt(request.getParameter("Term"));
 		CouStuOP csop=new CouStuOP();
 		CourseOP cop=new CourseOP();
 		CouStu temp=new CouStu();
 		temp.setSID(CID);
-		ArrayList<CouStu> s=csop.FindCou(temp);
+		ArrayList<CouStu> s=new ArrayList<CouStu>();
+		if(term==0)s=csop.FindCou(temp);
+		else {
+			s=csop.FindCouTerm(temp, term);
+		}
 		ArrayList<Course> s1=new ArrayList<Course>();
 		for(CouStu i:s) {
 			if(!(i.getGrade().contentEquals("A")||i.getGrade().contentEquals("B")
 					||i.getGrade().contentEquals("C")||i.getGrade().contentEquals("D")
-					||i.getGrade().contentEquals("E")||i.getGrade().contentEquals("F")))
+					||i.getGrade().contentEquals("I")||i.getGrade().contentEquals("F")))
 				i.setGrade("未公布成绩");
 			Course temp_c=new Course();
 			temp_c.setCID(i.getCID());

@@ -32,6 +32,26 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>StuCommitServlet</servlet-name>
+    <servlet-class>com.action.student.StuCommitServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuCommitServlet</servlet-name>
+    <url-pattern>/StudCommitServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StuNoGradeServlet</servlet-name>
+    <servlet-class>com.action.student.StuNoGradeServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuNoGradeServlet</servlet-name>
+    <url-pattern>/StudNoGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>StuFindServlet</servlet-name>
     <servlet-class>com.action.student.StuFindServlet</servlet-class>
   </servlet>

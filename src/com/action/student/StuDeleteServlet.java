@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.control.DB.ConStuTempOP;
+import com.control.DB.CouStuOP;
+import com.model.javabean.CouStu;
 import com.model.javabean.CouStuTemp;
 
 @WebServlet("/StuDeleteServlet")
@@ -35,10 +37,20 @@ public class StuDeleteServlet extends HttpServlet {
 		if(CID!=19999) {
 			cst.setCID(CID);
 			cst.setSID(username);
-			cstop.DeleteConStuTemp(cst);
+			if(cstop.DeleteConStuTemp(cst)==90012) {
+				CouStu sc=new CouStu();
+				CouStuOP csop=new CouStuOP();
+				sc.setSID(username);
+				sc.setCID(CID);
+				csop.DeleteCouStu(sc);
+			};
 		}else {
+			CouStu sc=new CouStu();
+			CouStuOP csop=new CouStuOP();
 			cst.setSID(username);
+			sc.setSID(username);
 			cstop.DeleteStuTemp(cst);
+			csop.DeleteStu(sc);
 		}
 		request.getRequestDispatcher("/StudFindServlet").forward(request,response);
 	}
