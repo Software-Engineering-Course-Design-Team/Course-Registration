@@ -121,7 +121,6 @@
     <url-pattern>/TeaListServlet</url-pattern>
   </servlet-mapping>
   
-
   <servlet>
     <servlet-name>teaqualiServlet</servlet-name>
     <servlet-class>com.action.teacher.TeaGetQualiList</servlet-class>
@@ -169,8 +168,9 @@
   <servlet-mapping>
     <servlet-name>changegradeServlet</servlet-name>
     <url-pattern>/ChangeGradeServlet</url-pattern>
-
-    <servlet>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>AddStuServlet</servlet-name>
     <servlet-class>com.action.admin.AddStuServlet</servlet-class>
   </servlet>
@@ -180,7 +180,6 @@
     <url-pattern>/AddStudServlet</url-pattern>
 
   </servlet-mapping>
-  
   <welcome-file-list>
   	<welcome-file>login.html</welcome-file>
     <welcome-file>index.html</welcome-file>
