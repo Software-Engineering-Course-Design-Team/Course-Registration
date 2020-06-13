@@ -28,7 +28,7 @@ public class ChangePassword extends HttpServlet {
 			request.setAttribute("info", "当前未登录");
 			switch(LoginCheckServlet.logincount.getIdentity())
 			{
-			case 0:break;
+			case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
 			case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
 					break;
 				
@@ -48,7 +48,7 @@ public class ChangePassword extends HttpServlet {
 				request.setAttribute("info", "输入的原密码错误！");
 				switch(LoginCheckServlet.logincount.getIdentity())
 				{
-				case 0:break;
+				case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
 				case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
 						break;
 					
@@ -67,7 +67,7 @@ public class ChangePassword extends HttpServlet {
 						request.setAttribute("info", "密码长度不可小于6位！");
 						switch(LoginCheckServlet.logincount.getIdentity())
 						{
-						case 0:break;
+						case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
 						case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
 								break;
 							
@@ -81,7 +81,7 @@ public class ChangePassword extends HttpServlet {
 						request.setAttribute("info", "密码长度不可大于16位！");
 						switch(LoginCheckServlet.logincount.getIdentity())
 						{
-						case 0:break;
+						case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
 						case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
 								break;
 							
@@ -97,7 +97,7 @@ public class ChangePassword extends HttpServlet {
 						request.setAttribute("option", "changepass");
 						switch(LoginCheckServlet.logincount.getIdentity())
 						{
-						case 0:break;
+						case 0:request.getRequestDispatcher("/AdminInfo.jsp").forward(request,response);break;
 						case 1:request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 								break;
 							
@@ -113,7 +113,7 @@ public class ChangePassword extends HttpServlet {
 					request.setAttribute("info", "两次密码不一致！");
 					switch(LoginCheckServlet.logincount.getIdentity())
 					{
-					case 0:break;
+					case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
 					case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
 							break;
 						

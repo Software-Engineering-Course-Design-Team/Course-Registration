@@ -85,5 +85,5 @@ public class UpdateStuServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
         
-}
+    }
 }

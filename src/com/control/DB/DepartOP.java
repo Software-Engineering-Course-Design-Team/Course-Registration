@@ -18,7 +18,7 @@ public class DepartOP {
 			if(dep.getName()!=null){
 				dbcon.getConnection();
 				String sql="Insert into departmentInfo values('"+dep.getName()
-					+"',0,NULL);";
+					+"',NULL,0,NULL);";
 				java.sql.PreparedStatement ps=dbcon.conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				ps.executeUpdate();
 				ResultSet rs=ps.getGeneratedKeys();
@@ -46,17 +46,23 @@ public class DepartOP {
 				return 10003;
 			}
 			ResultSet res2=stmt1.executeQuery("select * from courseinfo where DID="+dep.getDID()+";");
-			if(!res2.next()){
+			if(res2.next()){
+				//TODO:xr
+				//confirm 原先有！
 				dbcon.CancleConnection();
 				return 10008;
 			}
 			ResultSet res3=stmt1.executeQuery("select * from stuinfo where DID="+dep.getDID()+";");
-			if(!res3.next()){
+			if(res3.next()){
+				//TODO:xr
+				//confirm 原先有！
 				dbcon.CancleConnection();
 				return 10009;
 			}
 			ResultSet res4=stmt1.executeQuery("select * from profinfo where DID="+dep.getDID()+";");
-			if(!res4.next()){
+			if(res4.next()){
+				//TODO:xr
+				//confirm 原先有！
 				dbcon.CancleConnection();
 				return 10010;
 			}
@@ -73,7 +79,12 @@ public class DepartOP {
 				dbcon.getConnection();
 				Statement stmt1=dbcon.conn.createStatement();
 				ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+
-						dep.getDID()+" and Name='"+dep.getName()+"';");
+						dep.getDID()+";");
+				//TODO:xr
+				//confirm 
+				//原版:
+				//ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+
+				//		dep.getDID()+" and Name='"+dep.getName()+"';");
 				if(!res.next()){
 					dbcon.CancleConnection();
 					return 10002;
