@@ -79,7 +79,12 @@ public class DepartOP {
 				dbcon.getConnection();
 				Statement stmt1=dbcon.conn.createStatement();
 				ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+
-						dep.getDID()+" and Name='"+dep.getName()+"';");
+						dep.getDID()+";");
+				//TODO:xr
+				//confirm 
+				//原版:
+				//ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+
+				//		dep.getDID()+" and Name='"+dep.getName()+"';");
 				if(!res.next()){
 					dbcon.CancleConnection();
 					return 10002;
