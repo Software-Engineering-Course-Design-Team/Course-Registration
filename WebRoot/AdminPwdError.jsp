@@ -1,65 +1,24 @@
-<!doctype html>
-<%@page import="com.model.javabean.Student"%>
-<%@page import="com.model.javabean.DepInfo"%>
-<%@page import="com.control.DB.DepartOP"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-		 pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,java.io.*,com.model.*,java.util.ArrayList.*"%>
-
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page import="java.sql.*,java.util.*,java.io.* "%>
+<% request.setCharacterEncoding("UTF-8");
+   String information=(String)request.getAttribute("info");%>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>欢迎使用课程注册系统</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>欢迎使用课程注册系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+	<link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
-    <link rel="stylesheet" href="./lib/layui/css/layui.css" media="all">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script language="JavaScript">
-            function startTime()   
-            {   
-                var today=new Date();//定义日期对象   
-                var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年    
-                var MM = today.getMonth()+1;//通过日期对象的getMonth()方法返回年    
-                var dd = today.getDate();//通过日期对象的getDate()方法返回年     
-                var hh=today.getHours();//通过日期对象的getHours方法返回小时   
-                var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
-                var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒   
-                // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09   
-                MM=checkTime(MM);
-                dd=checkTime(dd);
-                mm=checkTime(mm);   
-                ss=checkTime(ss);    
-                var day; //用于保存星期（getDay()方法得到星期编号）
-                if(today.getDay()==0)   day   =   "星期日 " 
-                if(today.getDay()==1)   day   =   "星期一 " 
-                if(today.getDay()==2)   day   =   "星期二 " 
-                if(today.getDay()==3)   day   =   "星期三 " 
-                if(today.getDay()==4)   day   =   "星期四 " 
-                if(today.getDay()==5)   day   =   "星期五 " 
-                if(today.getDay()==6)   day   =   "星期六 " 
-                if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
-                if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
-                if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与阅读为伴";				
-                setTimeout('startTime()',1000);//每一秒中重新加载startTime()方法 
-            }   
-
-            function checkTime(i)   
-            {   
-                if (i<10){
-                    i="0" + i;
-                }   
-                  return i;
-            }  
-        </script>
+	
 </head>
-<body onload="startTime()"> 
-   <!-- 顶部开始 -->
+<body >
+    <!-- 顶部开始 -->
     <div class="container">
         <div class="logo"><a href="RootMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
@@ -72,6 +31,7 @@
             </dl>
         </ul>
     </div>
+    <!-- 顶部结束 -->
     <!-- 中部开始 -->
     <div class="wrapper">
 	<div class="left-nav">
@@ -304,44 +264,53 @@
           <div class="content">
             <!-- 右侧内容框架，更改从这里开始 -->
             <blockquote class="layui-elem-quote">
-                欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
+                <%=information%>
             </blockquote>
-            <form class="layui-form" action="UpdateDepServlet" method="post" name="myForm">
-            	 <div class="layui-form-item">
-                    <label for="L_SID" class="layui-form-label">
-                        <span class="x-red">*</span>学院号
+            <form class="layui-form" action="ChangePassword" method="post">
+			   
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                        <span class="x-red">*</span>旧密码
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_DID" name="DID" required="" lay-verify="DID"
-                        autocomplete="off" class="layui-input" value="${result.getDID()}">
+                        <input type="password" id="L_repass" name="oldpass" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="L_name" class="layui-form-label">
-                        <span class="x-red">*</span>学院名
+                    <label for="L_pass" class="layui-form-label">
+                        <span class="x-red">*</span>新密码
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_name" name="name" lay-verify="name"
-                        autocomplete="off" class="layui-input" value="${result.getName()}">
+                        <input type="password" id="L_pass" name="newpass" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        6到16个字符
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                        <span class="x-red">*</span>确认密码
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="L_repass" name="repass" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label">
                     </label>
-                    <button class="btn btn-warning pull-right" lay-submit name="action"  type="submit"
-                    value="search">
-                        查找学院
-                    </button>
-                    <button class="btn btn-warning pull-right" lay-submit name="action"  type="submit"
-                    value="update">
-                        更新学院信息
+                    <button  class="layui-btn" lay-filter="save" lay-submit="">
+                        确定
                     </button>
                 </div>
             </form>
-            <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
-        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
     <!-- 底部开始 -->
     <div class="footer">
         <div class="copyright">Copyright ©2020 XiaRui ZhangShiyao ShiJizhong WangHaiyan FengShenghui All Rights Reserved. </div>  
@@ -351,5 +320,7 @@
 		 
     </div>
     <!-- 底部结束 -->
+
 </body>
+
 </html>
