@@ -1,7 +1,8 @@
-package com.teacher.action;
+package com.action.teacher;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,9 +35,12 @@ public class TeaGetCrsList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		/*String referer=request.getHeader("referer");
+		String referer=request.getHeader("referer");
 		String nativeServerName=request.getServerName();
-		System.out.println(nativeServerName);
+		
+		int option=Integer.parseInt(request.getParameter("option"));
+		System.out.println("option="+option);
+		/*System.out.println(nativeServerName);
 		if(!nativeServerName.equals("localhost:8080"))
 		{*/
 		if(LoginCheckServlet.logincount!=null)
@@ -45,8 +49,15 @@ public class TeaGetCrsList extends HttpServlet {
 			Course cs=new Course();
 			cs.setPID(LoginCheckServlet.logincount.getID());
 			ArrayList<Course> crs=crsop.FindTeaCou(cs);
+			Calendar date = Calendar.getInstance();
+			int month = date.get(Calendar.MONTH);
+			int xueqi=1;
+			if(month>6)
+				xueqi=0;
+			request.setAttribute("option", option);
 			request.setAttribute("teacrslist", crs);
 			request.getRequestDispatcher("/TeaCrsList.jsp").forward(request,response);
+			
 		}
 		else
 		{

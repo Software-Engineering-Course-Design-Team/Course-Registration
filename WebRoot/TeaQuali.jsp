@@ -108,33 +108,65 @@
                         <th>
                        课程名     
                         </th>
+                        
                         <th>
-                            开始周
+                            开设学期
                         </th>
-                        <th>
-                            结束周
+                        
+             <%  if((request.getAttribute("ablecou")!=null)&&(request.getAttribute("unablecou")!=null)&&(request.getAttribute("option")!=null))
+				  {
+					  ArrayList<Course> able=(ArrayList<Course>)request.getAttribute("ablecou");
+					  ArrayList<Course> unable=(ArrayList<Course>)request.getAttribute("unablecou");
+					  int option=(int)request.getAttribute("option");
+					  if(option==1){
+						  %>
+						  <th>
+                            操作
                         </th>
-                        <th>
-                            已选课人数
+						  <%
+					  }
+					  else
+					  {
+						  %>
+						  <th>
+                            状态
                         </th>
-                        <%
-                        if((request.getAttribute("teacrslist")!=null)&&(request.getAttribute("option")!=null))
-      				  {
-      					  ArrayList<Course> crs=(ArrayList<Course>)request.getAttribute("teacrslist");
-      					  int option=(int)request.getAttribute("option");
-      					  if (option!=1)
-                        	{%>
-                        	<th>
-                        	操作
-                        	</th>
-                        	<%} %>
+						  <%}
+					  %>
                     </tr>
                 </thead>
 				<tbody>
-				  <%for(int i=0;i<crs.size();i++){
-						Course c=crs.get(i);
-						String CID=String.valueOf(c.getCID());
-						String cName=c.getName();
+				  <%
+				  
+				  
+					for(int i=0;i<able.size();i++){
+						Course c=able.get(i);
+						String term="";
+						String stauts="";
+						int cstauts;
+						if(c.getTerm()%2==0)
+						{
+							term="第1学期";
+						
+						}
+						else
+							term="第2学期";
+						if(c.getPID()==0)
+						{
+							stauts="可教授";
+							cstauts=1;
+						}
+						else if(c.getPID()==LoginCheckServlet.logincount.getID())
+						{
+							stauts="已选择授课";
+							cstauts=2;
+						}
+						else
+						{
+							stauts="已由其他教师授课";
+							cstauts=3;
+						}
+						
 						%>
 						<tr>
                         <th>
@@ -143,57 +175,91 @@
                         <th>
                             <%=c.getName()%>
                         </th>
+                        
                         <th>
-                            <%=String.valueOf(c.getBeginweek())%>
+                            <%=term%>
                         </th>
-                        <th>
-                            <%=String.valueOf(c.getEndWeek())%>
-                        </th>
-                        <th>
-                            <%=String.valueOf(c.getPerson())%>
-                        </th>
+                        
                         <%
-				  if (option==2)
-                        	{%>
-                        	<th>
-                        	<form action="GetStuListServlet" method="post">
-                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
-                        	<input type="hidden" name="option" value=<%=option%>>
-                        	<input type="submit" name=""style="background: transparent;border:none;
+				  if (option==1&&(cstauts!=3))
+                  {
+                  if(cstauts==1){%>
+                        <th>
+                       	<form action="TeaChooseCouServlet" method="post">
+                       	<input type="hidden" name="CID" value=<%=c.getCID()%>>
+                       	<input type="hidden" name="CName" value=<%=c.getName()%>>
+                       	<input type="hidden" name="option" value=<%=cstauts%>>
+                       	<input type="submit" name=""style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;"  value="获取">
+    border-radius:10px;"  value="选课">
                         	</form>
                         	</th>
-                        	<%}%> 
-                        	<%
-				  if (option==3)
-                        	{%>
-                        	<th>
-                        	<form action="GetStuListServlet?CID=<%=c.getCID()%>&option=3" method="post">
-                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
-                        	<input type="hidden" name="option" value=<%=option%>>
-                        	<input type="submit" name=""style="background: transparent;border:none;
-    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;"  value="录入">
-                        	</form>
-                        	</th>
-                        	<%}%> 
-                        <%
-				  if (option==4)
-                        	{%>
-                        	<th>
-                        	<form action="GetStuListServlet?option=4" method="post">
-                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
-                        	<input type="hidden" name="option" value=<%=option%>>
-                        	<input type="submit" name=""style="background: transparent;border:none;
-    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;"  value="查看">
-                        	</form>
-                        	</th>
-                        	<%}%> 
+                        	<%}
+                  else{%>
+                  <th>
+                 	<form action="TeaChooseCouServlet" method="post">
+                 	<input type="hidden" name="CID" value=<%=c.getCID()%>>
+                 	<input type="hidden" name="CName" value=<%=c.getName()%>>
+                       	<input type="hidden" name="option" value=<%=cstauts%>>
+                 	<input type="submit" name=""style="background: transparent;border:none;
+outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+border-radius:10px;"  value="退课">
+                  	</form>
+                  	</th>
+                  	<%
+                	  }
+                  }
+				  else{%>
+					  <th>
+                  <%=stauts%>
+              		</th>
+					  
+                       <% }%> 
+						
                     </tr>
 					<%
+					}
+				  if(option==2){
+					for(int i=0;i<unable.size();i++){
+						Course c=unable.get(i);
+						String term="";
+						if(c.getTerm()%2==0)
+						{
+							term="第2学期";
+						
+						}
+						else
+							term="第1学期";
+						
+						
+						%>
+						<tr>
+                        <th>
+                            <%=""%>
+                        </th>
+                        <th>
+                            <%=c.getName()%>
+                        </th>
+                        
+                        <th>
+                            <%=""%>
+                        </th>
+                        <th>
+                            <%="尚未开设本门课程"%>
+                        </th>
+						
+                    </tr>
+					<%
+					}
+					
 				  }
+				  }
+				  else
+				  {
+					  if(request.getAttribute("ablecou")!=null)
+						  System.out.println("able null!!");
+					  if(request.getAttribute("unablecou")!=null)
+						  System.out.println("unable null!!");
 				  }
 				  
 					%>

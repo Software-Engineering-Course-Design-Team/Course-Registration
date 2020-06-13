@@ -53,7 +53,7 @@
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="TeaMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="./TeaMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
@@ -79,19 +79,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaQualiServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 选课界面
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaListServlet">
+                            <a href="./TeaListServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 已选教授课程列表
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaQualiServlet?option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看可教授课程
                             </a>
@@ -107,21 +107,21 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                录入成绩
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
+                            <a href="./TeaListServlet?option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 获取花名册
                             </a>
                         </li>
-						<li>
-                            <a href="javascript:;">
+                        <li>
+                            <a href="./TeaListServlet?option=3">
                                 <i class="iconfont">&#xe6a7;</i>
-                                查看成绩列表列表
+                                录入成绩
+                            </a>
+                        </li>
+						<li>
+                            <a href="./TeaListServlet?option=4">
+                                <i class="iconfont">&#xe6a7;</i>
+                                查看成绩列表
                             </a>
                         </li>
 					</ul>

@@ -113,7 +113,7 @@
   
   <servlet>
     <servlet-name>tealistServlet</servlet-name>
-    <servlet-class>com.teacher.action.TeaGetCrsList</servlet-class>
+    <servlet-class>com.action.teacher.TeaGetCrsList</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -121,7 +121,56 @@
     <url-pattern>/TeaListServlet</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
+    <servlet-name>teaqualiServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaGetQualiList</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>teaqualiServlet</servlet-name>
+    <url-pattern>/TeaQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>teachoosecouServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaChooseCou</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>teachoosecouServlet</servlet-name>
+    <url-pattern>/TeaChooseCouServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>getstulistServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaGetStu</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>getstulistServlet</servlet-name>
+    <url-pattern>/GetStuListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>cggradeServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaChagGrade</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>cggradeServlet</servlet-name>
+    <url-pattern>/ChangeStuGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>changegradeServlet</servlet-name>
+    <servlet-class>com.action.teacher.ChangeGrade</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>changegradeServlet</servlet-name>
+    <url-pattern>/ChangeGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>AddStuServlet</servlet-name>
     <servlet-class>com.action.admin.AddStuServlet</servlet-class>
   </servlet>
@@ -129,8 +178,8 @@
   <servlet-mapping>
     <servlet-name>AddStuServlet</servlet-name>
     <url-pattern>/AddStudServlet</url-pattern>
+
   </servlet-mapping>
-  
   <welcome-file-list>
   	<welcome-file>login.html</welcome-file>
     <welcome-file>index.html</welcome-file>
