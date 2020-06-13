@@ -94,6 +94,7 @@ public class ChangePassword extends HttpServlet {
 						LoginCheckServlet.logincount.setPassword(newpass);
 						cop.ChangePassword(LoginCheckServlet.logincount);
 						request.setAttribute("info", "密码更改成功");
+						request.setAttribute("option", "changepass");
 						switch(LoginCheckServlet.logincount.getIdentity())
 						{
 						case 0:break;

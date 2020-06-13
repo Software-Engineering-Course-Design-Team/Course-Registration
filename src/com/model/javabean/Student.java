@@ -1,6 +1,7 @@
 
 package com.model.javabean;
 
+import java.util.Comparator;
 
 public class Student {
 	private String Name;
@@ -77,7 +78,13 @@ public class Student {
 		this.status = status;
 	}
 	
-	
+	public static Comparator<Student> SIDComparator=new Comparator<Student>() {
+		public int compare(Student c1,Student c2) {
+			int SID1=(int) ((Student)c1).getSID();
+			int SID2=(int) ((Student)c2).getSID();
+			return (int) (SID1-SID2);
+		}
+	};
 	
 }
 
