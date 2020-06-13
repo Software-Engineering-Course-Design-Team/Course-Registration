@@ -59,14 +59,14 @@
 </head>
 <body onload="startTime()"> 
    <!-- 顶部开始 -->
-    <div class="container">
-        <div class="logo"><a href="./index-root.jsp">欢迎使用课程注册系统</a></div>
+        <div class="container">
+        <div class="logo"><a href="RootMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">管理员信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="root-password.html">修改密码</a></dd>
+              <dd><a href="AdminPwd.html">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -84,25 +84,25 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="./AddStuServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./FindStuServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查询学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./UpdateStuServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 修改学生信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./DeleteStuServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除学生信息
                             </a>
@@ -162,25 +162,25 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="./AddTeaServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./FindTeaServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查询教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./UpdateTeaServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 修改教授信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./DeleteTeaServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除教授信息
                             </a>
@@ -195,25 +195,25 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="./AddDepServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加部门信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./FindorDeleteDepServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查询部门信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./UpdateDepServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 修改部门信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./FindorDeleteDepServlet.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除部门信息
                             </a>
@@ -273,27 +273,6 @@
                             </a>
                         </li>
 					</ul>
-                </li>
-                <li class="list" >
-                    <a href="javascript:;">
-                        <i class="iconfont">&#xe6a3;</i>
-                        管理员管理
-                        <i class="iconfont nav_right">&#xe697;</i>
-                    </a>
-                    <ul class="sub-menu" style="display:none">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                管理员注册
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                管理员注销
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 				<li class="list" >
                     <a href="javascript:;">
