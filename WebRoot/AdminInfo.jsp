@@ -258,13 +258,13 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="./AdminAddQuali.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加课程资格
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./AdminDeleteQuali.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除课程资格
                             </a>
@@ -272,25 +272,12 @@
 					</ul>
                 </li>
 				<li class="list" >
-                    <a href="javascript:;">
+                    <a href="./GetDepServlet">
                         <i class="iconfont">&#xe6a3;</i>
                         注册状态管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-                    <ul class="sub-menu" style="display:none">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                开启注册状态
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                关闭注册状态
-                            </a>
-                        </li>
-                    </ul>
+                    
                 </li>
             </ul>
           </div>
@@ -308,7 +295,21 @@
 			<%=information%>
             <!-- 右侧内容框架，更改从这里结束 -->
 			<div>
+			<%String option=(String)request.getAttribute("option");
+			System.out.println(option);
+			if(option.equals("addquail"))
+			{
+			%>
+			<a href="AdminAddQuali.html">
+			<%}
+			else if(option.equals("delquail"))
+			{%>
+			<a href="AdminDeleteQuali.jsp">
+			<% 
+			}
+			else{%>
 			<a href="RootMenu.html">
+			<%} %>
 		   <button class="btn btn-warning pull-right" lay-submit lay-filter="login"  type="submit">确定</button>
 		   </a>
 		  </div>

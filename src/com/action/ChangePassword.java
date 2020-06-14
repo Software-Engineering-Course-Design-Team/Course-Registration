@@ -18,10 +18,12 @@ public class ChangePassword extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("count");
+		int ID=Integer.valueOf(request.getParameter("id"));
 		String oldpass=request.getParameter("oldpass");
 		String newpass=request.getParameter("newpass");
 		String repass=request.getParameter("repass");
 		CountOP cop=new CountOP();
+		
 		if(LoginCheckServlet.logincount==null)
 		{
 			System.out.println("no curr_count");
@@ -39,11 +41,30 @@ public class ChangePassword extends HttpServlet {
 			return;
 			
 		}
+		
 		else
 		{
+			Count c;
+			if(LoginCheckServlet.logincount.getIdentity()!=0)
+			{
+				c=LoginCheckServlet.logincount;
+			}
+			else
+			{
+				c=new Count();
+				c.setID(ID);
+				if(cop.FindCount(c).getID()==80003)
+				{
+					request.setAttribute("info", "不存在该ID的用户！");
+					request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);
+					return;
+				}
+				c=cop.FindCount(c);
+				//c.setPassword(newpass);
+				//cop.ChangePassword(c);
+			}
 			//Count curr_c=LoginCheckServlet.logincount;
-			
-			if(!LoginCheckServlet.logincount.getPassword().equals(oldpass))
+			if(!c.getPassword().equals(oldpass))
 			{
 				request.setAttribute("info", "输入的原密码错误！");
 				switch(LoginCheckServlet.logincount.getIdentity())
@@ -91,8 +112,8 @@ public class ChangePassword extends HttpServlet {
 						return;
 					}
 					else {
-						LoginCheckServlet.logincount.setPassword(newpass);
-						cop.ChangePassword(LoginCheckServlet.logincount);
+						c.setPassword(newpass);
+						cop.ChangePassword(c);
 						request.setAttribute("info", "密码更改成功");
 						request.setAttribute("option", "changepass");
 						switch(LoginCheckServlet.logincount.getIdentity())

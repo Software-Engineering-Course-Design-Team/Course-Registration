@@ -170,10 +170,10 @@ public class DepartOP {
 				}
 				Statement stmt=dbcon.conn.createStatement();
 				if(dep.getDate()==null) {
-					stmt.execute("Update departmentInfo set Status="+dep.getName()
+					stmt.execute("Update departmentInfo set Status="+dep.getStatus()
 					+" where DID="+dep.getDID()+";");
 				}else {
-					stmt.execute("Update departmentInfo set Status="+dep.getName()
+					stmt.execute("Update departmentInfo set Status="+dep.getStatus()
 					+" and EndDate='"+dep.getDate()+"' where DID="+dep.getDID()+";");
 				}
 				dbcon.CancleConnection();
@@ -187,9 +187,9 @@ public class DepartOP {
 				dbcon.getConnection();
 				Statement stmt=dbcon.conn.createStatement();
 				if(dep.getDate()==null) {
-					stmt.execute("Update departmentInfo set Status="+dep.getName()+";");
+					stmt.execute("Update departmentInfo set Status="+dep.getStatus()+";");
 				}else {
-					stmt.execute("Update departmentInfo set Status="+dep.getName()
+					stmt.execute("Update departmentInfo set Status="+dep.getStatus()
 					+" and EndDate='"+dep.getDate()+"';");
 				}
 				dbcon.CancleConnection();

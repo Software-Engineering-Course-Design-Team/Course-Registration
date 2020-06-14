@@ -1,27 +1,28 @@
-<!doctype html>
-<%@page import="com.model.javabean.Teacher"%>
-<%@page import="com.model.javabean.Student"%>
-<%@page import="com.model.javabean.DepInfo"%>
-<%@page import="com.control.DB.DepartOP"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-		 pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,java.io.*,com.model.*,java.util.ArrayList.*"%>
-
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page import="java.sql.*,java.util.*,java.io.* ,com.model.javabean.*"%>
+<% request.setCharacterEncoding("UTF-8");
+   String information=(String)request.getAttribute("info");%>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>欢迎使用课程注册系统</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%String info;
+	if(request.getAttribute("info")!=null)
+		info=(String)request.getAttribute("info");
+	else
+		info="";
+
+%>
+	<meta charset="UTF-8">
+	<title>欢迎使用课程注册系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+	<link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
-    <link rel="stylesheet" href="./lib/layui/css/layui.css" media="all">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script language="JavaScript">
+	<script language="JavaScript">
             function startTime()   
             {   
                 var today=new Date();//定义日期对象   
@@ -44,9 +45,9 @@
                 if(today.getDay()==4)   day   =   "星期四 " 
                 if(today.getDay()==5)   day   =   "星期五 " 
                 if(today.getDay()==6)   day   =   "星期六 " 
-                if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
-                if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
-                if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"年"+MM +"月"+ dd +"日 " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与阅读为伴";				
+                if(today.getHours()>=22||today.getHours()<5)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"-"+MM +"-"+ dd +" " + hh+":"+mm+":"+ss+"   " + day+" 夜深了，请早入睡"; 
+                if(today.getHours()>=6&&today.getHours()<9)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"-"+MM +"-"+ dd +" " + hh+":"+mm+":"+ss+"   " + day+" 一日之际在于晨，美好的一天从早上开始";
+                if(today.getHours()>=9&&today.getHours()<22)document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"-"+MM +"-"+ dd +" " + hh+":"+mm+":"+ss+"   " + day+" 美好的一天，与阅读为伴";				
                 setTimeout('startTime()',1000);//每一秒中重新加载startTime()方法 
             }   
 
@@ -59,8 +60,8 @@
             }  
         </script>
 </head>
-<body onload="startTime()"> 
-   <!-- 顶部开始 -->
+<body onload="startTime()">
+    <!-- 顶部开始 -->
     <div class="container">
         <div class="logo"><a href="RootMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
@@ -73,6 +74,7 @@
             </dl>
         </ul>
     </div>
+    <!-- 顶部结束 -->
     <!-- 中部开始 -->
     <div class="wrapper">
 	<div class="left-nav">
@@ -291,86 +293,71 @@
         <div class="page-content">
           <div class="content">
             <!-- 右侧内容框架，更改从这里开始 -->
-            <blockquote class="layui-elem-quote">
-                欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
-            </blockquote>
-            <form class="layui-form" action="DeleteTeaServlet" method="post">
-                <div class="layui-form-item">
-                    <label for="L_PID" class="layui-form-label">
-                        <span class="x-red">*</span>教师号
-                    </label>
+            <form class="layui-form xbs" action="./FindCouTeaServlet" method="post">
+                <div class="layui-form-pane" style="text-align: center;">
+                  <div class="layui-form-item" style="display: inline-block;">
                     <div class="layui-input-inline">
-                        <input type="text" id="L_PID" name="PID" required="" lay-verify="PID"
-                        autocomplete="off" class="layui-input" value="${teaInfo.getPID()}" >
+                      <input type="text" name="search"  placeholder="输入PID或课程名称" autocomplete="off" class="layui-input">
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="L_repass" class="layui-form-label">
-                    </label>
-                    <button class="btn btn-warning pull-right" name="action" value="search" type="submit">
-                        显示教师信息
-                    </button>
-                </div>
-                <table class="layui-table">
+                    <div class="layui-input-inline" style="width:80px">
+                        <button class="layui-btn"  lay-submit lay-filter><i class="layui-icon">&#xe615;</i></button>
+                    </div>
+                  </div>
+                </div> 
+                <%=info %>
+            </form>
+            <table class="layui-table">
                 <thead>
                     <tr>
-                    <th>
-                            教师号
+                        <th>
+                            PID
                         </th>
                         <th>
-                            姓名
+                            课程名称
                         </th>
-                        <th>
-                            性别
-                        </th>
-                        <th>
-                            学院
-                        </th>
-                        <th>
-                            身份证号
-                        </th>
-                        <th>
-                            生日
+                        
+						<th>
+                            操作
                         </th>
                     </tr>
                 </thead>
 				<tbody>
 				  <%
-				  if(request.getAttribute("teaInfo")!=null){
-					  Teacher tea=(Teacher)request.getAttribute("teaInfo");
-					  DepartOP depOp = new DepartOP();
-					  DepInfo dep = new DepInfo();
-					  dep.setDID(tea.getDID());
-					  DepInfo temp = depOp.FindDepartDID(dep);
+				  if(request.getAttribute("cttable")!=null){
+					  ArrayList<CouTea> cttable=(ArrayList<CouTea>)request.getAttribute("cttable");
+					for(int i=0;i<cttable.size();i++){
+						CouTea ct=cttable.get(i);
 						%>
 						<tr>
                         <th>
-                            <%=tea.getPID()%>
+                            <%=String.valueOf(ct.getPID())%>
                         </th>
                         <th>
-                            <%=tea.getName()%>
+                            <%=ct.getName()%>
                         </th>
                         <th>
-                            <%=tea.getSex()%>
-                        </th>
-                        <th>
-                            <%=temp.getName()%>
-                        </th>
-                        <th>
-                            <%=tea.getIdcard()%>
-                        </th>
-                        <th>
-                            <%=tea.getBirthday()%>
-                        </th>
+                        <form action="./DeleteQualiServlet" method="post">
+                 	<input type="hidden" name="PID" value=<%=ct.getPID()%>>
+                       	<input type="hidden" name="Name" value=<%=ct.getName()%>>
+                 	<input type="submit" name=""style="background: transparent;border:none;
+outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+border-radius:10px;"  value="删除">
+                  	</form>
+						</th>
                     </tr>
-                    <% } %>
+					<%
+					}
+				  }
+				  
+					%>
 				</tbody>
             </table>
-            </form>
             <!-- 右侧内容框架，更改从这里结束 -->
           </div>
         </div>
-        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
     <!-- 底部开始 -->
     <div class="footer">
         <div class="copyright">Copyright ©2020 XiaRui ZhangShiyao ShiJizhong WangHaiyan FengShenghui All Rights Reserved. </div>  
@@ -380,5 +367,6 @@
 		 
     </div>
     <!-- 底部结束 -->
+
 </body>
 </html>

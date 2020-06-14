@@ -112,6 +112,56 @@
   </servlet-mapping>
   
   <servlet>
+  <servlet-name>deletequailServlet</servlet-name>
+    <servlet-class>com.action.admin.DeleteQuali</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>deletequailServlet</servlet-name>
+    <url-pattern>/DeleteQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>addqualiServlet</servlet-name>
+    <servlet-class>com.action.admin.AddQuali</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>addqualiServlet</servlet-name>
+    <url-pattern>/AddQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>findcouteaServlet</servlet-name>
+    <servlet-class>com.action.admin.FindCouTea</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>findcouteaServlet</servlet-name>
+    <url-pattern>/FindCouTeaServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>getdepServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminGetDepList</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>getdepServlet</servlet-name>
+    <url-pattern>/GetDepServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>changestatusServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminChangeStatus</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>changestatusServlet</servlet-name>
+    <url-pattern>/ChangeStatusServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>tealistServlet</servlet-name>
     <servlet-class>com.action.teacher.TeaGetCrsList</servlet-class>
   </servlet>

@@ -99,6 +99,31 @@ public class StudentOP {
 		}
 		return result;
 	}
+	public ArrayList<Student> FindDepStu(Student stu){
+		ArrayList<Student> result=new ArrayList<Student>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from stuinfo where DID"
+					+ "="+stu.getDID()+";");
+			while(res.next()){
+				Student temp=new Student();
+				temp.setGradDate(res.getString(1));
+				temp.setBirthday(res.getString(2));
+				temp.setStatus(res.getString(3));
+				temp.setSex(res.getString(4));
+				temp.setIdcard(res.getLong(5));
+				temp.setName(res.getString(6));
+				temp.setSID(res.getLong(7));
+				temp.setDID(res.getLong(8));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public Student FindStudent(Student stu){
 		try {
 			dbcon.getConnection();
