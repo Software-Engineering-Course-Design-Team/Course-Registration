@@ -262,13 +262,13 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="./AdminAddQuali.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加课程资格
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./AdminDeleteQuali.jsp">
                                 <i class="iconfont">&#xe6a7;</i>
                                 删除课程资格
                             </a>
@@ -276,25 +276,12 @@
 					</ul>
                 </li>
 				<li class="list" >
-                    <a href="javascript:;">
+                    <a href="./GetDepServlet">
                         <i class="iconfont">&#xe6a3;</i>
                         注册状态管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-                    <ul class="sub-menu" style="display:none">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                开启注册状态
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                关闭注册状态
-                            </a>
-                        </li>
-                    </ul>
+                    
                 </li>
             </ul>
           </div>
