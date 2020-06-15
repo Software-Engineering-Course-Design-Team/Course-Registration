@@ -5,7 +5,7 @@ public class Teacher {
 	private String Name;
 	private String sex;
 	private String Birthday;
-	private long Idcard;
+	private String Idcard;
 	private long PID;
 	private long DID;
 	private String status;
@@ -13,7 +13,7 @@ public class Teacher {
 	public Teacher() {
 		super();
 	}
-	public Teacher(String name, String sex, String birthday, long idcard, long pID, long dID, String status) {
+	public Teacher(String name, String sex, String birthday, String idcard, long pID, long dID, String status) {
 		super();
 		Name = name;
 		this.sex = sex;
@@ -41,10 +41,10 @@ public class Teacher {
 	public void setBirthday(String birthday) {
 		Birthday = birthday;
 	}
-	public long getIdcard() {
+	public String getIdcard() {
 		return Idcard;
 	}
-	public void setIdcard(long idcard) {
+	public void setIdcard(String idcard) {
 		Idcard = idcard;
 	}
 	public long getPID() {

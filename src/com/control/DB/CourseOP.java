@@ -142,32 +142,6 @@ public class CourseOP {
 		}  
 		return course;
 	}
-	public ArrayList<Course> FindNameCou(Course course){
-		ArrayList<Course> result=new ArrayList<Course>();
-		try {
-			dbcon.getConnection();
-			Statement stmt=dbcon.conn.createStatement();
-			ResultSet res=stmt.executeQuery("select * from courseinfo where "
-					+ "Name='"+course.getName()+"';");
-			while(res.next()){
-				Course temp=new Course();
-				temp.setCID(res.getLong(1));
-				temp.setTerm(res.getInt(2));
-				temp.setDID(res.getInt(3));
-				temp.setFee(res.getInt(4));
-				temp.setName(res.getString(5));
-				temp.setPID(res.getLong(6));
-				temp.setBeginweek(res.getInt(7));
-				temp.setEndWeek(res.getInt(8));
-				temp.setPerson(res.getInt(9));
-				result.add(temp);
-			}
-			dbcon.CancleConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  
-		return result;
-	}
 	public ArrayList<Course> FindTermCou(Course course){
 		ArrayList<Course> result=new ArrayList<Course>();
 		try {

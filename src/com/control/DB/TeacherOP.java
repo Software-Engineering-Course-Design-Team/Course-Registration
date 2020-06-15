@@ -17,7 +17,7 @@ public class TeacherOP {
 		long id=20000;
 		try {
 			if(tea.getBirthday()!=null&&tea.getStatus()!=null&&tea.getSex()!=null
-					&&tea.getIdcard()!=0&&tea.getName()!=null&&tea.getDID()!=0){
+					&&tea.getIdcard()!=null&&tea.getName()!=null&&tea.getDID()!=0){
 				dbcon.getConnection();
 				Statement stmt1=dbcon.conn.createStatement();
 				ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+tea.getDID()+";");
@@ -26,7 +26,7 @@ public class TeacherOP {
 					return 20007;
 				}
 				String sql="Insert into profinfo values ('"+tea.getBirthday()
-					+"','"+tea.getStatus()+"','"+tea.getSex()+"',"+tea.getIdcard()+",'"
+					+"','"+tea.getStatus()+"','"+tea.getSex()+"','"+tea.getIdcard()+"','"
 					+tea.getName()+"',NULL,"+tea.getDID()+");";
 				java.sql.PreparedStatement ps=dbcon.conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				ps.executeUpdate();
@@ -85,7 +85,7 @@ public class TeacherOP {
 				tea.setBirthday(res.getString(1));
 				tea.setStatus(res.getString(2));
 				tea.setSex(res.getString(3));
-				tea.setIdcard(res.getLong(4));
+				tea.setIdcard(res.getString(4));
 				tea.setName(res.getString(5));
 				tea.setPID(res.getLong(6));
 				tea.setDID(res.getLong(7));
@@ -104,7 +104,7 @@ public class TeacherOP {
 	public long UpdateTeacher(Teacher tea){
 		try {
 			if(tea.getBirthday()!=null&&tea.getStatus()!=null&&tea.getSex()!=null
-					&&tea.getIdcard()!=0&&tea.getName()!=null&&tea.getDID()!=0){
+					&&tea.getIdcard()!=null&&tea.getName()!=null&&tea.getDID()!=0){
 			dbcon.getConnection();
 			Statement stmt1=dbcon.conn.createStatement();
 			ResultSet res=stmt1.executeQuery("select * from profinfo where PID="+tea.getPID()+";");
@@ -120,7 +120,7 @@ public class TeacherOP {
 			Statement stmt=dbcon.conn.createStatement();
 			stmt.execute("Update profinfo set Birthday='"+tea.getBirthday()
 			+"',Status='"+tea.getStatus()+"',Sex='"+tea.getSex()
-			+"',Idcard="+tea.getIdcard()+",Name='"+tea.getName()
+			+"',Idcard='"+tea.getIdcard()+"',Name='"+tea.getName()
 			+"',DID="+tea.getDID()+" "
 			+"where PID="+tea.getPID()+";");
 			dbcon.CancleConnection();
@@ -146,7 +146,7 @@ public class TeacherOP {
 				temp.setBirthday(res.getString(1));
 				temp.setStatus(res.getString(2));
 				temp.setSex(res.getString(3));
-				temp.setIdcard(res.getLong(4));
+				temp.setIdcard(res.getString(4));
 				temp.setName(res.getString(5));
 				temp.setPID(res.getLong(6));
 				temp.setDID(res.getLong(7));
