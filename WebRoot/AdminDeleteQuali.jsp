@@ -254,7 +254,7 @@
                 <div class="layui-form-pane" style="text-align: center;">
                   <div class="layui-form-item" style="display: inline-block;">
                     <div class="layui-input-inline">
-                      <input type="text" name="search"  placeholder="输入PID或课程名称" autocomplete="off" class="layui-input">
+                      <input type="text" name="search"  placeholder="输入完整PID或完整课程名称" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline" style="width:80px">
                         <button class="layui-btn"  lay-submit lay-filter><i class="layui-icon">&#xe615;</i></button>
