@@ -141,7 +141,7 @@
 			}else if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("1")){
             %>
 			现在不是选课时间，请在选课时间使用该操作。<br>
-			<form action="StuMenu。jsp" method="post">
+			<form action="StuMenu.jsp" method="post">
             <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
             <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;

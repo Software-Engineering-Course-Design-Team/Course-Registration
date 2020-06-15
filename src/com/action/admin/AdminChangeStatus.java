@@ -185,28 +185,9 @@ public class AdminChangeStatus extends HttpServlet {
 						System.out.println(cc.getCID()+"人数变为"+cc.getPerson());
 						cop.UpdateCourse(cc);
 						cstop.DeleteConStuTemp(coustemp.get(0));
-						System.out.println("进入课程表的是第"+coustemp.get(0).getOrder()+"个候选课");}
-						//System.out.println("候选区有1个order记录");
-					
-					/*else if(coustemp.size()==2) {
-						System.out.println("候选区有2个order记录");
-						if(coustemp.get(0).getOrder()==1)
-						{
-							cs2.setSID(coustemp.get(0).getSID());
-							cs2.setCID(coustemp.get(0).getCID());
-							csop.InsertCouStu(cs2);
-							cstop.DeleteConStuTemp(coustemp.get(0));
-							System.out.println("选择候选区第1个order记录正式入课表");
+						System.out.println("进入课程表的是第"+coustemp.get(0).getOrder()+"个候选课");
 						}
-						else
-						{
-							cs2.setSID(coustemp.get(1).getSID());
-							cs2.setSID(coustemp.get(1).getSID());
-							csop.InsertCouStu(cs2);
-							cstop.DeleteConStuTemp(coustemp.get(1));
-							System.out.println("选择候选区第2个order记录正式入课表");
-						}
-					}*/
+						
 					System.out.println("提交后的课程个数："+(stucous.size()+1));
 					break;
 				default:break;
@@ -246,6 +227,10 @@ public class AdminChangeStatus extends HttpServlet {
 					System.out.println("插入学费信息出错");
 				}
 				
+				/******************************************************************
+				 * 							清空候选记录
+				 ********************************************************************/
+				cstop.DeleteStuTemp(cst);
 				
 			}
 			
