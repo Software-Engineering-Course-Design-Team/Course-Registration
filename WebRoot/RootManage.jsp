@@ -294,7 +294,7 @@
                         <span class="x-red">*</span>学生编号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_StuNum" name="CID"
+                        <input type="text" id="L_StuNum" name="SID"
                         autocomplete="off" class="layui-input">
                     </div>
                     &nbsp;&nbsp;&nbsp;
@@ -309,6 +309,7 @@
        				}
        				</script>
        				<input type="hidden" name="op" value="Verify">
+       				<input type="hidden" name="CID" value=<%=request.getParameter("CID")%>>
                     <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
     border-radius:10px;" value="添加" onclick="confirm2()">
@@ -338,7 +339,7 @@
                 	  ArrayList<Student> stu=(ArrayList<Student>)request.getAttribute("stuinfo");
                 	  for(Student i:stu){
                 %>
-                <form action="" method="post">
+                <form action="AdminManServlet" method="post">
                 <tr>
                 <th>
                 <%=i.getSID()%>
@@ -347,10 +348,20 @@
                 <%=i.getName()%>
                         </th>
                         <th>
+                        <input type="hidden" name="SID" value=<%=i.getSID()%>>
+                        <input type="hidden" name="CID" value=<%=request.getParameter("CID")%>>
                         <input type="hidden" name="op" value="Delete">
+                         <script language="JavaScript"  defer=true>
+       				function confirmDel(){
+            		    if(!window.confirm("你确认删除这条记录吗！");){
+                        	window.event.returnValue = false;
+                        	return false;
+            		    }
+       				}
+       				</script>
                <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="删除" onclick="confirm1()">
+    border-radius:10px;" value="删除" onclick="confirmDel()">
                         </th>
                         </tr>
                  </form>

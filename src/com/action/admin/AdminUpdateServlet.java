@@ -38,6 +38,8 @@ public class AdminUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		String opp=request.getParameter("op");
+		if(opp.equals("修改")) {
 		Course op=new Course();
 		CourseOP cop=new CourseOP();
 		op.setCID(Integer.parseInt((String)request.getParameter("CID")));
@@ -61,6 +63,9 @@ public class AdminUpdateServlet extends HttpServlet {
 		depinfo=dop.FindAllDep();
 		request.setAttribute("depinfo",depinfo);
 		request.getRequestDispatcher("/RootModifyClass.jsp").forward(request,response);
+		}else {
+			request.getRequestDispatcher("/AdminDelServlet").forward(request,response);
+		}
 	}
 
 	/**
