@@ -45,8 +45,22 @@ public class AdminManaServlet extends HttpServlet {
 			int CID=Integer.parseInt(request.getParameter("CID"));
 			CouStu cs=new CouStu();
 			cs.setCID(CID);
+			Course jdu=new Course();
+			CourseOP jduop=new CourseOP();
+			jdu.setCID(CID);
+			jdu=jduop.FindCourse(jdu);
+			if(jdu.getCID()<100000) {
+				request.setAttribute("RootInfo", 7);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			CouStuOP csop=new CouStuOP();
 			ArrayList<CouStu> c=csop.FindStu(cs);
+			if(c.size()==0) {
+				request.setAttribute("RootInfo", 8);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			ArrayList<Student> stu=new ArrayList<Student>();
 			StudentOP sop=new StudentOP();
 			for(CouStu a:c) {

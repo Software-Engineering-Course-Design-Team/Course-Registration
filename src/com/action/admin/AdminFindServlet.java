@@ -49,6 +49,11 @@ public class AdminFindServlet extends HttpServlet {
 			cc.setCID(Integer.parseInt(request.getParameter("ClassNum")));
 			cc=cop.FindCourse(cc);
 			s1.add(cc);
+			if(cc.getCID()<100000) {
+				request.setAttribute("RootInfo", 1);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			CouTime ct=new CouTime();
 			ct.setCID(cc.getCID());
 			s2.add(ctop.FindCouTime(ct));
@@ -64,6 +69,11 @@ public class AdminFindServlet extends HttpServlet {
 			Course cc=new Course();
 			cc.setName(request.getParameter("ClassName"));
 			s1=cop.FindNameCou(cc);
+			if(s1.size()==0) {
+				request.setAttribute("RootInfo", 1);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			for(Course ccc:s1) {
 				CouTime ct=new CouTime();
 				ct.setCID(ccc.getCID());
@@ -85,6 +95,11 @@ public class AdminFindServlet extends HttpServlet {
 				cc.setTerm(Integer.parseInt(request.getParameter("ClassTerm")));
 				cc.setDID(Integer.parseInt(request.getParameter("ClassDep")));
 				s1=cop.FindTermDepCou(cc);
+				if(s1.size()==0) {
+					request.setAttribute("RootInfo", 4);
+					request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+					return;
+				}
 				for(Course ccc:s1) {
 					CouTime ct=new CouTime();
 					ct.setCID(ccc.getCID());
@@ -102,6 +117,11 @@ public class AdminFindServlet extends HttpServlet {
 				Course cc=new Course();
 				cc.setDID(Integer.parseInt(request.getParameter("ClassDep")));
 				s1=cop.FindDepCou(cc);
+				if(s1.size()==0) {
+					request.setAttribute("RootInfo", 2);
+					request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+					return;
+				}
 				for(Course ccc:s1) {
 					CouTime ct=new CouTime();
 					ct.setCID(ccc.getCID());
@@ -120,6 +140,11 @@ public class AdminFindServlet extends HttpServlet {
 			Course cc=new Course();
 			cc.setTerm(Integer.parseInt(request.getParameter("ClassTerm")));
 			s1=cop.FindTermCou(cc);
+			if(s1.size()==0) {
+				request.setAttribute("RootInfo", 3);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			for(Course ccc:s1) {
 				CouTime ct=new CouTime();
 				ct.setCID(ccc.getCID());
@@ -138,6 +163,11 @@ public class AdminFindServlet extends HttpServlet {
 			CouTimeOP timeop=new CouTimeOP();
 			cttemp.setAddress(request.getParameter("ClassPlace"));
 			ArrayList<CouTime> ctttttt=timeop.FindAddress(cttemp);
+			if(ctttttt.size()==0) {
+				request.setAttribute("RootInfo", 5);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
 			for(CouTime c:ctttttt) {
 				Course cc=new Course();
 				cc.setCID(c.getCID());
