@@ -76,57 +76,27 @@
                 <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
-                        登记成绩
+                        课程信息管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-                </li>
-				<li class="list">
-                    <a href="javascript:;">
-                        <i class="iconfont">&#xe761;</i>
-                        管理课程信息
-                        <i class="iconfont nav_right">&#xe697;</i>
-                    </a>
-					<ul class="sub-menu" style="display:none">
-                        <li>
-                            <a href="javascript:;">
+                    <ul class="sub-menu" style="display:none">
+                        
+						<li>
+                            <a href="./TeaQualiServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
-                                获取花名册
+                                选课界面
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaListServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择教授课程
+                                已选教授课程列表
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                查看教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaQualiServlet?option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看可教授课程
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                增加上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除教授课程
                             </a>
                         </li>
 					</ul>
@@ -134,9 +104,30 @@
 				 <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
-                        查看成绩列表
+                       成绩管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
+                    <ul class="sub-menu" style="display:none">
+                        
+						<li>
+                            <a href="./TeaListServlet?option=2">
+                                <i class="iconfont">&#xe6a7;</i>
+                                获取花名册
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./TeaListServlet?option=3">
+                                <i class="iconfont">&#xe6a7;</i>
+                                录入成绩
+                            </a>
+                        </li>
+						<li>
+                            <a href="./TeaListServlet?option=4">
+                                <i class="iconfont">&#xe6a7;</i>
+                                查看成绩列表
+                            </a>
+                        </li>
+					</ul>
                 </li>
             </ul>
           </div>
@@ -155,7 +146,23 @@
 			<%=information%>
             <!-- 右侧内容框架，更改从这里结束 -->
 			<div>
+			<%String option=(String)request.getAttribute("option");
+			if(option.equals("changegrade"))
+			{
+				int CID=(int)request.getAttribute("CID");
+			%>
+			
+			<a href="./GetStuListServlet?CID=<%=CID%>&option=3">
+			<%}
+			else if(option.equals("choosecourse"))
+			{%>
+			<a href="./TeaQualiServlet?option=1">
+			<%}
+			else 
+			{%>
 			<a href="TeaMenu.html">
+			<%}%>
+			
 		   <button class="btn btn-warning pull-right" lay-submit lay-filter="login"  type="submit">确定</button>
 		   </a>
 		  </div>

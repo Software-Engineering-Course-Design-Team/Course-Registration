@@ -135,6 +135,26 @@ public class ConStuTempOP {
 		}  
 		return result;
 	}
+	public ArrayList<CouStuTemp> FindOrder12CouTemp(CouStuTemp constutemp){
+		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()
+			+" and (ord=1 or ord=2) order by ord");
+			while(res.next()){
+				CouStuTemp temp=new CouStuTemp();
+				temp.setOrder(res.getInt(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
 	public long DeleteConTemp(CouStuTemp constutemp){
 		try {
 			dbcon.getConnection();
