@@ -503,6 +503,7 @@
                			}
                			if(!window.confirm("请确认您的提交请求！")){
                				window.event.returnValue = false;
+               				return false;
                			}
                			document.getElementById("form1").submit();
                		}
@@ -539,6 +540,7 @@
        				function AdjustTime4(){
        					if(!window.confirm("您确认删除该条记录？")){
                				window.event.returnValue = false;
+               				return false;
                			}
        				}
        			</script>
@@ -628,9 +630,11 @@
                			if(parseInt(ii2)<parseInt(ii1)){
                				window.confirm("您的这条课程信息非法，因为您的开始周数大于了终止周数！");
                         	window.event.returnValue = false;
+                        	return false;
                			}
                			if(!window.confirm("请确认您的提交请求！在提交前，请确认您已经保存了课程信息和时间信息！")){
                				window.event.returnValue = false;
+               				return false;
                			}
                		}
        				</script>
@@ -638,6 +642,7 @@
        				function AdjustTime3(){
        					if(!window.confirm("重置后，您所有未保存的信息将全部丢失，请认真确认您的重置请求！")){
                				window.event.returnValue = false;
+               				return false;
                			}
        				}
        				</script>

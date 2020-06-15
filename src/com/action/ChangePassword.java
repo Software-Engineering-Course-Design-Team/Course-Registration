@@ -22,31 +22,23 @@ public class ChangePassword extends HttpServlet {
 		String newpass=request.getParameter("newpass");
 		String repass=request.getParameter("repass");
 		CountOP cop=new CountOP();
-		
-		if(LoginCheckServlet.logincount==null)
+		if(request.getParameter("username")==null||request.getParameter("username").equals("null"))
 		{
 			System.out.println("no curr_count");
-			request.setAttribute("info", "当前未登录");
-			switch(LoginCheckServlet.logincount.getIdentity())
-			{
-			case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
-			case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
-					break;
-				
-			case 2:request.getRequestDispatcher("/StuPwdError.jsp").forward(request,response);break;
-			default:break;
-				
-			}
-			return;
+			request.getRequestDispatcher("/login.html").forward(request, response);
 			
 		}
 		
 		else
 		{
-			Count c;
-			if(LoginCheckServlet.logincount.getIdentity()!=0)
+			int id=Integer.valueOf(request.getParameter("username"));
+			Count c=new Count();
+			c.setID(id);
+			c=cop.FindCount(c);
+			
+			if(c.getIdentity()!=0)
 			{
-				c=LoginCheckServlet.logincount;
+				c=c;
 			}
 			else
 			{
@@ -67,10 +59,10 @@ public class ChangePassword extends HttpServlet {
 			if(!c.getPassword().equals(oldpass))
 			{
 				request.setAttribute("info", "输入的原密码错误！");
-				switch(LoginCheckServlet.logincount.getIdentity())
+				switch(c.getIdentity())
 				{
 				case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
-				case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
+				case 1:request.getRequestDispatcher("/TeaPwdError.jsp?username="+id).forward(request,response);
 						break;
 					
 				case 2:request.getRequestDispatcher("/StuPwdError.jsp").forward(request,response);break;
@@ -86,10 +78,10 @@ public class ChangePassword extends HttpServlet {
 					if(newpass.length()<6)
 					{
 						request.setAttribute("info", "密码长度不可小于6位！");
-						switch(LoginCheckServlet.logincount.getIdentity())
+						switch(c.getIdentity())
 						{
 						case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
-						case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
+						case 1:request.getRequestDispatcher("/TeaPwdError.jsp?username="+id).forward(request,response);
 								break;
 							
 						case 2:request.getRequestDispatcher("/StuPwdError.jsp").forward(request,response);break;
@@ -100,10 +92,10 @@ public class ChangePassword extends HttpServlet {
 					else if(newpass.length()>16)
 					{
 						request.setAttribute("info", "密码长度不可大于16位！");
-						switch(LoginCheckServlet.logincount.getIdentity())
+						switch(c.getIdentity())
 						{
 						case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
-						case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
+						case 1:request.getRequestDispatcher("/TeaPwdError.jsp?username="+id).forward(request,response);
 								break;
 							
 						case 2:request.getRequestDispatcher("/StuPwdError.jsp").forward(request,response);break;
@@ -116,10 +108,10 @@ public class ChangePassword extends HttpServlet {
 						cop.ChangePassword(c);
 						request.setAttribute("info", "密码更改成功");
 						request.setAttribute("option", "changepass");
-						switch(LoginCheckServlet.logincount.getIdentity())
+						switch(c.getIdentity())
 						{
 						case 0:request.getRequestDispatcher("/AdminInfo.jsp").forward(request,response);break;
-						case 1:request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
+						case 1:request.getRequestDispatcher("/TeaInfo.jsp?username="+id).forward(request,response);
 								break;
 							
 						case 2:request.getRequestDispatcher("/StuInfo.jsp").forward(request,response);break;
@@ -132,10 +124,10 @@ public class ChangePassword extends HttpServlet {
 				else
 				{
 					request.setAttribute("info", "两次密码不一致！");
-					switch(LoginCheckServlet.logincount.getIdentity())
+					switch(c.getIdentity())
 					{
 					case 0:request.getRequestDispatcher("/AdminPwdError.jsp").forward(request,response);break;
-					case 1:request.getRequestDispatcher("/TeaPwdError.jsp").forward(request,response);
+					case 1:request.getRequestDispatcher("/TeaPwdError.jsp?username="+id).forward(request,response);
 							break;
 						
 					case 2:request.getRequestDispatcher("/StuPwdError.jsp").forward(request,response);break;
