@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*,java.util.*,java.io.* ,com.model.javabean.Course,com.control.DB.CourseOP,com.action.LoginCheckServlet"%>
+<%int id=(int)request.getAttribute("username"); %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,13 +19,13 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./TeaMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="./TeaMenu.jsp?username=<%=id%>">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">教师信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="TeaPwd.html">修改密码</a></dd>
+              <dd><a href="TeaPwd.jsp&username=<%=id%>">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -44,19 +45,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="./TeaQualiServlet?option=1">
+                            <a href="./TeaQualiServlet?username=<%=id%>&option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 选课界面
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaListServlet?option=1">
+                            <a href="./TeaListServlet?username=<%=id%>&option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 已选教授课程列表
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaQualiServlet?option=2">
+                            <a href="./TeaQualiServlet?username=<%=id%>&option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看可教授课程
                             </a>
@@ -72,19 +73,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="./TeaListServlet?option=2">
+                            <a href="./TeaListServlet?username=<%=id%>&option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 获取花名册
                             </a>
                         </li>
                         <li>
-                            <a href="./TeaListServlet?option=3">
+                            <a href="./TeaListServlet?username=<%=id%>&option=3">
                                 <i class="iconfont">&#xe6a7;</i>
                                 录入成绩
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaListServlet?option=4">
+                            <a href="./TeaListServlet?username=<%=id%>&option=4">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看成绩列表
                             </a>
@@ -117,6 +118,7 @@
 				  {
 					  ArrayList<Course> able=(ArrayList<Course>)request.getAttribute("ablecou");
 					  ArrayList<Course> unable=(ArrayList<Course>)request.getAttribute("unablecou");
+					  
 					  int option=(int)request.getAttribute("option");
 					  if(option==1){
 						  %>
@@ -156,7 +158,7 @@
 							stauts="可教授";
 							cstauts=1;
 						}
-						else if(c.getPID()==LoginCheckServlet.logincount.getID())
+						else if(c.getPID()==id)
 						{
 							stauts="已选择授课";
 							cstauts=2;
@@ -185,7 +187,7 @@
                   {
                   if(cstauts==1){%>
                         <th>
-                       	<form action="TeaChooseCouServlet" method="post">
+                       	<form action="TeaChooseCouServlet?username=<%=id%>" method="post">
                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
                        	<input type="hidden" name="CName" value=<%=c.getName()%>>
                        	<input type="hidden" name="option" value=<%=cstauts%>>
@@ -197,7 +199,7 @@
                         	<%}
                   else{%>
                   <th>
-                 	<form action="TeaChooseCouServlet" method="post">
+                 	<form action="TeaChooseCouServlet?username=<%=id%>" method="post">
                  	<input type="hidden" name="CID" value=<%=c.getCID()%>>
                  	<input type="hidden" name="CName" value=<%=c.getName()%>>
                        	<input type="hidden" name="option" value=<%=cstauts%>>

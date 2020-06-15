@@ -36,6 +36,9 @@ public class TeaGetStu extends HttpServlet {
 		CouStuOP csop=new CouStuOP();
 		int cID=Integer.valueOf(request.getParameter("CID"));
 		int option=Integer.valueOf(request.getParameter("option"));
+		System.out.println("in get stu"+request.getParameter("username"));
+		int id=Integer.parseInt(request.getParameter("username"));
+		request.setAttribute("username", id);
 		//String grade = request.getParameter("grade");
 		CouStu cs=new CouStu();
 		StudentOP sop=new StudentOP();
@@ -53,7 +56,8 @@ public class TeaGetStu extends HttpServlet {
 		request.setAttribute("option",option);
 		request.setAttribute("students",thiss);
 		//request.setAttribute("grade", grade);
-		request.getRequestDispatcher("/TeaGetStuList.jsp").forward(request,response);
+		request.setAttribute("username", id);
+		request.getRequestDispatcher("/TeaGetStuList.jsp?username"+id).forward(request,response);
 	}
 
 	/**
