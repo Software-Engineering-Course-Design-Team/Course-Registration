@@ -35,9 +35,9 @@ public class ChangeGrade extends HttpServlet {
 		int sID=Integer.valueOf(request.getParameter("SID"));
 		int cID=Integer.valueOf(request.getParameter("CID"));
 		request.setAttribute("option", "changegrade");
-		if(!grade.equals("A")&&!grade.equals("B")&&!grade.equals("C")&&!grade.equals("D")&&!grade.equals("F"))
+		if(!grade.equals("A")&&!grade.equals("B")&&!grade.equals("C")&&!grade.equals("D")&&!grade.equals("F")&&!grade.equals("I"))
 			{
-				request.setAttribute("info", "成绩范围应该是A~F之间的大写字母");
+				request.setAttribute("info", "成绩范围应是A、B、C、D、F、I!");
 				request.setAttribute("CID", cID);	
 				request.setAttribute("SID", sID);
 				request.setAttribute("SName", request.getParameter("SName"));
