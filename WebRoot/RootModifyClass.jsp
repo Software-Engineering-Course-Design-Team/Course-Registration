@@ -377,6 +377,7 @@
                			}
        				}
        				</script>
+       				<input type="hidden" name="oopp" value="2">
             		 <button class="btn btn-warning pull-right"  type="submit" onclick="AdjustTime8()"
                      name="op" value=2>
                                                            保存当前信息
@@ -391,7 +392,7 @@
             <fieldset class="layui-elem-field layui-field-title site-title">
               <legend><a>填写上课信息</a></legend>
             </fieldset>
-            <form class="layui-form" action="AdminTempServlet" method="post">
+            <form class="layui-form" action="AdminTemServlet" method="post">
                 <input type="hidden" name="oopp" value=2>
             	<div class="layui-form-item">
                     <label for="L_Week" class="layui-form-label">
@@ -457,6 +458,7 @@
        					document.getElementById("form1").submit();
        				}
        				</script>
+       				<input type="hidden" name="oopp" value="2">
                     <div style="float:right">
                     <button class="btn btn-warning pull-right" type="submit" onclick="AdjustTime5()"
                     name="op" value=1>
@@ -640,7 +642,7 @@
        				}
        				</script>
        				<form action="AdminInseeClass" method="post">
-       				<input type="hidden" name="oopp" value=2>
+       				<input type="hidden" name="oopp" value="2">
                     <button class="btn btn-warning pull-right" type="submit" onclick="AdjustTime2()"
                     name="oop" value=1>
                                                       更新课程信息

@@ -3,6 +3,16 @@
   <display-name>SoftEngProj</display-name>
   
    <servlet>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminDeleteServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <url-pattern>/AdminDelServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
     <servlet-name>AdminManaServlet</servlet-name>
     <servlet-class>com.action.admin.AdminManaServlet</servlet-class>
   </servlet>

@@ -99,7 +99,6 @@ public class AdminTempServlet extends HttpServlet {
 			}
 		}
 		request.getRequestDispatcher("/AdminInsClass").forward(request,response);
-		
 	}
 
 	/**

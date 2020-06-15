@@ -71,7 +71,7 @@ public class CouStuOP {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from constutable where CID="+
-					constu.getCID()+";");
+					constu.getCID()+" order by SID;");
 			while(res.next()){
 				CouStu temp=new CouStu();
 				temp.setGrade(res.getString(1));

@@ -41,14 +41,15 @@ public class AdminTempInfo extends HttpServlet {
 			session.setAttribute("Fee", request.getParameter("Fee"));
 		if(request.getParameter("Term")!=null)
 			session.setAttribute("Term", request.getParameter("Term"));
-		request.getRequestDispatcher("/AdminInsClass").forward(request,response);
 		}else {
 			Enumeration em = request.getSession().getAttributeNames();  //得到session中所有的属性名
 			while (em.hasMoreElements()) {
                  request.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
 			}
-			request.getRequestDispatcher("/AdminInsClass").forward(request,response);
+			
 		}
+		request.getRequestDispatcher("/AdminInsClass").forward(request,response);
+
 	}
 
 	/**
