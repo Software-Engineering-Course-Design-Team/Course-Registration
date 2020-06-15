@@ -18,7 +18,6 @@ public class ChangePassword extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("count");
-		int ID=Integer.valueOf(request.getParameter("id"));
 		String oldpass=request.getParameter("oldpass");
 		String newpass=request.getParameter("newpass");
 		String repass=request.getParameter("repass");
@@ -51,6 +50,7 @@ public class ChangePassword extends HttpServlet {
 			}
 			else
 			{
+				int ID=Integer.valueOf(request.getParameter("id"));
 				c=new Count();
 				c.setID(ID);
 				if(cop.FindCount(c).getID()==80003)
