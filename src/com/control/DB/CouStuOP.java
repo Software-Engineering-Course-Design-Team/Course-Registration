@@ -12,83 +12,6 @@ import com.model.javabean.CouStu;
 
 public class CouStuOP {
 	JDBC dbcon=new JDBC();
-	public void ConfirmConStu(){
-		dbcon.getConnection();
-		Statement stmt;
-		try {
-			stmt = dbcon.conn.createStatement();
-			ResultSet res=stmt.executeQuery("select CID,SID from constutemp where ord=0;");
-			CouStuOP op=new CouStuOP();
-			while(res.next()){
-				CouStu constu=new CouStu();
-				constu.setCID(res.getLong(1));
-				constu.setSID(res.getLong(2));
-				op.InsertCouStu(constu);
-			}
-			ResultSet res1=stmt.executeQuery("select CID from courseinfo where person<3;");
-			ArrayList<Integer> tem=new ArrayList<Integer>();
-			while(res1.next()){
-				tem.add(res1.getInt(1));
-			}
-			Iterator<Integer> it=tem.iterator();
-			while(it.hasNext()){
-				long temp=it.next();
-				stmt.execute("delete from constutable where CID="+temp+";");
-				stmt.execute("delete from constutemp where CID="+temp+";");
-				stmt.execute("delete from coutimeinfo where CID="+temp+";");
-				stmt.execute("delete from courseinfo where CID="+temp+";");
-			}
-			ResultSet res2=stmt.executeQuery("select SID,CID from constutemp where ord=1;");
-			ArrayList<Integer> tem1=new ArrayList<Integer>();
-			ArrayList<Integer> tem2=new ArrayList<Integer>();
-			while(res2.next()){
-				tem1.add(res2.getInt(1));
-				tem2.add(res2.getInt(2));
-			}
-			Iterator<Integer> it1=tem1.iterator();
-			Iterator<Integer> it2=tem2.iterator();
-			while(it1.hasNext()){
-				long temp=it1.next();
-				ResultSet res3=stmt.executeQuery("select count(*) from constutable where SID="
-						+temp+";");
-				long ttt=it2.next();
-				res3.next();
-				if(res3.getInt(1)<4){
-					CouStu constu=new CouStu();
-					constu.setCID(ttt);
-					constu.setSID(temp);
-					op.InsertCouStu(constu);
-				}
-			}
-			ResultSet res4=stmt.executeQuery("select SID,CID from constutemp where ord=2;");
-			ArrayList<Integer> tem3=new ArrayList<Integer>();
-			ArrayList<Integer> tem4=new ArrayList<Integer>();
-			while(res4.next()){
-				tem3.add(res4.getInt(1));
-				tem4.add(res4.getInt(2));
-			}
-			Iterator<Integer> it3=tem3.iterator();
-			Iterator<Integer> it4=tem4.iterator();
-			while(it3.hasNext()){
-				long temp=it3.next();
-				long temp1=it4.next();
-				ResultSet res5=stmt.executeQuery("select count(*) from constutable where SID="
-						+temp+";");
-				res5.next();
-				if(res5.getInt(1)<4){
-					CouStu constu=new CouStu();
-					constu.setCID(temp1);
-					constu.setSID(temp);
-					op.InsertCouStu(constu);
-				}
-			}
-			stmt.execute("delete from constutemp;");
-			dbcon.CancleConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	public long InsertCouStu(CouStu constu){
 		if(constu.getSID()==0||constu.getCID()==0)return 60001;
 		try {
@@ -148,7 +71,7 @@ public class CouStuOP {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from constutable where CID="+
-					constu.getCID()+";");
+					constu.getCID()+" order by SID;");
 			while(res.next()){
 				CouStu temp=new CouStu();
 				temp.setGrade(res.getString(1));
@@ -175,6 +98,32 @@ public class CouStuOP {
 				temp.setSID(res.getLong(2));
 				temp.setCID(res.getLong(3));
 				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
+	public ArrayList<CouStu> FindCouTerm(CouStu constu,int term){
+		ArrayList<CouStu> result1 = new ArrayList<CouStu>();
+		ArrayList<CouStu> result = new ArrayList<CouStu>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutable where SID="+
+					constu.getSID()+";");
+			while(res.next()){
+				CouStu temp=new CouStu();
+				temp.setGrade(res.getString(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+				result1.add(temp);
+			}
+			for(CouStu i:result1) {
+				ResultSet res2=stmt.executeQuery("select * from courseinfo where CID="+
+						i.getCID()+" and Term="+term+";");
+				if(res2.next())result.add(i);
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
@@ -281,9 +230,5 @@ public class CouStuOP {
 			e.printStackTrace();
 		} 
 		return 60013;
-	}
-	public static void main(String[] args){
-		CouStuOP op=new CouStuOP();
-		op.ConfirmConStu();
 	}
 }

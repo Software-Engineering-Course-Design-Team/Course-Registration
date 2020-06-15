@@ -92,10 +92,10 @@
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
 					<ul class="sub-menu" style="display:none">
-                        <li>
+					<li>
                             <a href="<%=request.getContextPath() +"/StudCouServlet?username="+request.getParameter("username") %>">
                                 <i class="iconfont">&#xe6a7;</i>
-                                选择所修课程
+                                查看可选课程
                             </a>
                         </li>
 						<li>
@@ -107,7 +107,7 @@
 					</ul>
                 </li>
 				 <li class="list">
-                    <a href="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>">
+                    <a href="<%=request.getContextPath() +"/StudNoGradeServlet?username="+request.getParameter("username") %>">
                         <i class="iconfont">&#xe761;</i>
                         查看成绩列表
                         <i class="iconfont nav_right">&#xe697;</i>
@@ -123,6 +123,30 @@
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
+            <form class="layui-form" action="<%=request.getContextPath() +"/StudGradeServlet?username="+request.getParameter("username") %>" method="post">
+            <div style="float:left" class="layui-form-item">
+            	<label class="layui-form-label">*选择学期</label>
+            	<input type="hidden" name="ATerm" value=<%=request.getParameter("ATerm") %>>
+            	<div class="layui-input-block" style="width:150px;">
+            	<select name="Term">
+            		<option value=0 selected>全部</option>
+            		<%
+            		    int s=Integer.parseInt(request.getParameter("ATerm"));
+            			for(int i=1;i<=s;i++){
+            		%>
+            		<option value=<%=i%>>第<%=i%>学期</option>
+            		<%
+            			}
+            		%>
+            	</select>
+            	</div>
+            </div>
+            <br>
+            &nbsp;&nbsp;
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="查询">
+            </form>
            <table class="layui-table">
                 <thead>
                     <tr>

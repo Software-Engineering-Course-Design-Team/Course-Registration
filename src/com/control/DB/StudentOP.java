@@ -15,7 +15,7 @@ public class StudentOP {
 		long id=40002;
 		try {
 			if(stu.getGradDate()==null||stu.getBirthday()==null||stu.getStatus()==null
-					||stu.getSex()==null||stu.getIdcard()==0||stu.getName()==null
+					||stu.getSex()==null||stu.getIdcard()==null||stu.getName()==null
 					||stu.getDID()==0)return 40001;
 			dbcon.getConnection();
 			Statement stmt1=dbcon.conn.createStatement();
@@ -26,7 +26,7 @@ public class StudentOP {
 			}
 			String sql="Insert into stuinfo values('"+stu.getGradDate()+"','"
 					+stu.getBirthday()+"','"+stu.getStatus()+"','"+stu.getSex()
-					+"',"+stu.getIdcard()+",'"+stu.getName()+"',"+"NULL"
+					+"','"+stu.getIdcard()+"','"+stu.getName()+"',"+"NULL"
 					+","+stu.getDID()+");";
 			java.sql.PreparedStatement ps=dbcon.conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
@@ -44,7 +44,7 @@ public class StudentOP {
 	}
 	public long UpdateStudent(Student stu){
 		if(stu.getGradDate()==null||stu.getBirthday()==null||stu.getStatus()==null
-				||stu.getSex()==null||stu.getIdcard()==0||stu.getName()==null
+				||stu.getSex()==null||stu.getIdcard()==null||stu.getName()==null
 				||stu.getDID()==0)return 40012;
 		try {
 			dbcon.getConnection();
@@ -64,8 +64,8 @@ public class StudentOP {
 				+"',Birthday='"+stu.getBirthday()
 				+"',Status='"+stu.getStatus()
 				+"',Sex='"+stu.getSex()
-				+"',Idcard="+stu.getIdcard()
-				+",Name='"+stu.getName()
+				+"',Idcard='"+stu.getIdcard()
+				+"',Name='"+stu.getName()
 				+"',DID="+stu.getDID()
 				+" where SID="+stu.getSID()+";");
 			dbcon.CancleConnection();
@@ -87,7 +87,32 @@ public class StudentOP {
 				temp.setBirthday(res.getString(2));
 				temp.setStatus(res.getString(3));
 				temp.setSex(res.getString(4));
-				temp.setIdcard(res.getLong(5));
+				temp.setIdcard(res.getString(5));
+				temp.setName(res.getString(6));
+				temp.setSID(res.getLong(7));
+				temp.setDID(res.getLong(8));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public ArrayList<Student> FindDepStu(Student stu){
+		ArrayList<Student> result=new ArrayList<Student>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from stuinfo where DID"
+					+ "="+stu.getDID()+";");
+			while(res.next()){
+				Student temp=new Student();
+				temp.setGradDate(res.getString(1));
+				temp.setBirthday(res.getString(2));
+				temp.setStatus(res.getString(3));
+				temp.setSex(res.getString(4));
+				temp.setIdcard(res.getString(5));
 				temp.setName(res.getString(6));
 				temp.setSID(res.getLong(7));
 				temp.setDID(res.getLong(8));
@@ -110,7 +135,7 @@ public class StudentOP {
 				stu.setBirthday(res.getString(2));
 				stu.setStatus(res.getString(3));
 				stu.setSex(res.getString(4));
-				stu.setIdcard(res.getLong(5));
+				stu.setIdcard(res.getString(5));
 				stu.setName(res.getString(6));
 				stu.setSID(res.getLong(7));
 				stu.setDID(res.getLong(8));
@@ -134,7 +159,7 @@ public class StudentOP {
 				return 40004;
 			}
 			ResultSet res2=stmt.executeQuery("select * from stufeeinfo where SID"
-					+ "="+stu.getSID()+" and status='δ����';");
+					+ "="+stu.getSID()+" and status='未缴清';");
 			if(res2.next()){
 				dbcon.CancleConnection();
 				return 40005;

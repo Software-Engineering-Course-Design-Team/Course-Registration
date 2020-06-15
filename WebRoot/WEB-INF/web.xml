@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>SoftEngProj</display-name>
+  
+   <servlet>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminDeleteServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <url-pattern>/AdminDelServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminManaServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminManaServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminManaServlet</servlet-name>
+    <url-pattern>/AdminManServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminUpdateServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminUpdateServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminUpdateServlet</servlet-name>
+    <url-pattern>/AdminUpdServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminFindClass</servlet-name>
+    <servlet-class>com.action.admin.AdminFindServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminFindClass</servlet-name>
+    <url-pattern>/AdminFinClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempInfo</servlet-name>
+    <servlet-class>com.action.admin.AdminTempInfo</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempInfo</servlet-name>
+    <url-pattern>/AdminTemInfo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempDelServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminTempDelServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempDelServlet</servlet-name>
+    <url-pattern>/AdminTemDelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminTempServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempServlet</servlet-name>
+    <url-pattern>/AdminTemServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminInsertClass</servlet-name>
+    <servlet-class>com.action.admin.AdminInsertClass</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminInsertClass</servlet-name>
+    <url-pattern>/AdminInsClass</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
+    <servlet-name>AdminInserClass</servlet-name>
+    <servlet-class>com.action.admin.AdminInseClass</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminInserClass</servlet-name>
+    <url-pattern>/AdminInseeClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminUpDelFee</servlet-name>
+    <servlet-class>com.action.admin.AdminUpDelFee</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminUpDelFee</servlet-name>
+    <url-pattern>/AdminUpdDelFee</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminStuFee</servlet-name>
+    <servlet-class>com.action.admin.AdminStuFee</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminStuFee</servlet-name>
+    <url-pattern>/AdminStudFee</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>LoginCheckServlet</servlet-name>
     <servlet-class>com.action.LoginCheckServlet</servlet-class>
@@ -29,6 +142,26 @@
   <servlet-mapping>
     <servlet-name>StuGradeServlet</servlet-name>
     <url-pattern>/StudGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StuCommitServlet</servlet-name>
+    <servlet-class>com.action.student.StuCommitServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuCommitServlet</servlet-name>
+    <url-pattern>/StudCommitServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StuNoGradeServlet</servlet-name>
+    <servlet-class>com.action.student.StuNoGradeServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>StuNoGradeServlet</servlet-name>
+    <url-pattern>/StudNoGradeServlet</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -92,8 +225,58 @@
   </servlet-mapping>
   
   <servlet>
+  <servlet-name>deletequailServlet</servlet-name>
+    <servlet-class>com.action.admin.DeleteQuali</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>deletequailServlet</servlet-name>
+    <url-pattern>/DeleteQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>addqualiServlet</servlet-name>
+    <servlet-class>com.action.admin.AddQuali</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>addqualiServlet</servlet-name>
+    <url-pattern>/AddQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>findcouteaServlet</servlet-name>
+    <servlet-class>com.action.admin.FindCouTea</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>findcouteaServlet</servlet-name>
+    <url-pattern>/FindCouTeaServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>getdepServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminGetDepList</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>getdepServlet</servlet-name>
+    <url-pattern>/GetDepServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>changestatusServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminChangeStatus</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>changestatusServlet</servlet-name>
+    <url-pattern>/ChangeStatusServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>tealistServlet</servlet-name>
-    <servlet-class>com.teacher.action.TeaGetCrsList</servlet-class>
+    <servlet-class>com.action.teacher.TeaGetCrsList</servlet-class>
   </servlet>
  
   <servlet-mapping>
@@ -101,7 +284,56 @@
     <url-pattern>/TeaListServlet</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
+    <servlet-name>teaqualiServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaGetQualiList</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>teaqualiServlet</servlet-name>
+    <url-pattern>/TeaQualiServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>teachoosecouServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaChooseCou</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>teachoosecouServlet</servlet-name>
+    <url-pattern>/TeaChooseCouServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>getstulistServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaGetStu</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>getstulistServlet</servlet-name>
+    <url-pattern>/GetStuListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>cggradeServlet</servlet-name>
+    <servlet-class>com.action.teacher.TeaChagGrade</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>cggradeServlet</servlet-name>
+    <url-pattern>/ChangeStuGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>changegradeServlet</servlet-name>
+    <servlet-class>com.action.teacher.ChangeGrade</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>changegradeServlet</servlet-name>
+    <url-pattern>/ChangeGradeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>AddStuServlet</servlet-name>
     <servlet-class>com.action.admin.AddStuServlet</servlet-class>
   </servlet>
@@ -109,8 +341,8 @@
   <servlet-mapping>
     <servlet-name>AddStuServlet</servlet-name>
     <url-pattern>/AddStudServlet</url-pattern>
+
   </servlet-mapping>
-  
   <welcome-file-list>
   	<welcome-file>login.html</welcome-file>
     <welcome-file>index.html</welcome-file>

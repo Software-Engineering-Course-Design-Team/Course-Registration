@@ -18,13 +18,13 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="TeaMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="./TeaMenu.html">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">教师信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="member-password.html">修改密码</a></dd>
+              <dd><a href="TeaPwd.html">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -44,19 +44,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaQualiServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 选课界面
                             </a>
                         </li>
 						<li>
-                            <a href="TeaCrsList.jsp">
+                            <a href="./TeaListServlet?option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 已选教授课程列表
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="./TeaQualiServlet?option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看可教授课程
                             </a>
@@ -72,21 +72,21 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                录入成绩
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
+                            <a href="./TeaListServlet?option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 获取花名册
                             </a>
                         </li>
-						<li>
-                            <a href="javascript:;">
+                        <li>
+                            <a href="./TeaListServlet?option=3">
                                 <i class="iconfont">&#xe6a7;</i>
-                                查看成绩列表列表
+                                录入成绩
+                            </a>
+                        </li>
+						<li>
+                            <a href="./TeaListServlet?option=4">
+                                <i class="iconfont">&#xe6a7;</i>
+                                查看成绩列表
                             </a>
                         </li>
 					</ul>
@@ -117,19 +117,24 @@
                         <th>
                             已选课人数
                         </th>
+                        <%
+                        if((request.getAttribute("teacrslist")!=null)&&(request.getAttribute("option")!=null))
+      				  {
+      					  ArrayList<Course> crs=(ArrayList<Course>)request.getAttribute("teacrslist");
+      					  int option=(int)request.getAttribute("option");
+      					  if (option!=1)
+                        	{%>
+                        	<th>
+                        	操作
+                        	</th>
+                        	<%} %>
                     </tr>
                 </thead>
 				<tbody>
-				  <%
-				  if(request.getAttribute("teacrslist")!=null)
-				  {
-					  ArrayList<Course> crs=(ArrayList<Course>)request.getAttribute("teacrslist");
-				  
-					for(int i=0;i<crs.size();i++){
+				  <%for(int i=0;i<crs.size();i++){
 						Course c=crs.get(i);
 						String CID=String.valueOf(c.getCID());
 						String cName=c.getName();
-						//String bgWeek=c.getBeginweek();
 						%>
 						<tr>
                         <th>
@@ -147,10 +152,48 @@
                         <th>
                             <%=String.valueOf(c.getPerson())%>
                         </th>
-						
+                        <%
+				  if (option==2)
+                        	{%>
+                        	<th>
+                        	<form action="GetStuListServlet" method="post">
+                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
+                        	<input type="hidden" name="option" value=<%=option%>>
+                        	<input type="submit" name=""style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;"  value="获取">
+                        	</form>
+                        	</th>
+                        	<%}%> 
+                        	<%
+				  if (option==3)
+                        	{%>
+                        	<th>
+                        	<form action="GetStuListServlet?CID=<%=c.getCID()%>&option=3" method="post">
+                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
+                        	<input type="hidden" name="option" value=<%=option%>>
+                        	<input type="submit" name=""style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;"  value="录入">
+                        	</form>
+                        	</th>
+                        	<%}%> 
+                        <%
+				  if (option==4)
+                        	{%>
+                        	<th>
+                        	<form action="GetStuListServlet?option=4" method="post">
+                        	<input type="hidden" name="CID" value=<%=c.getCID()%>>
+                        	<input type="hidden" name="option" value=<%=option%>>
+                        	<input type="submit" name=""style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;"  value="查看">
+                        	</form>
+                        	</th>
+                        	<%}%> 
                     </tr>
 					<%
-					}
+				  }
 				  }
 				  
 					%>

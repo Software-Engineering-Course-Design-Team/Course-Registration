@@ -1,13 +1,14 @@
 
 package com.model.javabean;
 
+import java.util.Comparator;
 
 public class Student {
 	private String Name;
 	private String sex;
 	private String GradDate;
 	private String Birthday;
-	private long Idcard;
+	private String Idcard;
 	private long SID;
 	private long DID;
 	private String status;
@@ -16,7 +17,7 @@ public class Student {
 	public Student() {
 		super();
 	}
-	public Student(String name, String sex, String gradDate, String birthday, long idcard, long sID, long dID,
+	public Student(String name, String sex, String gradDate, String birthday, String idcard, long sID, long dID,
 			String status) {
 		super();
 		Name = name;
@@ -52,10 +53,10 @@ public class Student {
 	public void setBirthday(String birthday) {
 		Birthday = birthday;
 	}
-	public long getIdcard() {
+	public String getIdcard() {
 		return Idcard;
 	}
-	public void setIdcard(long idcard) {
+	public void setIdcard(String idcard) {
 		Idcard = idcard;
 	}
 	public long getSID() {
@@ -77,7 +78,13 @@ public class Student {
 		this.status = status;
 	}
 	
-	
+	public static Comparator<Student> SIDComparator=new Comparator<Student>() {
+		public int compare(Student c1,Student c2) {
+			int SID1=(int) ((Student)c1).getSID();
+			int SID2=(int) ((Student)c2).getSID();
+			return (int) (SID1-SID2);
+		}
+	};
 	
 }
 
