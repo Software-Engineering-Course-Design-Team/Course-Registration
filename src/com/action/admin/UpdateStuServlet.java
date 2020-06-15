@@ -53,7 +53,8 @@ public class UpdateStuServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		if (name.equals("")) name = null;
 		long sID = Integer.parseInt(request.getParameter("SID"));
-		long idNumber = Integer.parseInt(request.getParameter("idNumber"));
+		String idNumber = request.getParameter("idNumber");
+		if (idNumber.equals("")) name = null;
 		long department = Integer.parseInt(request.getParameter("department"));
 		String status = request.getParameter("status");
 		if (status.equals("")) name = null;

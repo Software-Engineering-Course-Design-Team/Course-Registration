@@ -8,7 +8,7 @@ public class Student {
 	private String sex;
 	private String GradDate;
 	private String Birthday;
-	private long Idcard;
+	private String Idcard;
 	private long SID;
 	private long DID;
 	private String status;
@@ -17,7 +17,7 @@ public class Student {
 	public Student() {
 		super();
 	}
-	public Student(String name, String sex, String gradDate, String birthday, long idcard, long sID, long dID,
+	public Student(String name, String sex, String gradDate, String birthday, String idcard, long sID, long dID,
 			String status) {
 		super();
 		Name = name;
@@ -53,10 +53,10 @@ public class Student {
 	public void setBirthday(String birthday) {
 		Birthday = birthday;
 	}
-	public long getIdcard() {
+	public String getIdcard() {
 		return Idcard;
 	}
-	public void setIdcard(long idcard) {
+	public void setIdcard(String idcard) {
 		Idcard = idcard;
 	}
 	public long getSID() {

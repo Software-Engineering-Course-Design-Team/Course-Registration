@@ -77,7 +77,7 @@
 	<div class="left-nav">
           <div id="side-nav">
             <ul id="nav">
-                <li class="list">
+               <li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
                         维护学生信息
@@ -118,39 +118,21 @@
                     </a>
 					<ul class="sub-menu" style="display:none">
                         <li>
-                            <a href="javascript:;">
+                            <a href="AdminInsClass">
                                 <i class="iconfont">&#xe6a7;</i>
                                 增加课程信息
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:;">
+                            <a href="AdminFinClass">
                                 <i class="iconfont">&#xe6a7;</i>
-                                查询课程信息
+                                管理课程信息
                             </a>
                         </li>
-						<li>
-                            <a href="javascript:;">
+                        <li>
+                            <a href="AdminManServlet">
                                 <i class="iconfont">&#xe6a7;</i>
-                                修改课程信息
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                增加上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除上课时间
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除课程信息
+                                管理选课记录
                             </a>
                         </li>
 					</ul>
@@ -188,7 +170,7 @@
                         </li>
 					</ul>
                 </li>
-				<li class="list">
+								<li class="list">
                     <a href="javascript:;">
                         <i class="iconfont">&#xe761;</i>
                         维护部门信息
@@ -222,37 +204,11 @@
 					</ul>
                 </li>
 				<li class="list">
-                    <a href="javascript:;">
+                    <a href="RootStuFee.html">
                         <i class="iconfont">&#xe761;</i>
                         维护学费信息
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-					<ul class="sub-menu" style="display:none">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                更新学费状态
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                查询学费信息
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                查看未缴费名单
-                            </a>
-                        </li>
-						<li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe6a7;</i>
-                                删除学费信息
-                            </a>
-                        </li>
-					</ul>
                 </li>
 				<li class="list">
                     <a href="javascript:;">
@@ -275,13 +231,14 @@
                         </li>
 					</ul>
                 </li>
+
 				<li class="list" >
                     <a href="./GetDepServlet">
                         <i class="iconfont">&#xe6a3;</i>
                         注册状态管理
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
-                    
+
                 </li>
             </ul>
           </div>
