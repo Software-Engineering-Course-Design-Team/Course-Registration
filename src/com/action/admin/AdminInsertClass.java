@@ -31,7 +31,11 @@ public class AdminInsertClass extends HttpServlet {
 		DepartOP dop=new DepartOP();
 		depinfo=dop.FindAllDep();
 		request.setAttribute("depinfo",depinfo);
-		request.getRequestDispatcher("/RootInsertClass.jsp").forward(request,response);
+		if(request.getParameter("oopp")==null) {
+			request.getRequestDispatcher("/RootInsertClass.jsp").forward(request,response);
+			}else {
+				request.getRequestDispatcher("RootModifyClass.jsp").forward(request,response);
+			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

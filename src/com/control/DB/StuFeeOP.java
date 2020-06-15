@@ -138,6 +138,25 @@ public class StuFeeOP {
 		}
 		return 30010;
 	}
+	public long UpdateFee(Stufee stufee){
+		if(stufee.getTerm()==0||stufee.getSID()==0)return 30008;
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from stufeeinfo where SID="+stufee.getSID()+""
+					+ " and Term="+stufee.getTerm()+";");
+			if(!res.next()){
+				dbcon.CancleConnection();
+				return 30009;
+			}
+			stmt.execute("Update stufeeinfo set Fee="+stufee.getFee()+" where SID="+stufee.getSID()+" and Term="+stufee.getTerm()+";");
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return 30010;
+	}
 	public int[] returnAllfeeinfo(){
 		int[] result=new int[3];
 		try {

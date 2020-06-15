@@ -1,7 +1,7 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 		 pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,java.io.*,com.model.javabean.Student,com.model.javabean.Course,java.util.ArrayList.*"%>
+<%@ page import="java.util.*,java.io.*,com.model.javabean.DepInfo,com.model.javabean.CouTime,java.util.ArrayList.*"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,18 +51,9 @@
                 }   
                   return i;
             }  
-            function confirmDel(){
-                if(!window.confirm("您确定要删除这条记录吗")){
-              	  window.event.returnValue = false;
-                }
-      		}
-            function confirmUpdate(){
-                if(!window.confirm("请您核实缴费情况，若缴费成功，请确认")){
-              	  window.event.returnValue = false;
-                }
-      		}
-        </script>
-                <%
+       </script>
+       
+         <%
   response.setHeader("Cache-Control","no-cache");
   response.setHeader("Pragma","no-cache");
   response.setDateHeader("Expires",0);
@@ -259,123 +250,56 @@
             <blockquote class="layui-elem-quote">
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
-             <form class="layui-form" action="AdminManServlet" method="post">
-            <div class="layui-form-item">
-                    <label for="L_ClassName" class="layui-form-label">
-                        <span class="x-red">*</span>课程编号
-                    </label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_ClassNum" name="CID"
-                        autocomplete="off" class="layui-input">
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <script language="JavaScript"  defer=true>
-       				function confirm1(){
-            		    var fee1 = document.getElementById('L_ClassNum');
-            		    if(fee1.value==""){
-            		    	window.confirm("请输入课程编号进行查询！");
-                        	window.event.returnValue = false;
-                        	return false;
-            		    }
-       				}
-       				</script>
-                    <input type="submit" style="background: transparent;border:none;
+            <%
+            if((int)request.getAttribute("RootInfo")==1||(int)request.getAttribute("RootInfo")==7){
+            %>
+                错误，不存在该课程<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==2){
+            %>
+                 错误，该部门暂无开设课程<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==3){
+            %>
+              错误，该学期暂无开设课程<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==4){
+            %>
+             错误，该部门该学期暂无开设课程<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==5){
+            %>
+             错误，该地点暂无开设课程<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==8){
+            %>
+            该课程暂无选课记录。<br>
+            <%
+            }
+            if((int)request.getAttribute("RootInfo")<=6){
+            %>
+            <form action="AdminFinClass" method="post">
+            <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="查询" onclick="confirm1()">
-    </div>
-    </form>
-    <form class="layui-form" action="AdminManServlet" method="post">
-    <div class="layui-form-item">
-    <%
-    if(request.getAttribute("flag")!=null){
-    	if(request.getAttribute("flag").equals("no")){
-    %>
-    				<label for="L_StuName" class="layui-form-label">
-                        <span class="x-red">*</span>学生编号
-                    </label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="L_StuNum" name="SID"
-                        autocomplete="off" class="layui-input">
-                    </div>
-                    &nbsp;&nbsp;&nbsp;
-                    <script language="JavaScript"  defer=true>
-       				function confirm2(){
-            		    var fee1 = document.getElementById('L_StuNum');
-            		    if(fee1.value==""){
-            		    	window.confirm("请输入学生编号进行添加！");
-                        	window.event.returnValue = false;
-                        	return false;
-            		    }
-       				}
-       				</script>
-       				<input type="hidden" name="op" value="Verify">
-       				<input type="hidden" name="CID" value=<%=request.getParameter("CID")%>>
-                    <input type="submit" style="background: transparent;border:none;
+    border-radius:10px;" value="返回操作页面">
+             </form>
+             <%
+            }else{
+             %>
+             <form action="AdminManServlet" method="post">
+            <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="添加" onclick="confirm2()">
-    <%
-    	}
-    }
-    %>
-            </div>
-            </form>
-            <table class="layui-table">
-                <thead>
-                    <tr>
-                    <th>
-                          学生学号
-                        </th>
-                        <th>
-                           学生姓名
-                        </th>
-                        <th>
-                            操作
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                <%
-                  if(request.getAttribute("stuinfo")!=null){
-                	  ArrayList<Student> stu=(ArrayList<Student>)request.getAttribute("stuinfo");
-                	  for(Student i:stu){
-                %>
-                <form action="AdminManServlet" method="post">
-                <tr>
-                <th>
-                <%=i.getSID()%>
-                        </th>
-                        <th>
-                <%=i.getName()%>
-                        </th>
-                        <th>
-                        <input type="hidden" name="SID" value=<%=i.getSID()%>>
-                        <input type="hidden" name="CID" value=<%=request.getParameter("CID")%>>
-                        <input type="hidden" name="op" value="Delete">
-                         <script language="JavaScript"  defer=true>
-       				function confirmDel(){
-            		    if(!window.confirm("你确认删除这条记录吗！");){
-                        	window.event.returnValue = false;
-                        	return false;
-            		    }
-       				}
-       				</script>
-               <input type="submit" style="background: transparent;border:none;
-    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
-    border-radius:10px;" value="删除" onclick="confirmDel()">
-                        </th>
-                        </tr>
-                 </form>
-                  <%
-                  }
-                    }
-                   %>
-                </tbody>
-            </table>
+    border-radius:10px;" value="返回操作页面">
+             </form>
+             <%
+            }
+             %>
           </div>
         </div>
         <!-- 右侧主体结束 -->
     </div>
     <!-- 中部结束 -->
+    
     <!-- 底部开始 -->
     <div class="footer">
         <div class="copyright">Copyright ©2020 XiaRui ZhangShiyao ShiJizhong WangHaiyan FengShenghui All Rights Reserved. </div>  

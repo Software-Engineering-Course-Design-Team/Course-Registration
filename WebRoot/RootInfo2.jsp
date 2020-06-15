@@ -251,7 +251,11 @@
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
             <%
-            if((int)request.getAttribute("RootInfo")==2){
+            if((int)request.getAttribute("RootInfo")==1){
+            %>
+             错误，该条记录已经存在于系统中<br>
+            <%
+            }else if((int)request.getAttribute("RootInfo")==2){
             %>
                 错误，该学生已满4门<br>
             <%
@@ -259,9 +263,13 @@
             %>
                  错误，找不到该学生<br>
             <%
+            }else if((int)request.getAttribute("RootInfo")==4){
+            %>
+          错误，该学生的部门与该课程部门无法匹配！<br>    
+            <%
             }
             %>
-            <form action="" method="post">
+            <form action="AdminManServlet" method="post">
             <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
     border-radius:10px;" value="返回操作页面">

@@ -75,7 +75,7 @@ public class AdminInseClass extends HttpServlet {
 					request.setAttribute("RootInfo", 3);
 				}else {
 					cou.setCID(Integer.parseInt((String)session.getAttribute("CID")));
-					couop.UpdateCourse(cou);
+					couop.UpdateCourse2(cou);
 					CouTime ttcc=new CouTime();
 					ttcc.setCID(cou.getCID());
 					ctop.DeleteCou(ttcc);

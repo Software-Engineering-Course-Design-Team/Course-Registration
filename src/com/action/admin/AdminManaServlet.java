@@ -41,28 +41,6 @@ public class AdminManaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		String op=request.getParameter("op");
-		if(request.getParameter("CID")!=null&&request.getParameter("CID")!="") {
-			int CID=Integer.parseInt(request.getParameter("CID"));
-			CouStu cs=new CouStu();
-			cs.setCID(CID);
-			CouStuOP csop=new CouStuOP();
-			ArrayList<CouStu> c=csop.FindStu(cs);
-			ArrayList<Student> stu=new ArrayList<Student>();
-			StudentOP sop=new StudentOP();
-			for(CouStu a:c) {
-				Student sta=new Student();
-				sta.setSID(a.getSID());
-				sta=sop.FindStudent(sta);
-				stu.add(sta);
-			}
-			Course cou=new Course();
-			CourseOP cop=new CourseOP();
-			cou.setCID(CID);
-			cou=cop.FindCourse(cou);
-			if(cou.getPerson()>=10) request.setAttribute("flag", "yes");
-			else request.setAttribute("flag", "no");//10人标记
-			request.setAttribute("stuinfo", stu);
-		}
 		if(op!=null&&op.equals("Verify")) {
 			int SID=Integer.parseInt(request.getParameter("SID"));
 			CouStu cs=new CouStu();
@@ -101,8 +79,19 @@ public class AdminManaServlet extends HttpServlet {
 				sf=cfop.FindStuFee(sf);
 				sf.setFee(sf.getFee()+cou.getFee());
 				cs.setSID(SID);
-				csop.InsertCouStu(cs);
-				cfop.UpdateStuFee(sf);
+				cs.setCID(CID);
+				long idd=csop.InsertCouStu(cs);
+				if(idd==60001) {
+					request.setAttribute("RootInfo", 1);
+					request.getRequestDispatcher("/RootInfo2.jsp").forward(request,response);
+					return;
+				}
+				if(idd==60016) {
+					request.setAttribute("RootInfo", 4);
+					request.getRequestDispatcher("/RootInfo2.jsp").forward(request,response);
+					return;
+				}
+				cfop.UpdateFee(sf);
 			}
 		}else if(op!=null&&op.equals("Delete")) {
 			int SID=Integer.parseInt(request.getParameter("SID"));
@@ -136,9 +125,47 @@ public class AdminManaServlet extends HttpServlet {
 			sf=cfop.FindStuFee(sf);
 			sf.setFee(sf.getFee()-cou.getFee());
 			cs.setSID(SID);
-			csop.DeleteCou(cs);
-			cfop.UpdateStuFee(sf);
+			cs.setCID(CID);
+			csop.DeleteCouStu(cs);
+			cfop.UpdateFee(sf);
 		}
+		if(request.getParameter("CID")!=null&&request.getParameter("CID")!="") {
+			int CID=Integer.parseInt(request.getParameter("CID"));
+			CouStu cs=new CouStu();
+			cs.setCID(CID);
+			Course jdu=new Course();
+			CourseOP jduop=new CourseOP();
+			jdu.setCID(CID);
+			jdu=jduop.FindCourse(jdu);
+			if(jdu.getCID()<100000) {
+				request.setAttribute("RootInfo", 7);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
+			CouStuOP csop=new CouStuOP();
+			ArrayList<CouStu> c=csop.FindStu(cs);
+			if(c.size()==0) {
+				request.setAttribute("RootInfo", 8);
+				request.getRequestDispatcher("/RootInfo3.jsp").forward(request,response);
+				return;
+			}
+			ArrayList<Student> stu=new ArrayList<Student>();
+			StudentOP sop=new StudentOP();
+			for(CouStu a:c) {
+				Student sta=new Student();
+				sta.setSID(a.getSID());
+				sta=sop.FindStudent(sta);
+				stu.add(sta);
+			}
+			Course cou=new Course();
+			CourseOP cop=new CourseOP();
+			cou.setCID(CID);
+			cou=cop.FindCourse(cou);
+			if(cou.getPerson()>=10) request.setAttribute("flag", "yes");
+			else request.setAttribute("flag", "no");//10人标记
+			request.setAttribute("stuinfo", stu);
+		}
+		
 		request.getRequestDispatcher("/RootManage.jsp").forward(request,response);
 		return;
 	}

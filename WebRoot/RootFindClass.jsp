@@ -436,11 +436,11 @@
                         <th>
                         	<form action="AdminUpdServlet" method="post">
                         	<input type="hidden" name="CID" value=<%=temp2.getCID()%>>
-                            <input type="submit" style="background: transparent;border:none;
+                            <input type="submit" name="op" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
     border-radius:10px;" value="修改">
                         	<input type="hidden" name="CID" value=<%=temp2.getCID()%>>
-    						<input type="submit" style="background: transparent;border:none;
+    						<input type="submit" name="op" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
     border-radius:10px;" value="删除" onclick="confirmDel()">
                             </form>
