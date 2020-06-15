@@ -34,19 +34,22 @@ public class ChangeGrade extends HttpServlet {
 		String grade = request.getParameter("grade");
 		int sID=Integer.valueOf(request.getParameter("SID"));
 		int cID=Integer.valueOf(request.getParameter("CID"));
+		int id=Integer.parseInt(request.getParameter("username"));
+		request.setAttribute("username", id);
 		request.setAttribute("option", "changegrade");
+		
 		if(!grade.equals("A")&&!grade.equals("B")&&!grade.equals("C")&&!grade.equals("D")&&!grade.equals("F")&&!grade.equals("I"))
 			{
-<<<<<<< HEAD
-				request.setAttribute("info", "成绩范围应该是A、B、C、D、F、I的大写字母");
-=======
+
+				
 				request.setAttribute("info", "成绩范围应是A、B、C、D、F、I!");
->>>>>>> master
+
 				request.setAttribute("CID", cID);	
 				request.setAttribute("SID", sID);
 				request.setAttribute("SName", request.getParameter("SName"));
 				request.setAttribute("grade", grade);
-				request.getRequestDispatcher("/TeaChangeGradeError.jsp?option=3").forward(request,response);
+				request.setAttribute("username", id);
+				request.getRequestDispatcher("/TeaChangeGradeError.jsp?username="+id+"&option=3").forward(request,response);
 				return;
 			}
 		else
@@ -68,12 +71,14 @@ public class ChangeGrade extends HttpServlet {
 					request.getRequestDispatcher("/TeaChangeGradeError.jsp").forward(request,response);*/
 					request.setAttribute("option", "changegrade");
 					request.setAttribute("CID", cID);
+					request.setAttribute("username", id);
 					request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 					return;
 				}
 				request.setAttribute("info", "成绩已录入！");
 				request.setAttribute("option", "changegrade");
 				request.setAttribute("CID", cID);
+				request.setAttribute("username", id);
 				request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 			
 			}

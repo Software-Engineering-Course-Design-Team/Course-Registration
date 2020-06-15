@@ -20,13 +20,13 @@
 <body >
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="TeaMenu.html">欢迎使用课程注册系统</a></div>
+        <div class="logo"><a href="TeaMenu.jsp?username=<%=request.getParameter("username") %>">欢迎使用课程注册系统</a></div>
         <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
             <a href="javascript:;">教师信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="TeaPwd.html">修改密码</a></dd>
+              <dd><a href="TeaPwd.jsp?username=<%=request.getParameter("username") %>">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -46,19 +46,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="./TeaQualiServlet?option=1">
+                            <a href="./TeaQualiServlet?username=<%=request.getParameter("username") %>&option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 选课界面
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaListServlet?option=1">
+                            <a href="./TeaListServlet?username=<%=request.getParameter("username") %>&option=1">
                                 <i class="iconfont">&#xe6a7;</i>
                                 已选教授课程列表
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaQualiServlet?option=2">
+                            <a href="./TeaQualiServlet?username=<%=request.getParameter("username") %>&option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看可教授课程
                             </a>
@@ -74,19 +74,19 @@
                     <ul class="sub-menu" style="display:none">
                         
 						<li>
-                            <a href="./TeaListServlet?option=2">
+                            <a href="./TeaListServlet?username=<%=request.getParameter("username") %>&option=2">
                                 <i class="iconfont">&#xe6a7;</i>
                                 获取花名册
                             </a>
                         </li>
                         <li>
-                            <a href="./TeaListServlet?option=3">
+                            <a href="./TeaListServlet?username=<%=request.getParameter("username") %>&option=3">
                                 <i class="iconfont">&#xe6a7;</i>
                                 录入成绩
                             </a>
                         </li>
 						<li>
-                            <a href="./TeaListServlet?option=4">
+                            <a href="./TeaListServlet?username=<%=request.getParameter("username") %>&option=4">
                                 <i class="iconfont">&#xe6a7;</i>
                                 查看成绩列表
                             </a>
@@ -104,7 +104,7 @@
             <blockquote class="layui-elem-quote">
                 <%=information%>
             </blockquote>
-            <form class="layui-form" action="ChangeGradeServlet" method="post">
+            <form class="layui-form" action="ChangeGradeServlet?username=<%=request.getParameter("username") %>" method="post">
 			   <input type="hidden" name="SID" value=<%=request.getAttribute("SID")%>>
 			   <input type="hidden" name="CID" value=<%=request.getAttribute("CID")%>>
 			   <input type="hidden" name="SName" value=<%=request.getAttribute("SName")%>>

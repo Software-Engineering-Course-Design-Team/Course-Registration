@@ -35,7 +35,7 @@ public class LoginCheckServlet extends HttpServlet {
 		String userName = request.getParameter("username");
 		String userPwd = request.getParameter("password");
 		String info = "";
-	
+		
 		CountOP cop=new CountOP();
 		Count curr_c=cop.FindCount(new Count(0,"",Integer.parseInt(userName)));
 		if(curr_c.getID()==80003)
@@ -56,7 +56,8 @@ public class LoginCheckServlet extends HttpServlet {
 				else if(curr_c.getIdentity()==1)
 				{
 					request.setAttribute(userName, "username");
-					request.getRequestDispatcher("/TeaMenu.jsp").forward(request,response);
+					
+					request.getRequestDispatcher("/TeaMenu.jsp?username="+userName).forward(request,response);
 				}
 				else
 				{

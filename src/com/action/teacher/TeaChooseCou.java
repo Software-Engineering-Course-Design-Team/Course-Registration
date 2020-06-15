@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.action.LoginCheckServlet;
 import com.control.DB.CouTimeOP;
+import com.control.DB.CountOP;
 import com.control.DB.CourseOP;
+import com.model.javabean.Count;
 import com.model.javabean.Course;
 
 /**
@@ -38,9 +40,16 @@ public class TeaChooseCou extends HttpServlet {
 		int CID=Integer.valueOf(request.getParameter("CID"));
 		int option=Integer.valueOf(request.getParameter("option"));
 		String Cname=request.getParameter("CName");
-		if(LoginCheckServlet.logincount!=null)
+		int id=Integer.parseInt(request.getParameter("username"));
+		request.setAttribute("username", id);
+		System.out.println("username="+id);
+		CountOP ccop=new CountOP();
+		Count logincount=new Count();
+		logincount.setID(id);
+		logincount=ccop.FindCount(logincount);
+		if(logincount!=null)
 		{
-			long PID=LoginCheckServlet.logincount.getID();
+			long PID=logincount.getID();
 			CourseOP cop=new CourseOP();
 			CouTimeOP ctop=new CouTimeOP();
 			Course c=new Course();
@@ -66,6 +75,7 @@ public class TeaChooseCou extends HttpServlet {
 					{
 						request.setAttribute("option", "choosecourse");
 						request.setAttribute("info", "选课成功！");
+						request.setAttribute("username", id);
 						request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 						return;
 					}
@@ -78,6 +88,7 @@ public class TeaChooseCou extends HttpServlet {
 				{
 					request.setAttribute("option", "choosecourse");
 					request.setAttribute("info", "该课程与已选课程间有冲突");
+					request.setAttribute("username", id);
 					request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 					return;
 				}
@@ -87,6 +98,7 @@ public class TeaChooseCou extends HttpServlet {
 				if(cop.DeleteTeacher(c)==70019) {
 					request.setAttribute("option", "choosecourse");
 				request.setAttribute("info", "已退课！");
+				request.setAttribute("username", id);
 				request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 				}
 				else {

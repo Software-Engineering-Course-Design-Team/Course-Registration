@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.action.LoginCheckServlet;
+import com.control.DB.CountOP;
 import com.control.DB.CourseOP;
+import com.model.javabean.Count;
 import com.model.javabean.Course;
 
 /**
@@ -43,11 +45,18 @@ public class TeaGetCrsList extends HttpServlet {
 		/*System.out.println(nativeServerName);
 		if(!nativeServerName.equals("localhost:8080"))
 		{*/
-		if(LoginCheckServlet.logincount!=null)
+		int id=Integer.parseInt(request.getParameter("username"));
+		
+		System.out.println("username="+id);
+		CountOP cop=new CountOP();
+		Count logincount=new Count();
+		logincount.setID(id);
+		logincount=cop.FindCount(logincount);
+		if(logincount!=null)
 		{
 			CourseOP crsop=new CourseOP();
 			Course cs=new Course();
-			cs.setPID(LoginCheckServlet.logincount.getID());
+			cs.setPID(logincount.getID());
 			ArrayList<Course> crs=crsop.FindTeaCou(cs);
 			Calendar date = Calendar.getInstance();
 			int month = date.get(Calendar.MONTH);
@@ -56,14 +65,14 @@ public class TeaGetCrsList extends HttpServlet {
 				xueqi=0;
 			request.setAttribute("option", option);
 			request.setAttribute("teacrslist", crs);
-			request.getRequestDispatcher("/TeaCrsList.jsp").forward(request,response);
+			request.setAttribute("username", id);
+			request.getRequestDispatcher("/TeaCrsList.jsp?username="+id).forward(request,response);
 			
 		}
 		else
 		{
 			System.out.println("no curr_count");
-			request.setAttribute("info", "当前未登录");
-			request.getRequestDispatcher("/TeaError.jsp").forward(request,response);
+			request.getRequestDispatcher("/login.html").forward(request,response);
 		}
 		//}
 		//else
