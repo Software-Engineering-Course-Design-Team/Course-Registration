@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>SoftEngProj</display-name>
+  
+   <servlet>
+    <servlet-name>AdminManaServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminManaServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminManaServlet</servlet-name>
+    <url-pattern>/AdminManServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminUpdateServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminUpdateServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminUpdateServlet</servlet-name>
+    <url-pattern>/AdminUpdServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminFindClass</servlet-name>
+    <servlet-class>com.action.admin.AdminFindServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminFindClass</servlet-name>
+    <url-pattern>/AdminFinClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempInfo</servlet-name>
+    <servlet-class>com.action.admin.AdminTempInfo</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempInfo</servlet-name>
+    <url-pattern>/AdminTemInfo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempDelServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminTempDelServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempDelServlet</servlet-name>
+    <url-pattern>/AdminTemDelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminTempServlet</servlet-name>
+    <servlet-class>com.action.admin.AdminTempServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminTempServlet</servlet-name>
+    <url-pattern>/AdminTemServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AdminInsertClass</servlet-name>
+    <servlet-class>com.action.admin.AdminInsertClass</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminInsertClass</servlet-name>
+    <url-pattern>/AdminInsClass</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
+    <servlet-name>AdminInserClass</servlet-name>
+    <servlet-class>com.action.admin.AdminInseClass</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminInserClass</servlet-name>
+    <url-pattern>/AdminInseeClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminUpDelFee</servlet-name>
+    <servlet-class>com.action.admin.AdminUpDelFee</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminUpDelFee</servlet-name>
+    <url-pattern>/AdminUpdDelFee</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminStuFee</servlet-name>
+    <servlet-class>com.action.admin.AdminStuFee</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>AdminStuFee</servlet-name>
+    <url-pattern>/AdminStudFee</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>LoginCheckServlet</servlet-name>
     <servlet-class>com.action.LoginCheckServlet</servlet-class>

@@ -40,12 +40,14 @@ public class StuFeeOP {
 				dbcon.CancleConnection();
 				return 30004;
 			}
-			ResultSet res1=stmt.executeQuery("select * from stufeeinfo where SID="+stufee.getSID()+";");
+			ResultSet res1=stmt.executeQuery("select * from stufeeinfo where SID="+stufee.getSID()+""
+					+ " and Term="+stufee.getTerm()+";");
 			if(!res1.next()){
 				dbcon.CancleConnection();
 				return 30005;
 			}
-			stmt.execute("Delete from stufeeinfo where SID="+stufee.getSID()+";");
+			stmt.execute("Delete from stufeeinfo where SID="+stufee.getSID()+" and"
+					+ " Term="+stufee.getTerm()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			
@@ -101,7 +103,7 @@ public class StuFeeOP {
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
-			ResultSet res=stmt.executeQuery("select * from stufeeinfo where status='未缴清';");
+			ResultSet res=stmt.executeQuery("select * from stufeeinfo where status='未缴清' order by SID;");
 			while(res.next()){
 				Stufee temp=new Stufee();
 				temp.setStatus(res.getString(1));
@@ -118,7 +120,7 @@ public class StuFeeOP {
 		return result;
 	}
 	public long UpdateStuFee(Stufee stufee){
-		if(stufee.getFee()==0||stufee.getTerm()==0||stufee.getSID()==0)return 30008;
+		if(stufee.getTerm()==0||stufee.getSID()==0)return 30008;
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
@@ -128,10 +130,7 @@ public class StuFeeOP {
 				dbcon.CancleConnection();
 				return 30009;
 			}
-			stmt.execute("Update stufeeinfo set status='"+stufee.getStatus()
-			+"',Fee="+stufee.getFee()
-			+",Term="+stufee.getTerm()
-			+" where SID="+stufee.getSID()+";");
+			stmt.execute("Update stufeeinfo set status='已缴清' where SID="+stufee.getSID()+" and Term="+stufee.getTerm()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			

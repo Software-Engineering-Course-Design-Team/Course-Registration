@@ -21,11 +21,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+import java.util.Enumeration;
 
 public class LoginCheckServlet extends HttpServlet {
 	public static Count logincount;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		Enumeration em = request.getSession().getAttributeNames();  //得到session中所有的属性名
+		while (em.hasMoreElements()) {
+             request.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
+		}
 		String userName = request.getParameter("username");
 		String userPwd = request.getParameter("password");
 		String info = "";
