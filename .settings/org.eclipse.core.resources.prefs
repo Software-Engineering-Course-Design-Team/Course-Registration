@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebRoot/StuInfo.jsp=UTF-8
+encoding//WebRoot/TeaMenu.jsp=UTF-8
 encoding//src/com/action/ChangePassword.java=UTF-8
 encoding//src/com/action/LoginCheckServlet.java=UTF-8
 encoding//src/com/action/admin/AddStuServlet.java=UTF-8

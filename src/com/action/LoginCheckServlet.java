@@ -24,7 +24,8 @@ import java.util.Calendar;
 import java.util.Enumeration;
 
 public class LoginCheckServlet extends HttpServlet {
-	public static Count logincount;
+	//public static 
+	Count logincount;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Enumeration em = request.getSession().getAttributeNames();  //得到session中所有的属性名
@@ -54,7 +55,8 @@ public class LoginCheckServlet extends HttpServlet {
 				}
 				else if(curr_c.getIdentity()==1)
 				{
-					request.getRequestDispatcher("/TeaMenu.html").forward(request,response);
+					request.setAttribute(userName, "username");
+					request.getRequestDispatcher("/TeaMenu.jsp").forward(request,response);
 				}
 				else
 				{
