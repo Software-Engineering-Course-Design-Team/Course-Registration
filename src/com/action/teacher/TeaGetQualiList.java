@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.control.DB.CouTeaOP;
+import com.control.DB.CountOP;
 import com.control.DB.CourseOP;
 import com.control.DB.DepartOP;
 import com.action.LoginCheckServlet;
 import com.model.javabean.CouTea;
+import com.model.javabean.Count;
 import com.model.javabean.Course;
 import com.model.javabean.DepInfo;
 
@@ -40,10 +42,17 @@ public class TeaGetQualiList extends HttpServlet {
 		CouTeaOP ctop=new CouTeaOP();
 		DepartOP dop=new DepartOP();
 		int option=Integer.parseInt(request.getParameter("option"));
-		if(LoginCheckServlet.logincount!=null)
+		int id=Integer.parseInt(request.getParameter("username"));
+		request.setAttribute("username", id);
+		System.out.println("username="+id);
+		CountOP ccop=new CountOP();
+		Count logincount=new Count();
+		logincount.setID(id);
+		logincount=ccop.FindCount(logincount);
+		if(logincount!=null)
 		{
 			CouTea ct=new CouTea();
-			ct.setPID(LoginCheckServlet.logincount.getID());
+			ct.setPID(logincount.getID());
 			ArrayList<CouTea> findtea=ctop.FindCou(ct);//获取全部用有资格的课程名
 			ArrayList<Course> AbleCou=new ArrayList<Course>();
 			ArrayList<Course> UnableCou=new ArrayList<Course>();
@@ -93,13 +102,14 @@ public class TeaGetQualiList extends HttpServlet {
 			System.out.println("option="+option);
 			request.setAttribute("ablecou", AbleCou);
 			request.setAttribute("unablecou",UnableCou);
-			request.getRequestDispatcher("/TeaQuali.jsp").forward(request,response);
+			request.setAttribute("username", id);
+			request.getRequestDispatcher("/TeaQuali.jsp?username="+id).forward(request,response);
 		}
 		else
 		{
 			System.out.println("no curr_count");
 			request.setAttribute("info", "当前未登录");
-			request.getRequestDispatcher("/TeaError.jsp").forward(request,response);
+			request.getRequestDispatcher("/login.html").forward(request,response);
 		}
 	}
 
