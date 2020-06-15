@@ -79,11 +79,6 @@ public class CourseOP {
 				dbcon.CancleConnection();
 				return 70007;
 			}
-			ResultSet res3=stmt2.executeQuery("select * from coutimeinfo where CID="+course.getCID()+";");
-			if(res3.next()){
-				dbcon.CancleConnection();
-				return 70006;
-			}
 			ResultSet res4=stmt2.executeQuery("select * from constutable where CID="+course.getCID()+";");
 			if(res4.next()){
 				dbcon.CancleConnection();
@@ -125,13 +120,91 @@ public class CourseOP {
 		}  
 		return course;
 	}
+	public ArrayList<Course> FindNameCou(Course course){
+		ArrayList<Course> result=new ArrayList<Course>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from courseinfo where "
+					+ "Name='"+course.getName()+"';");
+			while(res.next()){
+				Course temp=new Course();
+				temp.setCID(res.getLong(1));
+				temp.setTerm(res.getInt(2));
+				temp.setDID(res.getInt(3));
+				temp.setFee(res.getInt(4));
+				temp.setName(res.getString(5));
+				temp.setPID(res.getLong(6));
+				temp.setBeginweek(res.getInt(7));
+				temp.setEndWeek(res.getInt(8));
+				temp.setPerson(res.getInt(9));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
+	public ArrayList<Course> FindTermCou(Course course){
+		ArrayList<Course> result=new ArrayList<Course>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from courseinfo where "
+					+ "Term="+course.getTerm()+";");
+			while(res.next()){
+				Course temp=new Course();
+				temp.setCID(res.getLong(1));
+				temp.setTerm(res.getInt(2));
+				temp.setDID(res.getInt(3));
+				temp.setFee(res.getInt(4));
+				temp.setName(res.getString(5));
+				temp.setPID(res.getLong(6));
+				temp.setBeginweek(res.getInt(7));
+				temp.setEndWeek(res.getInt(8));
+				temp.setPerson(res.getInt(9));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
+	public ArrayList<Course> FindDepCou(Course course){
+		ArrayList<Course> result=new ArrayList<Course>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from courseinfo where "
+					+ "DID="+course.getDID()+";");
+			while(res.next()){
+				Course temp=new Course();
+				temp.setCID(res.getLong(1));
+				temp.setTerm(res.getInt(2));
+				temp.setDID(res.getInt(3));
+				temp.setFee(res.getInt(4));
+				temp.setName(res.getString(5));
+				temp.setPID(res.getLong(6));
+				temp.setBeginweek(res.getInt(7));
+				temp.setEndWeek(res.getInt(8));
+				temp.setPerson(res.getInt(9));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result;
+	}
 	public ArrayList<Course> FindTermDepCou(Course course){
 		ArrayList<Course> result=new ArrayList<Course>();
 		try {
 			dbcon.getConnection();
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from courseinfo where "
-					+ "DID="+course.getDID()+" and term="+course.getTerm()+";");
+					+ "DID="+course.getDID()+" and Term="+course.getTerm()+";");
 			while(res.next()){
 				Course temp=new Course();
 				temp.setCID(res.getLong(1));
@@ -186,7 +259,32 @@ public class CourseOP {
 		}  
 		return result;
 	}
-
+	public long UpdateCourse2(Course course){
+		if(course.getTerm()==0||course.getDID()==0||course.getFee()==0
+				||course.getName()==null||course.getBeginweek()==0||course.getEndWeek()==0)
+			return 70010;
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			Statement stmt1=dbcon.conn.createStatement();
+			ResultSet res2=stmt.executeQuery("select * from courseinfo where CID="+course.getCID()+";");
+			if(!res2.next()){
+				dbcon.CancleConnection();
+				return 70011;
+			}
+			stmt.execute("Update courseinfo set Term="+course.getTerm()+
+					",DID="+course.getDID()+
+					",Fee="+course.getFee()+
+					",Name='"+course.getName()+
+					"',BeginWeek="+course.getBeginweek()+
+					",EndWeek="+course.getEndWeek()+
+					" where CID="+course.getCID()+";");
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return 70012;
+	}
 	public long UpdateCourse(Course course){
 		if(course.getPID()==0||course.getTerm()==0||course.getDID()==0||course.getFee()==0
 				||course.getName()==null||course.getBeginweek()==0||course.getEndWeek()==0)

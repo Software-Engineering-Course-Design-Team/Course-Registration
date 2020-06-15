@@ -11,6 +11,59 @@ import com.model.javabean.CouTime;
 
 public class CouTimeOP {
 	JDBC dbcon=new JDBC();
+	public CouTime FindPlaceNSConflict(CouTime a){
+		try {
+				dbcon.getConnection();
+				Statement stmt=dbcon.conn.createStatement();
+				ResultSet res2=stmt.executeQuery("select * from coutimeinfo where"
+						+" WeekDay="+a.getWeekDay()
+						+" and Address='"+a.getAddress()
+						+"' and ((BeginC>="+a.getBeginC()
+						+" and BeginC<="+a.getEndC()+")"
+						+" or (EndC>="+a.getBeginC()
+						+" and EndC<="+a.getEndC()+"))"
+								+ " and CID<>"+a.getCID()+";");
+				if(res2.next()) {
+					CouTime b=new CouTime();
+					b.setWeekDay(res2.getInt(1));
+					b.setCID(res2.getInt(2));
+					b.setBeginC(res2.getInt(3));
+					b.setEndC(res2.getInt(4));
+					b.setAddress(res2.getString(5));
+					return b;
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public CouTime FindPlaceConflict(CouTime a){
+		try {
+				dbcon.getConnection();
+				Statement stmt=dbcon.conn.createStatement();
+				ResultSet res2=stmt.executeQuery("select * from coutimeinfo where"
+						+" WeekDay="+a.getWeekDay()
+						+" and Address='"+a.getAddress()
+						+"' and ((BeginC>="+a.getBeginC()
+						+" and BeginC<="+a.getEndC()+")"
+						+" or (EndC>="+a.getBeginC()
+						+" and EndC<="+a.getEndC()+"));");
+				if(res2.next()) {
+					CouTime b=new CouTime();
+					b.setWeekDay(res2.getInt(1));
+					b.setCID(res2.getInt(2));
+					b.setBeginC(res2.getInt(3));
+					b.setEndC(res2.getInt(4));
+					b.setAddress(res2.getString(5));
+					return b;
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public boolean FindConflict(int CID1,int CID2){
 		try {
 			CouTime a=new CouTime();
@@ -71,7 +124,7 @@ public class CouTimeOP {
 			}
 			ResultSet res3=stmt.executeQuery("select * from coutimeinfo where"
 					+" WeekDay="+coutime.getWeekDay()
-					+" and Address='"+coutime.getCID()
+					+" and Address='"+coutime.getAddress()
 					+"' and ((BeginC>="+coutime.getBeginC()
 					+" and BeginC<="+coutime.getEndC()+")"
 					+" or (EndC>="+coutime.getBeginC()
@@ -147,6 +200,29 @@ public class CouTimeOP {
 			e.printStackTrace();
 		}
 		return 50011;
+	}
+	public ArrayList<CouTime> FindCouAddTime(CouTime coutime){
+		ArrayList<CouTime> result=new ArrayList<CouTime>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from coutimeinfo where CID="+coutime.getCID()
+			+" and Address='"+coutime.getAddress()+"';");
+			while(res.next()){
+				CouTime temp=new CouTime();
+				temp.setWeekDay(res.getInt(1));
+				temp.setCID(res.getLong(2));
+				temp.setBeginC(res.getInt(3));
+				temp.setEndC(res.getInt(4));
+				temp.setAddress(res.getString(5));
+				result.add(temp);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return result;
 	}
 	public ArrayList<CouTime> FindCouTime(CouTime coutime){
 		ArrayList<CouTime> result=new ArrayList<CouTime>();
