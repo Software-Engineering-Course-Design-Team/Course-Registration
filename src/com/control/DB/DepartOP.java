@@ -13,9 +13,9 @@ import com.model.javabean.DepInfo;
 public class DepartOP {
 	JDBC dbcon=new JDBC();
 	public long InsertDepart(DepInfo dep){
-		long id=10005;
+		long id=10006;
 		try {
-			if(dep.getName()!=null){
+			if(dep.getName()==null) return 10005;
 				dbcon.getConnection();
 				String sql="Insert into departmentInfo values('"+dep.getName()
 					+"',NULL,0,NULL);";
@@ -29,7 +29,6 @@ public class DepartOP {
 					return 10006;
 				}
 				dbcon.CancleConnection();
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
