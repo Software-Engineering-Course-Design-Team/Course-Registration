@@ -16,8 +16,8 @@ public class TeacherOP {
 	public long InsertTeacher(Teacher tea){
 		long id=20001;
 		try {
-			if(tea.getBirthday()!=null&&tea.getStatus()!=null&&tea.getSex()!=null
-					&&tea.getIdcard()!=null&&tea.getName()!=null&&tea.getDID()!=0){
+			if(tea.getBirthday()==null || tea.getStatus()==null || tea.getSex()==null
+					|| tea.getIdcard() == null || tea.getName()==null || tea.getDID()==0) return 20000;
 				dbcon.getConnection();
 				Statement stmt1=dbcon.conn.createStatement();
 				ResultSet res=stmt1.executeQuery("select * from departmentInfo where DID="+tea.getDID()+";");
@@ -39,7 +39,7 @@ public class TeacherOP {
 				}
 				stmt1.execute("Insert into countinfo values(1,'000000',"+id+");");
 				dbcon.CancleConnection();
-			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}  
