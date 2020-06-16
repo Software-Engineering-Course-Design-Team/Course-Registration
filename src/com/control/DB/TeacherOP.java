@@ -103,8 +103,8 @@ public class TeacherOP {
 	//update
 	public long UpdateTeacher(Teacher tea){
 		try {
-			if(tea.getBirthday()!=null&&tea.getStatus()!=null&&tea.getSex()!=null
-					&&tea.getIdcard()!=null&&tea.getName()!=null&&tea.getDID()!=0){
+			if(tea.getBirthday() == null || tea.getStatus()== null || tea.getSex()== null
+					|| tea.getIdcard() == null || tea.getName() == null || tea.getDID() ==0 ) return 20008;
 			dbcon.getConnection();
 			Statement stmt1=dbcon.conn.createStatement();
 			ResultSet res=stmt1.executeQuery("select * from profinfo where PID="+tea.getPID()+";");
@@ -124,10 +124,6 @@ public class TeacherOP {
 			+"',DID="+tea.getDID()+" "
 			+"where PID="+tea.getPID()+";");
 			dbcon.CancleConnection();
-			}else {
-				dbcon.CancleConnection();
-				return 20008;
-			}
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
