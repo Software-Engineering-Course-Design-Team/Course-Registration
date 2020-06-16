@@ -40,12 +40,6 @@ public class CouStuOP {
 				dbcon.CancleConnection();
 				return 60014;
 			}
-			ResultSet res20=stmt.executeQuery("select count(*) from constutable where SID="+constu.getSID()+";");
-			res20.next();
-			if(res20.getInt(1)>=4){
-				dbcon.CancleConnection();
-				return 60015;
-			}
 			ResultSet res4=stmt.executeQuery("select DID from stuinfo where SID="+constu.getSID()+";");
 			res4.next();
 			long t1=res4.getLong(1);
@@ -206,6 +200,43 @@ public class CouStuOP {
 				stmt.execute("Update courseinfo set person=person-1 where CID="+it.next()+";");
 			}
 			stmt.execute("Delete from constutable where SID="+constu.getSID()+";");
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return 60008;
+	}
+	public long DeleteStuTerm(CouStu constu,int term){
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from stuinfo where SID"
+					+ "="+constu.getSID()+";");
+			if(!res.next()){
+				dbcon.CancleConnection();
+				return 60007;
+			}
+			ResultSet res1=stmt.executeQuery("select CID from constutable where SID"
+					+ "="+constu.getSID()+";");
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			while(res1.next()){
+				list.add(res1.getInt(1));
+			}
+			Iterator<Integer> it=list.iterator();
+			ArrayList<Integer> list1 = new ArrayList<Integer>();
+			while(it.hasNext()){
+				ResultSet res10=stmt.executeQuery("select CID from courseinfo where CID"
+						+ "="+it.next()+" and Term="+term+";");
+				if(res10.next()) {
+					list1.add(res10.getInt(1));
+				}
+			}
+			Iterator<Integer> it1=list1.iterator();
+			while(it1.hasNext()) {
+				int tempint=it1.next();
+				stmt.execute("Update courseinfo set person=person-1 where CID="+tempint+";");
+				stmt.execute("Delete from constutable where SID="+constu.getSID()+" and CID="+tempint+";");
+			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();

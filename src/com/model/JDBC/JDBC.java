@@ -17,7 +17,7 @@ public class JDBC {
 			String passWord="13786086097Xr@";
 
 			conn=(Connection)DriverManager.getConnection(url,user,passWord); 
-			System.out.println("连接成功！");
+			//System.out.println("连接成功！");
 		}catch(Exception e){
 			e.printStackTrace();
 		}

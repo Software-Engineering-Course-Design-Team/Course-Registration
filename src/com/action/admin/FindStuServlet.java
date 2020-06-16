@@ -21,6 +21,7 @@ public class FindStuServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		try {
 		StudentOP stuOp=new StudentOP();
 		long sID = Integer.parseInt(request.getParameter("SID"));
 		Student stu = new Student();
@@ -33,6 +34,28 @@ public class FindStuServlet extends HttpServlet {
 		}else {
 			request.setAttribute("stuInfo",result);
 			request.getRequestDispatcher("/FindStuServlet.jsp").forward(request,response);
+		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
 		}
     }
 }

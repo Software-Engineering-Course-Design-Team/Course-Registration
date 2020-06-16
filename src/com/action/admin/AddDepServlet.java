@@ -24,7 +24,7 @@ public class AddDepServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		if (name.equals("")) name = null;
 
-		
+		try {
 		DepInfo dep = new DepInfo();
 		dep.setName(name);
 		DepartOP depOp=new DepartOP();
@@ -41,6 +41,28 @@ public class AddDepServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 }

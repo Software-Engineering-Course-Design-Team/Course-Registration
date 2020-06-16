@@ -1,6 +1,8 @@
 package com.action.student;
 
 import java.io.IOException;
+import java.util.Calendar;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.control.DB.ConStuTempOP;
 import com.control.DB.CouStuOP;
+import com.control.DB.StudentOP;
 import com.model.javabean.CouStu;
 import com.model.javabean.CouStuTemp;
+import com.model.javabean.Student;
 
 @WebServlet("/StuDeleteServlet")
 public class StuDeleteServlet extends HttpServlet {
@@ -29,8 +33,20 @@ public class StuDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		try {
 		request.setCharacterEncoding("utf-8");
 		long username=Integer.parseInt(request.getParameter("username"));
+		Student temp=new Student();
+		StudentOP sop=new StudentOP();
+		temp.setSID(username);
+		temp=sop.FindStudent(temp);
+		int gyear=Integer.parseInt(temp.getGradDate().substring(0,4));
+		Calendar date = Calendar.getInstance();
+		int nyear = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		int term=(4-gyear+nyear)*2;
+		if(month+1>8)term++;
+		
 		long CID=Integer.parseInt(request.getParameter("CID"));
 		CouStuTemp cst=new CouStuTemp();
 		ConStuTempOP cstop=new ConStuTempOP();
@@ -50,10 +66,35 @@ public class StuDeleteServlet extends HttpServlet {
 			cst.setSID(username);
 			sc.setSID(username);
 			cstop.DeleteStuTemp(cst);
-			csop.DeleteStu(sc);
+			csop.DeleteStuTerm(sc, term);
 		}
+		if(request.getParameter("optype")!=null&&request.getParameter("optype").equals("2")) {
+			request.getRequestDispatcher("/StudCouServlet").forward(request,response);
+		}else
 		request.getRequestDispatcher("/StudFindServlet").forward(request,response);
-	}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

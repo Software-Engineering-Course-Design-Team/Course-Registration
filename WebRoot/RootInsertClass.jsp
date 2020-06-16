@@ -500,6 +500,7 @@
                			}
                			if(!window.confirm("请确认您的提交请求！")){
                				window.event.returnValue = false;
+               				return false;
                			}
                			document.getElementById("form1").submit();
                		}

@@ -36,6 +36,7 @@ public class StuCouServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		try {
 		request.setCharacterEncoding("utf-8");
 		String fromURL = request.getHeader("Referer");     
 		System.out.println(fromURL);
@@ -72,19 +73,15 @@ public class StuCouServlet extends HttpServlet {
 			int coursenum1=0;
 			int coursenum2=0;
 			tttt.setSID(SID);
-			ArrayList<CouStuTemp> cst=h.FindCouTemp(tttt);
-			for(CouStuTemp ttttt:cst) {
-				if(ttttt.getOrder()==0)coursenum1++;
-				else coursenum2++;
-			}
+			ArrayList<CouStuTemp> cst=h.FindCouTempTerm(tttt,term);
+			coursenum1+=cst.size();
+			coursenum2+=h.FindCouTempTermCan(tttt,term).size();
 			
 			CouStu tttemp=new CouStu();
 			CouStuOP ccss=new CouStuOP();
 			tttemp.setSID(SID);
-			ArrayList<CouStu> ccsst=ccss.FindCou(tttemp);
-			for(CouStu ttt:ccsst) {
-				coursenum1++;
-			}
+			ArrayList<CouStu> ccsst=ccss.FindCouTerm(tttemp,term);
+			coursenum1+=ccsst.size();
 			
 			request.setAttribute("coursenum1", coursenum1);
 			System.out.println(coursenum1);
@@ -111,7 +108,9 @@ public class StuCouServlet extends HttpServlet {
 				tt=h.FindCouStuTemp(tt);
 				String tempstr="";
 				if(tt.getSID()!=90014) {
-					tempstr="yes";
+					if(tt.getOrder()==0)tempstr="yes";
+					else if(tt.getOrder()==1)tempstr="yes2";
+					else tempstr="yes3";
 					s4.add(tempstr);
 				}else {
 					CouStu ttt=new CouStu();
@@ -137,6 +136,28 @@ public class StuCouServlet extends HttpServlet {
 		}else {
 			request.setAttribute("Flaginfo","1");
 			request.getRequestDispatcher("/StuMenuInfo.jsp").forward(request,response);
+		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
 		}
 	}
 

@@ -32,21 +32,7 @@ public class ConStuTempOP {
 				dbcon.CancleConnection();
 				return 90018;
 			}
-			if(constutemp.getOrder()==0){
-				ResultSet res2=stmt.executeQuery("select count(*) from constutemp where CID="+constutemp.getCID()+
-						" and ord=0;");
-				res2.next();
-				if(res2.getInt(1)>=10){
-					dbcon.CancleConnection();
-					return 90004;
-				}
-				ResultSet res3=stmt.executeQuery("select count(*) from constutemp where ord=0 and SID="+constutemp.getSID()+";");
-				res3.next();
-				if(res3.getInt(1)>=4){
-					dbcon.CancleConnection();
-					return 90006;
-				}
-			}else{
+			if(constutemp.getOrder()!=0){
 				ResultSet res3=stmt.executeQuery("select count(*) from constutemp where ord<>0 and SID="+constutemp.getSID()+";");
 				res3.next();
 				int tt=res3.getInt(1);
@@ -114,6 +100,58 @@ public class ConStuTempOP {
 			e.printStackTrace();
 		}  
 		return result;
+	}
+	public ArrayList<CouStuTemp> FindCouTempTerm(CouStuTemp constutemp,int Term){
+		ArrayList<CouStuTemp> result1 = new ArrayList<CouStuTemp>();
+		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()
+			+" and ord=0;");
+			while(res.next()){
+				CouStuTemp temp=new CouStuTemp();
+				temp.setOrder(res.getInt(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+				result.add(temp);
+			}
+			for(CouStuTemp i:result) {
+				ResultSet res2=stmt.executeQuery("select * from courseinfo where CID="+
+						i.getCID()+" and Term="+Term+";");
+				if(res2.next())result1.add(i);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result1;
+	}
+	public ArrayList<CouStuTemp> FindCouTempTermCan(CouStuTemp constutemp,int Term){
+		ArrayList<CouStuTemp> result1 = new ArrayList<CouStuTemp>();
+		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+constutemp.getSID()
+			+" and ord<>0;");
+			while(res.next()){
+				CouStuTemp temp=new CouStuTemp();
+				temp.setOrder(res.getInt(1));
+				temp.setSID(res.getLong(2));
+				temp.setCID(res.getLong(3));
+				result.add(temp);
+			}
+			for(CouStuTemp i:result) {
+				ResultSet res2=stmt.executeQuery("select * from courseinfo where CID="+
+						i.getCID()+" and Term="+Term+";");
+				if(res2.next())result1.add(i);
+			}
+			dbcon.CancleConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  
+		return result1;
 	}
 	public ArrayList<CouStuTemp> FindCouTempOrder(CouStuTemp constutemp){
 		ArrayList<CouStuTemp> result = new ArrayList<CouStuTemp>();
@@ -225,6 +263,7 @@ public class ConStuTempOP {
 			ResultSet res=stmt.executeQuery("select * from constutemp where SID="+
 					constu.getSID()+" and CID="+constu.getCID()+";");
 			if(res.next()){
+				temp.setOrder(res.getInt(1));
 				temp.setSID(res.getLong(2));
 				temp.setCID(res.getLong(3));
 			}else temp.setSID(90014);

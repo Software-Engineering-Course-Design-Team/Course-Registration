@@ -2,6 +2,8 @@ package com.action.teacher;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +40,7 @@ public class TeaGetQualiList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		CourseOP cop=new CourseOP();
 		CouTeaOP ctop=new CouTeaOP();
 		DepartOP dop=new DepartOP();
@@ -49,6 +52,16 @@ public class TeaGetQualiList extends HttpServlet {
 		Count logincount=new Count();
 		logincount.setID(id);
 		logincount=ccop.FindCount(logincount);
+		
+		Date date=new Date();
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		int month=calendar.get(Calendar.MONTH)+1;
+		int term=0;
+		if(month>8)
+		{
+			term=1;
+		}
 		if(logincount!=null)
 		{
 			CouTea ct=new CouTea();
@@ -81,7 +94,7 @@ public class TeaGetQualiList extends HttpServlet {
 							else
 							{
 								df=dop.FindDepartDID(df);
-								if(df.getStatus()==1)
+								if((df.getStatus()==1)&&(cc.getTerm()%2==term))
 								{
 									AbleCou.add(cc);
 								}
@@ -110,6 +123,28 @@ public class TeaGetQualiList extends HttpServlet {
 			System.out.println("no curr_count");
 			request.setAttribute("info", "当前未登录");
 			request.getRequestDispatcher("/login.html").forward(request,response);
+		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
 		}
 	}
 

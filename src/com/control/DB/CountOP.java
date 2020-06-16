@@ -14,6 +14,10 @@ public class CountOP {
 	public long ChangePassword(Count cou){
 		try {
 			dbcon.getConnection();
+			/*if(dbcon.conn==null)
+			{
+				System.out.println("in Count conn==null");
+			}*/
 			Statement stmt=dbcon.conn.createStatement();
 			ResultSet res=stmt.executeQuery("select * from countinfo where ID="+cou.getID()+
 					";");
@@ -25,7 +29,10 @@ public class CountOP {
 			+cou.getID()+";");
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
-
+			if(dbcon.conn==null)
+			{
+				System.out.println("in Count conn==null");
+			}
 			e.printStackTrace();
 		}  
 		return 80006;
@@ -88,6 +95,7 @@ public class CountOP {
 			}
 			dbcon.CancleConnection();
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}  
 		return cou;

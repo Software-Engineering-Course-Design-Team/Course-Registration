@@ -32,7 +32,7 @@ public class AddQuali extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int PID = Integer.valueOf(request.getParameter("PID"));
 		String qName = request.getParameter("qName");
-		
+		try {
 		CouTeaOP ctop=new CouTeaOP();
 		CouTea ct=new CouTea();
 		ct.setName(qName);
@@ -58,6 +58,28 @@ public class AddQuali extends HttpServlet {
 			request.setAttribute("info", "添加成功！");
 		}
 		request.getRequestDispatcher("/AdminInfo.jsp").forward(request,response);
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 	/**

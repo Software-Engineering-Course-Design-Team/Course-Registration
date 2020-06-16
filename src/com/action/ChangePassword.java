@@ -21,6 +21,7 @@ public class ChangePassword extends HttpServlet {
 		String oldpass=request.getParameter("oldpass");
 		String newpass=request.getParameter("newpass");
 		String repass=request.getParameter("repass");
+		try {
 		CountOP cop=new CountOP();
 		if(request.getParameter("username")==null||request.getParameter("username").equals("null"))
 		{
@@ -138,6 +139,28 @@ public class ChangePassword extends HttpServlet {
 				}
 				
 			}
+		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
 		}
 		
 	}
