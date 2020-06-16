@@ -30,6 +30,7 @@ public class DeleteQuali extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		try {
 		String Name=request.getParameter("Name");
 		int PID=Integer.valueOf(request.getParameter("PID"));
 		CouTeaOP ctop=new CouTeaOP();
@@ -40,6 +41,29 @@ public class DeleteQuali extends HttpServlet {
 		request.setAttribute("option", "delquail");
 		request.setAttribute("info", "该教师资格信息已删除！");
 		request.getRequestDispatcher("/AdminInfo.jsp").forward(request,response);
+	
+	}catch(Exception e)
+	{
+		String path=request.getHeader("Referer");
+		String last=path.substring(path.length()-1);
+		String s[]=path.split("/");
+		String lastURL;
+		for(int i=0;i<s.length;i++)
+		{
+			System.out.println(s[i]);
+		}
+		if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+		{
+			lastURL="";
+		}
+		else
+		{
+			lastURL=s[s.length-1];
+		}
+		request.setAttribute("lastURL",lastURL );
+		request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+		e.printStackTrace();
+	}
 	}
 
 	/**

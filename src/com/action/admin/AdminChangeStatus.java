@@ -48,7 +48,7 @@ public class AdminChangeStatus extends HttpServlet {
 		int DID = Integer.valueOf(request.getParameter("DID"));
 		String Name = request.getParameter("Name");
 		String flag = request.getParameter("flag");
-		
+		try {
 		DepartOP dop=new DepartOP();
 		DepInfo df=new DepInfo();
 		ConStuTempOP cstop=new ConStuTempOP();
@@ -246,6 +246,28 @@ public class AdminChangeStatus extends HttpServlet {
 		}
 		dop.UpdateDepartStatus(df);
 		request.getRequestDispatcher("./GetDepServlet").forward(request,response);
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 	/**

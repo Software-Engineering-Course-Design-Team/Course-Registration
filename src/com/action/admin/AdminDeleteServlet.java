@@ -29,6 +29,7 @@ public class AdminDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		Course dc=new Course();
 		dc.setCID(Integer.parseInt(request.getParameter("CID")));
 		CourseOP cop=new CourseOP();
@@ -40,6 +41,28 @@ public class AdminDeleteServlet extends HttpServlet {
 		}
 		request.setAttribute("RootInfo", 6);
 		request.getRequestDispatcher("/RootInfo.jsp").forward(request,response);
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -24,6 +24,7 @@ public class StuInsertServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		try {
 		CouStuTemp temp=new CouStuTemp();
 		ConStuTempOP cstop=new ConStuTempOP();
 		temp.setSID(Integer.parseInt(request.getParameter("username")));
@@ -36,6 +37,28 @@ public class StuInsertServlet extends HttpServlet {
 			cstop.InsertConStuTemp(temp);
 		}
 		request.getRequestDispatcher("/StudCouServlet").forward(request,response);
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 
