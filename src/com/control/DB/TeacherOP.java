@@ -14,7 +14,7 @@ public class TeacherOP {
 	JDBC dbcon=new JDBC();
 	//insert
 	public long InsertTeacher(Teacher tea){
-		long id=20000;
+		long id=20001;
 		try {
 			if(tea.getBirthday()!=null&&tea.getStatus()!=null&&tea.getSex()!=null
 					&&tea.getIdcard()!=null&&tea.getName()!=null&&tea.getDID()!=0){
