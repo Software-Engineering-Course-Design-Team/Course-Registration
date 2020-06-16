@@ -51,12 +51,18 @@ public class AdminManaServlet extends HttpServlet {
 			sta.setSID(SID);
 			StudentOP sop=new StudentOP();
 			sta=sop.FindStudent(sta);
+			int gyear=Integer.parseInt(sta.getGradDate().substring(0,4));
+			Calendar date = Calendar.getInstance();
+			int nyear = date.get(Calendar.YEAR);
+			int month = date.get(Calendar.MONTH);
+			int term=(4-gyear+nyear)*2;
+			if(month+1>8)term++;
 			if(sta.getSID()<100000) {
 				request.setAttribute("RootInfo", 3);
 				request.getRequestDispatcher("/RootInfo2.jsp").forward(request,response);
 				return;
 			}
-			ArrayList<CouStu> ccc=csop.FindCou(cs);
+			ArrayList<CouStu> ccc=csop.FindCouTerm(cs,term);
 			if(ccc.size()>=4) {
 				request.setAttribute("RootInfo", 2);
 				request.getRequestDispatcher("/RootInfo2.jsp").forward(request,response);
@@ -67,12 +73,6 @@ public class AdminManaServlet extends HttpServlet {
 				int CID=Integer.parseInt(request.getParameter("CID"));
 				cou.setCID(CID);
 				cou=cop.FindCourse(cou);
-				int gyear=Integer.parseInt(sta.getGradDate().substring(0,4));
-				Calendar date = Calendar.getInstance();
-				int nyear = date.get(Calendar.YEAR);
-				int month = date.get(Calendar.MONTH);
-				int term=(4-gyear+nyear)*2;
-				if(month+1>8)term++;
 				Stufee sf=new Stufee();
 				StuFeeOP cfop=new StuFeeOP();
 				sf.setSID(SID);

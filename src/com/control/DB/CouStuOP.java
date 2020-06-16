@@ -40,12 +40,6 @@ public class CouStuOP {
 				dbcon.CancleConnection();
 				return 60014;
 			}
-			ResultSet res20=stmt.executeQuery("select count(*) from constutable where SID="+constu.getSID()+";");
-			res20.next();
-			if(res20.getInt(1)>=4){
-				dbcon.CancleConnection();
-				return 60015;
-			}
 			ResultSet res4=stmt.executeQuery("select DID from stuinfo where SID="+constu.getSID()+";");
 			res4.next();
 			long t1=res4.getLong(1);
