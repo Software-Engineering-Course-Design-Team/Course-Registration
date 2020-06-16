@@ -72,19 +72,15 @@ public class StuCouServlet extends HttpServlet {
 			int coursenum1=0;
 			int coursenum2=0;
 			tttt.setSID(SID);
-			ArrayList<CouStuTemp> cst=h.FindCouTemp(tttt);
-			for(CouStuTemp ttttt:cst) {
-				if(ttttt.getOrder()==0)coursenum1++;
-				else coursenum2++;
-			}
+			ArrayList<CouStuTemp> cst=h.FindCouTempTerm(tttt,term);
+			coursenum1+=cst.size();
+			coursenum2+=h.FindCouTempTermCan(tttt,term).size();
 			
 			CouStu tttemp=new CouStu();
 			CouStuOP ccss=new CouStuOP();
 			tttemp.setSID(SID);
-			ArrayList<CouStu> ccsst=ccss.FindCou(tttemp);
-			for(CouStu ttt:ccsst) {
-				coursenum1++;
-			}
+			ArrayList<CouStu> ccsst=ccss.FindCouTerm(tttemp,term);
+			coursenum1+=ccsst.size();
 			
 			request.setAttribute("coursenum1", coursenum1);
 			System.out.println(coursenum1);
@@ -111,7 +107,9 @@ public class StuCouServlet extends HttpServlet {
 				tt=h.FindCouStuTemp(tt);
 				String tempstr="";
 				if(tt.getSID()!=90014) {
-					tempstr="yes";
+					if(tt.getOrder()==0)tempstr="yes";
+					else if(tt.getOrder()==1)tempstr="yes2";
+					else tempstr="yes3";
 					s4.add(tempstr);
 				}else {
 					CouStu ttt=new CouStu();

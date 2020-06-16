@@ -2,6 +2,7 @@ package com.action.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,6 +52,12 @@ public class StuFindServlet extends HttpServlet {
 		StudentOP sop=new StudentOP();
 		temp.setSID(SID);
 		temp=sop.FindStudent(temp);
+		int gyear=Integer.parseInt(temp.getGradDate().substring(0,4));
+		Calendar date = Calendar.getInstance();
+		int nyear = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		int term=(4-gyear+nyear)*2;
+		if(month+1>8)term++;
 		long DID=temp.getDID();
 		DepInfo temp1=new DepInfo();
 		DepartOP dop=new DepartOP();
@@ -63,7 +70,7 @@ public class StuFindServlet extends HttpServlet {
 			CouStu temp2=new CouStu();
 			temp2.setSID(SID);
 			CouTimeOP ctop=new CouTimeOP();
-			ArrayList<CouStu> s=csop.FindCou(temp2);
+			ArrayList<CouStu> s=csop.FindCouTerm(temp2,term);
 			ArrayList<Course> s1=new ArrayList<Course>();
 			ArrayList<ArrayList<CouTime>> s2=new ArrayList<ArrayList<CouTime>>();
 			ArrayList<String> s3=new ArrayList<String>();
@@ -117,7 +124,7 @@ public class StuFindServlet extends HttpServlet {
 			CouStuOP scop=new CouStuOP();
 			CouStu cs=new CouStu();
 			cs.setSID(SID);
-			ArrayList<CouStu> tempp=scop.FindCou(cs);
+			ArrayList<CouStu> tempp=scop.FindCouTerm(cs, term);
 			for(CouStu i:tempp) {
 				Course temp_c=new Course();
 				temp_c.setCID(i.getCID());

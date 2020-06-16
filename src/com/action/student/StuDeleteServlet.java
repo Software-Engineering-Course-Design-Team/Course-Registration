@@ -52,6 +52,9 @@ public class StuDeleteServlet extends HttpServlet {
 			cstop.DeleteStuTemp(cst);
 			csop.DeleteStu(sc);
 		}
+		if(request.getParameter("optype")!=null&&request.getParameter("optype").equals("2")) {
+			request.getRequestDispatcher("/StudCouServlet").forward(request,response);
+		}else
 		request.getRequestDispatcher("/StudFindServlet").forward(request,response);
 	}
 

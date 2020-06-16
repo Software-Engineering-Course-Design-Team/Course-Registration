@@ -155,6 +155,7 @@
                 欢迎使用课程注册系统！现在是北京时间<font><span id="nowDateTimeSpan"></span></font> 
             </blockquote>
             <form style="float:left;" action="StudDelServlet" method="post">
+            <input type="hidden" name="optype" value="2">
             <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
             <input type="hidden" name="CID" value="19999">
             <input type="submit" style="background: transparent;border:none;
@@ -163,6 +164,7 @@
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		</form>
      		<form action="StudCommitServlet" method="post">
+     		<input type="hidden" name="optype" value="2">
             <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
             <input type="hidden" name="CID" value="19999">
     		<input type="submit" style="background: transparent;border:none;
@@ -249,7 +251,15 @@
                         <%
                             }else if(str.equals("yes1")){	
                         %>
-                        您已注册该课程
+                         您已注册该课程
+                        <%
+                            }else if(str.equals("yes2")){	
+                        %>
+          您已将该课程作为第一候选              
+          				<%
+                            }else if(str.equals("yes3")){	
+                        %>
+          您已将该课程作为第二候选              
                         <%
                             }else if(temp2.getPerson()<10){
                         %>

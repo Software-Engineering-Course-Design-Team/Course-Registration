@@ -141,11 +141,27 @@
 			}else if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("1")){
             %>
 			现在不是选课时间，请在选课时间使用该操作。<br>
-<<<<<<< HEAD
-			<form action="StuMenu.jsp" method="post">
-=======
 			<form action="<%=request.getContextPath() +"/StudReturnServlet?username="+request.getParameter("username") %>" method="post">
->>>>>>> master
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="返回主页">
+    		</form>
+    		<%
+			}else if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("4")){
+            %>
+                                  提交的课程表中选课超过4门，这是不被允许的操作！<br>
+			<form action="<%=request.getContextPath() +"/StudFindServlet?username="+request.getParameter("username") %>" method="post">
+            <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+            <input type="submit" style="background: transparent;border:none;
+    outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
+    border-radius:10px;" value="返回主页">
+    		</form>
+    		<%
+			}else if(request.getAttribute("Flaginfo")!=null&&request.getAttribute("Flaginfo").equals("4")){
+            %>
+                                  提交的课程表中候选超过2门，这是不被允许的操作！<br>
+			<form action="<%=request.getContextPath() +"/StudFindServlet?username="+request.getParameter("username") %>" method="post">
             <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
             <input type="submit" style="background: transparent;border:none;
     outline:none;font-size: 13px;color:#fff;background: #9A6159;padding:8px 11px;cursor: pointer;
