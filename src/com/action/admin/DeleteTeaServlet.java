@@ -32,6 +32,7 @@ public class DeleteTeaServlet extends HttpServlet {
 	}
 	private void search(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
     {
+		try {
 		TeacherOP teaOp=new TeacherOP();
 		long pID = Integer.parseInt(request.getParameter("PID"));
 		Teacher tea = new Teacher();
@@ -45,10 +46,33 @@ public class DeleteTeaServlet extends HttpServlet {
 			request.setAttribute("teaInfo",result);
 			request.getRequestDispatcher("/DeleteTeaServlet.jsp").forward(request,response);
 		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
     }
     
     private  void delete(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
     {
+    	try {
     	request.setCharacterEncoding("UTF-8");
 		long pID = Integer.parseInt(request.getParameter("PID"));
 		Teacher tea = new Teacher();
@@ -70,6 +94,28 @@ public class DeleteTeaServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
         
+    
+    }catch(Exception e)
+	{
+		String path=request.getHeader("Referer");
+		String last=path.substring(path.length()-1);
+		String s[]=path.split("/");
+		String lastURL;
+		for(int i=0;i<s.length;i++)
+		{
+			System.out.println(s[i]);
+		}
+		if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+		{
+			lastURL="";
+		}
+		else
+		{
+			lastURL=s[s.length-1];
+		}
+		request.setAttribute("lastURL",lastURL );
+		request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+		e.printStackTrace();
+	}
     }
-
 }

@@ -31,6 +31,7 @@ public class ChangeGrade extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		try {
 		String grade = request.getParameter("grade");
 		int sID=Integer.valueOf(request.getParameter("SID"));
 		int cID=Integer.valueOf(request.getParameter("CID"));
@@ -82,6 +83,28 @@ public class ChangeGrade extends HttpServlet {
 				request.getRequestDispatcher("/TeaInfo.jsp").forward(request,response);
 			
 			}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 		
 		
 	}

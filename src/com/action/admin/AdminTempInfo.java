@@ -27,6 +27,7 @@ public class AdminTempInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		try {
 		HttpSession session = request.getSession();
 		if(Integer.parseInt((String)request.getParameter("op"))==2) {
 		if(request.getParameter("ClassName")!=null)
@@ -49,7 +50,28 @@ public class AdminTempInfo extends HttpServlet {
 			
 		}
 		request.getRequestDispatcher("/AdminInsClass").forward(request,response);
-
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 	/**

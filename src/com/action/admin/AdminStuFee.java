@@ -30,6 +30,7 @@ public class AdminStuFee extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		try {
 		if(request.getParameter("info").equals("查看未缴费名单")) {
 			StuFeeOP sfop=new StuFeeOP();
 			ArrayList<Stufee> info=sfop.FindStuNoFee();
@@ -79,6 +80,28 @@ public class AdminStuFee extends HttpServlet {
 			request.setAttribute("student", stuinfo);
 			request.setAttribute("depinfo", depinfo);
 			request.getRequestDispatcher("/RootStuFee2.jsp").forward(request,response);
+		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
 		}
 	}
 

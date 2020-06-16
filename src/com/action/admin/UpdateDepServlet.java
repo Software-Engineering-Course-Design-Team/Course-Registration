@@ -32,6 +32,7 @@ public class UpdateDepServlet extends HttpServlet {
 	}
 	private void search(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
     {
+		try {
 		DepartOP depOp=new DepartOP();
 		long DID = Integer.parseInt(request.getParameter("DID"));
 		DepInfo dep = new DepInfo();
@@ -45,6 +46,28 @@ public class UpdateDepServlet extends HttpServlet {
 			request.setAttribute("result",result);
 			request.getRequestDispatcher("/UpdateDepServlet.jsp").forward(request,response);
 		}
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
     }
     
     private  void update(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException
@@ -53,7 +76,7 @@ public class UpdateDepServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		if (name.equals("")) name = null;
 		long dID = Integer.parseInt(request.getParameter("DID"));
-		
+		try {
 		DepartOP depOp=new DepartOP();
 		DepInfo tempDep = new DepInfo();
 		tempDep.setDID(dID);
@@ -73,7 +96,28 @@ public class UpdateDepServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print("<script>alert('"+message+"');window.location.href='RootMenu.html'</script>");
-        
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
     }
 
 }

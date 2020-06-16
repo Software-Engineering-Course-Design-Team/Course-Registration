@@ -40,6 +40,7 @@ public class AdminManaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		try {
 		String op=request.getParameter("op");
 		if(op!=null&&op.equals("Verify")) {
 			int SID=Integer.parseInt(request.getParameter("SID"));
@@ -168,6 +169,28 @@ public class AdminManaServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("/RootManage.jsp").forward(request,response);
 		return;
+		}catch(Exception e)
+		{
+			String path=request.getHeader("Referer");
+			String last=path.substring(path.length()-1);
+			String s[]=path.split("/");
+			String lastURL;
+			for(int i=0;i<s.length;i++)
+			{
+				System.out.println(s[i]);
+			}
+			if(last.equals("/")||s[s.length-1].equals(request.getHeader("Referer")))
+			{
+				lastURL="";
+			}
+			else
+			{
+				lastURL=s[s.length-1];
+			}
+			request.setAttribute("lastURL",lastURL );
+			request.getRequestDispatcher("/SqlConnError.jsp").forward(request,response);
+			e.printStackTrace();
+		}
 	}
 
 	/**
