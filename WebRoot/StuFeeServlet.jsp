@@ -130,10 +130,10 @@
                             学期
                         </th>
                         <th>
-                            课程名称
+                            费用
                         </th>
                         <th>
-                            成绩
+                            缴费状态
                         </th>
                     </tr>
                 </thead>
@@ -145,13 +145,13 @@
 						%>
 						<tr>
                         <th>
-                            <%=i.getStatus()%>
+                            <%=i.getTerm()%>
                         </th>
                         <th>
                             <%=i.getFee()%>
                         </th>
                         <th>
-                            <%=i.getTerm()%>
+                            <%=i.getStatus()%>
                         </th>
                     </tr>
 					<%
