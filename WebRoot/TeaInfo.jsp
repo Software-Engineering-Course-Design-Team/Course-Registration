@@ -161,7 +161,7 @@
 			<%}
 			else 
 			{%>
-			<a href="TeaMenu.jsp">
+			<a href="TeaMenu.jsp?username=<%=request.getAttribute("username")%>">
 			<%}%>
 			
 		   <button class="btn btn-warning pull-right" lay-submit lay-filter="login"  type="submit">确定</button>

@@ -61,7 +61,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="StuPwd.html">修改密码</a></dd>
+              <dd><a href="StuPwd.jsp?username=<%=request.getParameter("username")%>">修改密码</a></dd>
               <dd><a href="./login.html">
               	退出
               	</a></dd>

@@ -26,7 +26,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="StuPwd.html">修改密码</a></dd>
+              <dd><a href="StuPwd.jsp?username=<%=request.getParameter("username")%>">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -90,6 +90,8 @@
                     </label>
                     <div class="layui-input-inline">
                         <input type="password" id="L_repass" name="oldpass" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                        <input type="hidden" id="L_repass" name="username" value=<%=request.getParameter("username") %> required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
