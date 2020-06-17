@@ -159,6 +159,10 @@
 			%>
 			<a href="./TeaQualiServlet?username=<%=request.getAttribute("username")%>&option=1">
 			<%}
+			else if(option.equals("changepass"))
+			{%>
+			<a href="./login.html">
+			<%}
 			else 
 			{%>
 			<a href="TeaMenu.jsp?username=<%=request.getAttribute("username")%>">

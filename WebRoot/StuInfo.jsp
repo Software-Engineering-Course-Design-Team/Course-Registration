@@ -125,7 +125,7 @@
 			<%=information%>
             <!-- 右侧内容框架，更改从这里结束 -->
 			<div>
-			<a href="<%=request.getContextPath() +"/StudReturnServlet?username="+request.getParameter("username") %>">>
+			<a href="./login.html">
 		   <button class="btn btn-warning pull-right" lay-submit lay-filter="login"  type="submit">确定</button>
 		   </a>
 		  </div>

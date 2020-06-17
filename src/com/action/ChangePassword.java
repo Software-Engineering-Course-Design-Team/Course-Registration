@@ -133,11 +133,13 @@ public class ChangePassword extends HttpServlet {
 						else if(c.getIdentity()==1)
 						{
 							request.setAttribute("username", id);
+							request.setAttribute("option", "changepass");
 							request.getRequestDispatcher("/TeaInfo.jsp?username="+id).forward(request,response);
 						}
 						else if(c.getIdentity()==2)
 						{
 							request.setAttribute("username", id);
+							request.setAttribute("option", "changepass");
 							request.getRequestDispatcher("/StuInfo.jsp?username="+id).forward(request,response);
 						}
 						
