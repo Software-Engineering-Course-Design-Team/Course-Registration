@@ -108,7 +108,7 @@ public class AdminChangeStatus extends HttpServlet {
 			boolean feeCanUse=false;
 			long start=System.currentTimeMillis();
 			long now=System.currentTimeMillis();
-			while((now-start)/1000.0<20)
+			while((now-start)/1000.0<10)
 			{
 				System.out.println("学费系统已检查"+(now-start)/1000+"s");
 				if(cstop.FindFee())
