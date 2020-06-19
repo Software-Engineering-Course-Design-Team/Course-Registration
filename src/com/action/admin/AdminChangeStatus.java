@@ -84,6 +84,45 @@ public class AdminChangeStatus extends HttpServlet {
 		stu.setDID(DID);
 		System.out.println("DID="+stu.getDID());
 		ArrayList<Student> dstu=sop.FindDepStu(stu);
+		boolean flagord0=false;
+		for(int sn=0;sn<dstu.size();sn++)
+		{
+			System.out.println("正在检查学生"+dstu.get(sn).getSID());
+			if(cstop.HasOrder0Stu(dstu.get(sn).getSID()))
+			{
+				System.out.println("学生"+dstu.get(sn).getSID()+"存在ord=0，注册关闭失败！");
+				flagord0=true;
+				break;
+			}
+		}
+		if(flagord0)
+		{
+			
+			df.setStatus(2);
+			request.setAttribute("RootInfo", 1);
+			request.getRequestDispatcher("./RootInfo4.jsp").forward(request,response);
+			return;
+		}
+		else if(!cstop.FindFee())
+		{
+			boolean feeCanUse=false;
+			long start=System.currentTimeMillis();
+			long now=System.currentTimeMillis();
+			while((now-start)/1000.0<10)
+			{
+				System.out.println("学费系统已检查"+(now-start)/1000+"s");
+				if(cstop.FindFee())
+					{feeCanUse=true;break;}
+				now=System.currentTimeMillis();
+			}
+			if(!feeCanUse) {
+				System.out.println("学费系统"+(now-start)/1000+"内关闭，注册关闭失败！");
+			df.setStatus(2);
+			request.setAttribute("RootInfo", 2);
+			request.getRequestDispatcher("./RootInfo4.jsp").forward(request,response);
+			return;}
+		}
+		
 		/******************************************************************
 		 *                             删除不足3人的课程	
 		 ********************************************************************/
@@ -236,6 +275,7 @@ public class AdminChangeStatus extends HttpServlet {
 				cstop.DeleteStuTemp(cst);
 				
 			}
+			
 			
 			
 			break;

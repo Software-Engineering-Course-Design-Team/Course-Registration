@@ -297,5 +297,49 @@ public class ConStuTempOP {
 		} 
 		return 90013;
 	}
+
+	public boolean HasOrder0Stu(long SID)
+	{
+		ResultSet res;
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			res=stmt.executeQuery("select * from constutemp where ord=0 and SID="+SID+";");
+			if(res.next()) {
+				dbcon.CancleConnection();
+				return true;
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		dbcon.CancleConnection();
+		return false;
+	}
+	public boolean FindFee()
+	{
+		ResultSet res;
+		try {
+			dbcon.getConnection();
+			Statement stmt=dbcon.conn.createStatement();
+			res=stmt.executeQuery("select * from Fee;");
+			res.next();
+			int temp=res.getInt(1);
+			if(temp!=0)
+			{
+				dbcon.CancleConnection();
+				return false;
+			}
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		dbcon.CancleConnection();
+		return true;
+	}
 }
+
+
+
 
