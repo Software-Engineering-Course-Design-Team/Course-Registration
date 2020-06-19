@@ -119,8 +119,17 @@ public class AdminChangeStatus extends HttpServlet {
 				System.out.println(stu.getSID());
 				CouStu cs=new CouStu();
 				cs.setSID(stu.getSID());
-				ArrayList<CouStu> stucous=csop.FindCou(cs);
-				System.out.println("自己选择的课程个数："+stucous.size());
+				//ArrayList<CouStu> stucous=csop.FindCou(cs);
+				
+				int gyear=Integer.parseInt(stu.getGradDate().substring(0,4));
+				Calendar date = Calendar.getInstance();
+				int nyear = date.get(Calendar.YEAR);
+				int month = date.get(Calendar.MONTH);
+				int term=(4-gyear+nyear)*2;
+				if(month>8)term++;
+
+				ArrayList<CouStu> stucous=csop.FindCouTerm(cs, term);
+				System.out.println("自己在第"+term+"学期选择的课程个数："+stucous.size());
 				
 				CouStuTemp cst=new CouStuTemp();
 				cst.setSID(stu.getSID());
@@ -197,14 +206,8 @@ public class AdminChangeStatus extends HttpServlet {
 				 * 								学费生成
 				 ********************************************************************/
 				System.out.println("学费生成");
-				int gyear=Integer.parseInt(stu.getGradDate().substring(0,4));
-				Calendar date = Calendar.getInstance();
-				int nyear = date.get(Calendar.YEAR);
-				int month = date.get(Calendar.MONTH);
-				int term=(4-gyear+nyear)*2;
-				if(month>8)term++;
 				
-				ArrayList<CouStu> stucouU=csop.FindCou(cs);
+				ArrayList<CouStu> stucouU=csop.FindCouTerm(cs, term);
 				int allfee=0;
 				for(int j=0;j<stucouU.size();j++)
 				{
@@ -233,11 +236,6 @@ public class AdminChangeStatus extends HttpServlet {
 				cstop.DeleteStuTemp(cst);
 				
 			}
-			
-			
-			/******************************************************************
-			 * 								学费生成
-			 ********************************************************************/
 			
 			
 			break;

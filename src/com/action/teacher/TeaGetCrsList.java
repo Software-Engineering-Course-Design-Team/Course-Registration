@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.action.LoginCheckServlet;
+import com.control.DB.CouStuOP;
 import com.control.DB.CountOP;
 import com.control.DB.CourseOP;
+import com.control.DB.StudentOP;
+import com.model.javabean.CouStu;
 import com.model.javabean.Count;
 import com.model.javabean.Course;
+import com.model.javabean.Student;
 
 /**
  * Servlet implementation class TeaGetCrsList
@@ -59,6 +63,40 @@ public class TeaGetCrsList extends HttpServlet {
 			Course cs=new Course();
 			cs.setPID(logincount.getID());
 			ArrayList<Course> crs=crsop.FindTeaCou(cs);
+			for(int i=0;i<crs.size();i++)
+			{
+				System.out.println(crs.get(i).getCID());
+				if(crs.get(i).getPerson()==0)//人数为0，表示是当前学期的课程
+				{
+					System.out.println("Person=0");
+					continue;
+				}
+				else
+				{
+					CouStuOP csop=new CouStuOP();
+					CouStu coustu=new CouStu();
+					coustu.setCID(crs.get(i).getCID());
+					ArrayList<CouStu> thiscrsstu=csop.FindStu(coustu);
+					Student s=new Student();
+					s.setSID(thiscrsstu.get(0).getSID());
+					StudentOP stuop=new StudentOP();
+					s=stuop.FindStudent(s);
+					System.out.println(s.getSID());
+					int gyear=Integer.parseInt(s.getGradDate().substring(0,4));
+					Calendar date = Calendar.getInstance();
+					int nyear = date.get(Calendar.YEAR);
+					int month = date.get(Calendar.MONTH);
+					int stuterm=(4-gyear+nyear)*2;
+					if(month>8)stuterm++;
+					System.out.println("学生是第"+stuterm+"学期");
+					System.out.println("课程开放在第"+crs.get(i).getTerm()+"学期");
+					if(stuterm!=crs.get(i).getTerm())
+					{
+						crs.remove(i);
+						i--;
+					}
+				}
+			}
 			Calendar date = Calendar.getInstance();
 			int month = date.get(Calendar.MONTH);
 			int xueqi=1;

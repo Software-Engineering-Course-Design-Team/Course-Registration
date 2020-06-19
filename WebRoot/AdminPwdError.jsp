@@ -219,6 +219,8 @@
                         <input type="text" id="L_repass" name="id" required="" lay-verify="required"
                         autocomplete="off" class="layui-input">
                     </div>
+                    <input type="hidden" name="username" value="999999" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label">
