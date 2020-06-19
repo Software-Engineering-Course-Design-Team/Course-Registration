@@ -38,7 +38,7 @@ public class UpdateTeaServlet extends HttpServlet {
 		Teacher tea = new Teacher();
 		tea.setPID(pID);
 		Teacher result = teaOp.FindTeacher(tea);
-		if(result.getPID()==20005) {
+		if(result.getPID()==20002) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>alert('找不到该教师！');window.location.href='RootMenu.html'</script>");
