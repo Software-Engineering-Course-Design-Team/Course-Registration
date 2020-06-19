@@ -68,7 +68,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">学生信息面板</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a href="StuPwd.html">修改密码</a></dd>
+              <dd><a href="StuPwd.jsp?username=<%=request.getParameter("username")%>">修改密码</a></dd>
               <dd><a href="./login.html">退出</a></dd>
             </dl>
         </ul>
@@ -130,10 +130,10 @@
                             学期
                         </th>
                         <th>
-                            课程名称
+                            费用
                         </th>
                         <th>
-                            成绩
+                            缴费状态
                         </th>
                     </tr>
                 </thead>
@@ -145,13 +145,13 @@
 						%>
 						<tr>
                         <th>
-                            <%=i.getStatus()%>
+                            <%=i.getTerm()%>
                         </th>
                         <th>
                             <%=i.getFee()%>
                         </th>
                         <th>
-                            <%=i.getTerm()%>
+                            <%=i.getStatus()%>
                         </th>
                     </tr>
 					<%
